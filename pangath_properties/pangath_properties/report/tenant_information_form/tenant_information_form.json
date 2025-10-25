@@ -1,0 +1,28 @@
+{
+ "add_total_row": 0,
+ "add_translate_data": 0,
+ "columns": [],
+ "creation": "2023-08-24 15:40:32.197661",
+ "disabled": 0,
+ "docstatus": 0,
+ "doctype": "Report",
+ "filters": [],
+ "idx": 0,
+ "is_standard": "Yes",
+ "letterhead": null,
+ "modified": "2025-10-21 14:20:10.950880",
+ "modified_by": "Administrator",
+ "module": "Pangath Properties",
+ "name": "Tenant Information Form",
+ "owner": "Administrator",
+ "prepared_report": 0,
+ "ref_doctype": "Tenancy Application",
+ "report_name": "Tenant Information Form",
+ "report_type": "Script Report",
+ "roles": [
+  {
+   "role": "System Manager"
+  }
+ ],
+ "timeout": 0
+}

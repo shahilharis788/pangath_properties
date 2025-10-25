@@ -1,0 +1,453 @@
+{
+ "actions": [],
+ "allow_import": 1,
+ "allow_rename": 1,
+ "autoname": "format:{unit_no}",
+ "creation": "2023-12-07 15:21:13.588793",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "unit_details_section",
+  "series",
+  "id",
+  "unit_name",
+  "unit_no",
+  "property",
+  "plot_no",
+  "item",
+  "rent",
+  "monthly_rent",
+  "column_break_3",
+  "company",
+  "status",
+  "is_group",
+  "old_parent",
+  "parent_unit",
+  "mortgage",
+  "ownership_type",
+  "amenitie",
+  "section_break_xcqr",
+  "payment_frequency",
+  "section_break_5",
+  "owner1",
+  "floor",
+  "view",
+  "facing",
+  "no_of_bathroom",
+  "electricity_code",
+  "commission",
+  "discount",
+  "purchased_from",
+  "purchase_date",
+  "column_break_7",
+  "unit_nature",
+  "apartment_type",
+  "unit_type",
+  "carpet_area",
+  "total_area_sqm",
+  "furnished",
+  "parking_included",
+  "no_of_parking",
+  "purchase_price",
+  "section_break_9sdpp",
+  "salesperson",
+  "owner_details_section",
+  "owner_details",
+  "parking_details_section",
+  "parking_details",
+  "section_break_nwxuu",
+  "type_of_charges",
+  "section_break_lipzu",
+  "unit_assets_and_amenities",
+  "section_break_sggd5",
+  "near_by",
+  "section_break_0epau",
+  "amenities",
+  "lft",
+  "rgt"
+ ],
+ "fields": [
+  {
+   "fieldname": "unit_details_section",
+   "fieldtype": "Section Break",
+   "label": "Unit Details"
+  },
+  {
+   "fieldname": "series",
+   "fieldtype": "Data",
+   "hidden": 1,
+   "label": "Series"
+  },
+  {
+   "fieldname": "id",
+   "fieldtype": "Data",
+   "label": "ID",
+   "read_only": 1
+  },
+  {
+   "fieldname": "unit_name",
+   "fieldtype": "Data",
+   "label": "Unit Name",
+   "read_only": 1
+  },
+  {
+   "fieldname": "unit_no",
+   "fieldtype": "Data",
+   "label": "Unit No"
+  },
+  {
+   "fieldname": "property",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Property",
+   "options": "Property",
+   "reqd": 1
+  },
+  {
+   "fetch_from": "property.plot_no",
+   "fieldname": "plot_no",
+   "fieldtype": "Int",
+   "label": "Plot No"
+  },
+  {
+   "fieldname": "item",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Item",
+   "options": "Item",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "property.default_rent_per_unit",
+   "fetch_if_empty": 1,
+   "fieldname": "rent",
+   "fieldtype": "Currency",
+   "label": "Yearly Rent",
+   "options": "Company:company:default_currency"
+  },
+  {
+   "fieldname": "monthly_rent",
+   "fieldtype": "Currency",
+   "label": "Monthly Rent",
+   "options": "Company:company:default_currency",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_3",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "company",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Company",
+   "options": "Company"
+  },
+  {
+   "default": "Available",
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Status",
+   "options": "Leased\nBooked\nAvailable\nSold\nNot Hand Over\nUnder Construction\nReservation\nRented\nAccommodation"
+  },
+  {
+   "default": "0",
+   "fieldname": "is_group",
+   "fieldtype": "Check",
+   "label": "Is Group"
+  },
+  {
+   "fieldname": "old_parent",
+   "fieldtype": "Link",
+   "label": "Old Parent",
+   "options": "Unit"
+  },
+  {
+   "fieldname": "parent_unit",
+   "fieldtype": "Link",
+   "label": "Parent Unit",
+   "options": "Unit"
+  },
+  {
+   "fieldname": "section_break_5",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "owner1",
+   "fieldtype": "Link",
+   "hidden": 1,
+   "label": "Property Owner",
+   "options": "Property Owner"
+  },
+  {
+   "fieldname": "floor",
+   "fieldtype": "Link",
+   "label": "Floor",
+   "options": "Floor",
+   "reqd": 1
+  },
+  {
+   "depends_on": "eval:doc.unit_nature!='Parking'",
+   "fieldname": "view",
+   "fieldtype": "Data",
+   "label": "View"
+  },
+  {
+   "depends_on": "eval:doc.unit_nature!='Parking'",
+   "fieldname": "facing",
+   "fieldtype": "Link",
+   "label": "Facing",
+   "options": "Facing"
+  },
+  {
+   "depends_on": "eval:doc.unit_nature!='Parking'",
+   "fieldname": "no_of_bathroom",
+   "fieldtype": "Int",
+   "label": "No. of Bathroom"
+  },
+  {
+   "depends_on": "eval:doc.unit_nature!='Parking'",
+   "fieldname": "electricity_code",
+   "fieldtype": "Data",
+   "label": "Electricity Code"
+  },
+  {
+   "depends_on": "eval:doc.unit_nature!='Parking'",
+   "fieldname": "commission",
+   "fieldtype": "Percent",
+   "label": "Commission (%)"
+  },
+  {
+   "depends_on": "eval:doc.unit_nature!='Parking'",
+   "fieldname": "discount",
+   "fieldtype": "Data",
+   "hidden": 1,
+   "label": "Discount"
+  },
+  {
+   "fieldname": "purchased_from",
+   "fieldtype": "Data",
+   "hidden": 1,
+   "label": "Purchased From"
+  },
+  {
+   "fieldname": "purchase_date",
+   "fieldtype": "Date",
+   "label": "Purchase Date"
+  },
+  {
+   "fieldname": "column_break_7",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "unit_nature",
+   "fieldtype": "Select",
+   "label": "Unit Nature",
+   "options": "\nResidential - Rental\nResidential - Sale\nCommercial\nParking\nIndustrial\nunder construction",
+   "reqd": 1
+  },
+  {
+   "fieldname": "apartment_type",
+   "fieldtype": "Link",
+   "label": "Apartment Type",
+   "options": "Apartment Type"
+  },
+  {
+   "depends_on": "eval:doc.unit_nature!='Parking'",
+   "fetch_from": "apartment_type.unit_type",
+   "fieldname": "unit_type",
+   "fieldtype": "Link",
+   "label": "Unit Type",
+   "options": "Unit Type"
+  },
+  {
+   "depends_on": "eval:doc.unit_nature!='Parking'",
+   "fetch_from": "apartment_type.unit_area_sqft",
+   "fieldname": "carpet_area",
+   "fieldtype": "Float",
+   "label": "Unit Area (Sq.ft)"
+  },
+  {
+   "fieldname": "total_area_sqm",
+   "fieldtype": "Float",
+   "label": "Total Area (Sq.m)"
+  },
+  {
+   "depends_on": "eval:doc.unit_nature!='Parking'",
+   "fieldname": "furnished",
+   "fieldtype": "Select",
+   "label": "Furnished",
+   "options": "\nYes\nNo"
+  },
+  {
+   "depends_on": "eval:doc.unit_nature!='Parking'",
+   "fieldname": "parking_included",
+   "fieldtype": "Select",
+   "label": "Parking Included",
+   "options": "\nYes\nNo"
+  },
+  {
+   "depends_on": "eval:doc.parking_included == 'Yes';\n",
+   "fieldname": "no_of_parking",
+   "fieldtype": "Int",
+   "label": "No Of Parking"
+  },
+  {
+   "fieldname": "purchase_price",
+   "fieldtype": "Float",
+   "label": "Purchase Price"
+  },
+  {
+   "fieldname": "section_break_9sdpp",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "salesperson",
+   "fieldtype": "Link",
+   "label": "Salesperson",
+   "options": "Sales Person"
+  },
+  {
+   "fieldname": "owner_details_section",
+   "fieldtype": "Section Break",
+   "label": "Owner Details"
+  },
+  {
+   "fieldname": "owner_details",
+   "fieldtype": "Table",
+   "options": "Owner Details"
+  },
+  {
+   "depends_on": "eval:doc.parking_included == 'Yes';",
+   "fieldname": "parking_details_section",
+   "fieldtype": "Section Break",
+   "label": "Parking Details"
+  },
+  {
+   "depends_on": "eval:doc.parking_included == 'Yes';",
+   "fieldname": "parking_details",
+   "fieldtype": "Table",
+   "options": "Parking Details"
+  },
+  {
+   "fieldname": "section_break_nwxuu",
+   "fieldtype": "Section Break",
+   "label": "Type Of Charges"
+  },
+  {
+   "fieldname": "type_of_charges",
+   "fieldtype": "Table",
+   "options": "Charges"
+  },
+  {
+   "fieldname": "section_break_lipzu",
+   "fieldtype": "Section Break",
+   "label": "Assets"
+  },
+  {
+   "fieldname": "unit_assets_and_amenities",
+   "fieldtype": "Table",
+   "options": "Unit Assets And Amenities"
+  },
+  {
+   "fieldname": "section_break_sggd5",
+   "fieldtype": "Section Break",
+   "label": "Near By"
+  },
+  {
+   "fieldname": "near_by",
+   "fieldtype": "Table",
+   "options": "Near By Child"
+  },
+  {
+   "fieldname": "section_break_0epau",
+   "fieldtype": "Section Break",
+   "label": "Amenities"
+  },
+  {
+   "fieldname": "amenities",
+   "fieldtype": "Table",
+   "label": "Amenities",
+   "options": "Unit Amenities"
+  },
+  {
+   "fieldname": "lft",
+   "fieldtype": "Int",
+   "hidden": 1,
+   "label": "Left",
+   "no_copy": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "rgt",
+   "fieldtype": "Int",
+   "hidden": 1,
+   "label": "Right",
+   "no_copy": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "section_break_xcqr",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "payment_frequency",
+   "fieldtype": "Table",
+   "label": "Payment Frequency",
+   "options": "Payment Frequency"
+  },
+  {
+   "default": "0",
+   "fieldname": "mortgage",
+   "fieldtype": "Check",
+   "label": "Mortgage"
+  },
+  {
+   "fieldname": "ownership_type",
+   "fieldtype": "Select",
+   "label": "Ownership Type",
+   "options": "Freehold\nLeasehold type"
+  },
+  {
+   "fieldname": "amenitie",
+   "fieldtype": "Small Text",
+   "label": "Amenities"
+  }
+ ],
+ "grid_page_length": 50,
+ "idx": 1,
+ "index_web_pages_for_search": 1,
+ "is_tree": 1,
+ "links": [],
+ "modified": "2025-10-21 14:10:53.945880",
+ "modified_by": "shahilharis78@gmail.com",
+ "module": "Pangath Properties",
+ "name": "Unit",
+ "naming_rule": "Expression",
+ "nsm_parent_field": "parent_unit",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "row_format": "Dynamic",
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

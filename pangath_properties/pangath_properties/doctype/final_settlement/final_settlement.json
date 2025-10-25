@@ -1,0 +1,105 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2024-11-19 09:43:20.835214",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "section_break_97kj",
+  "customer",
+  "tenancy_contract",
+  "security_deposit",
+  "refundable_amount",
+  "column_break_mzqg",
+  "property",
+  "unit",
+  "penalty",
+  "amended_from"
+ ],
+ "fields": [
+  {
+   "fieldname": "section_break_97kj",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "customer",
+   "fieldtype": "Link",
+   "label": "Customer",
+   "options": "Customer"
+  },
+  {
+   "fieldname": "tenancy_contract",
+   "fieldtype": "Link",
+   "label": "Tenancy Contract",
+   "options": "Tenancy Contract"
+  },
+  {
+   "fieldname": "property",
+   "fieldtype": "Link",
+   "label": "Property",
+   "options": "Property"
+  },
+  {
+   "fieldname": "unit",
+   "fieldtype": "Link",
+   "label": "Unit",
+   "options": "Unit"
+  },
+  {
+   "fieldname": "security_deposit",
+   "fieldtype": "Currency",
+   "label": "Security Deposit"
+  },
+  {
+   "fieldname": "penalty",
+   "fieldtype": "Float",
+   "label": "Penalty"
+  },
+  {
+   "fieldname": "refundable_amount",
+   "fieldtype": "Currency",
+   "label": "Refundable Amount"
+  },
+  {
+   "fieldname": "column_break_mzqg",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Final Settlement",
+   "print_hide": 1,
+   "read_only": 1,
+   "search_index": 1
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2025-10-21 14:11:02.590036",
+ "modified_by": "shahilharis78@gmail.com",
+ "module": "Pangath Properties",
+ "name": "Final Settlement",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  }
+ ],
+ "row_format": "Dynamic",
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

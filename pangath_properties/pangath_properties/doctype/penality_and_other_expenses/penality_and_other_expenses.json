@@ -1,0 +1,72 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2023-09-05 17:42:41.986199",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "particulars",
+  "account",
+  "amount",
+  "journal_entry_created",
+  "journal_entry",
+  "mof_account"
+ ],
+ "fields": [
+  {
+   "fieldname": "particulars",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Particulars",
+   "options": "Particulars",
+   "reqd": 1
+  },
+  {
+   "fieldname": "account",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Account",
+   "options": "Account",
+   "reqd": 1
+  },
+  {
+   "fieldname": "amount",
+   "fieldtype": "Currency",
+   "in_list_view": 1,
+   "label": "Amount",
+   "reqd": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "journal_entry_created",
+   "fieldtype": "Check",
+   "label": "Journal Entry Created"
+  },
+  {
+   "fieldname": "mof_account",
+   "fieldtype": "Link",
+   "label": "Mode of Payment Account",
+   "options": "Account",
+   "read_only": 1
+  },
+  {
+   "fieldname": "journal_entry",
+   "fieldtype": "Data",
+   "label": "Journal Entry"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2025-10-21 14:21:08.649732",
+ "modified_by": "Administrator",
+ "module": "Pangath Properties",
+ "name": "Penality And Other Expenses",
+ "owner": "Administrator",
+ "permissions": [],
+ "row_format": "Dynamic",
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

@@ -1,0 +1,233 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "naming_series:",
+ "creation": "2022-08-11 16:16:36.406517",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "naming_series",
+  "section_break_2",
+  "lease_application",
+  "column_break_4",
+  "posting_date",
+  "section_break_6",
+  "lease_agreement_details",
+  "schedule_section",
+  "payment_schedule",
+  "terms_section_break",
+  "tc_name",
+  "terms",
+  "amended_from",
+  "section_break_14",
+  "customer",
+  "company",
+  "building",
+  "unit",
+  "period_start_date",
+  "unit_nature",
+  "sales_person",
+  "column_break_20",
+  "period_end_date",
+  "period",
+  "payment_amount",
+  "total",
+  "posting_date_1"
+ ],
+ "fields": [
+  {
+   "fieldname": "lease_application",
+   "fieldtype": "Link",
+   "label": "Tenant Onboarding",
+   "options": "Tenant Onboarding"
+  },
+  {
+   "fieldname": "lease_agreement_details",
+   "fieldtype": "HTML",
+   "label": "Lease Agreement Details"
+  },
+  {
+   "fieldname": "terms",
+   "fieldtype": "Text Editor",
+   "label": "Terms and Conditions"
+  },
+  {
+   "collapsible": 1,
+   "fieldname": "terms_section_break",
+   "fieldtype": "Section Break",
+   "label": "Terms and Conditions",
+   "options": "fa fa-legal"
+  },
+  {
+   "fieldname": "tc_name",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Terms",
+   "options": "Terms and Conditions"
+  },
+  {
+   "fieldname": "naming_series",
+   "fieldtype": "Select",
+   "label": "Agreement NO",
+   "options": "LEASE-.YYYY.-"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Lease Agreement",
+   "print_hide": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "posting_date",
+   "fieldtype": "Date",
+   "label": "Posting Date"
+  },
+  {
+   "fieldname": "section_break_2",
+   "fieldtype": "Section Break"
+  },
+  {
+   "depends_on": "lease_application",
+   "fieldname": "section_break_6",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "column_break_4",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "schedule_section",
+   "fieldtype": "Section Break",
+   "label": "Schedule"
+  },
+  {
+   "fieldname": "payment_schedule",
+   "fieldtype": "Table",
+   "options": "LA Repayment Schedule"
+  },
+  {
+   "fieldname": "section_break_14",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fetch_from": "lease_application.customer",
+   "fieldname": "customer",
+   "fieldtype": "Link",
+   "label": "Customer",
+   "options": "Customer",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "lease_application.company",
+   "fieldname": "company",
+   "fieldtype": "Link",
+   "label": "Company",
+   "options": "Company"
+  },
+  {
+   "fetch_from": "lease_application.building",
+   "fieldname": "building",
+   "fieldtype": "Link",
+   "label": "Property",
+   "options": "Property"
+  },
+  {
+   "fetch_from": "lease_application.unit",
+   "fieldname": "unit",
+   "fieldtype": "Link",
+   "label": "Unit",
+   "options": "Unit"
+  },
+  {
+   "fetch_from": "lease_application.period_start_date",
+   "fieldname": "period_start_date",
+   "fieldtype": "Date",
+   "label": "Period Start Date"
+  },
+  {
+   "fieldname": "column_break_20",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fetch_from": "lease_application.period_end_date",
+   "fieldname": "period_end_date",
+   "fieldtype": "Date",
+   "label": "Period End Date"
+  },
+  {
+   "fetch_from": "lease_application.period",
+   "fieldname": "period",
+   "fieldtype": "Select",
+   "label": "Period",
+   "options": "Month\nYear"
+  },
+  {
+   "fetch_from": "lease_application.payment_amount",
+   "fieldname": "payment_amount",
+   "fieldtype": "Currency",
+   "label": "Monthly Payment Amount"
+  },
+  {
+   "fetch_from": "lease_application.total",
+   "fieldname": "total",
+   "fieldtype": "Currency",
+   "label": "Total"
+  },
+  {
+   "fetch_from": "lease_application.posting_date",
+   "fieldname": "posting_date_1",
+   "fieldtype": "Date",
+   "label": "Posting Date"
+  },
+  {
+   "fieldname": "unit_nature",
+   "fieldtype": "Select",
+   "label": "Unit Nature",
+   "options": "Residential\nCommercial"
+  },
+  {
+   "fieldname": "sales_person",
+   "fieldtype": "Link",
+   "label": "Sales Person",
+   "options": "Sales Person"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [
+  {
+   "link_doctype": "Post Dated Cheque",
+   "link_fieldname": "lease_agreement"
+  }
+ ],
+ "modified": "2023-07-29 14:46:28.849503",
+ "modified_by": "Administrator",
+ "module": "Pangath Properties",
+ "name": "Lease Agreement",
+ "naming_rule": "By \"Naming Series\" field",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "cancel": 1,
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

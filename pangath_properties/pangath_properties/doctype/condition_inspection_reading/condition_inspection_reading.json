@@ -1,0 +1,63 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2024-08-09 10:02:22.762097",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "parameter_group",
+  "parameter",
+  "code",
+  "comment",
+  "amount"
+ ],
+ "fields": [
+  {
+   "fieldname": "parameter",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Parameter",
+   "options": "Condition Inspection Parameter"
+  },
+  {
+   "fieldname": "comment",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Comment"
+  },
+  {
+   "fieldname": "code",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Code",
+   "options": "\nG\nD\nM\nDT"
+  },
+  {
+   "fetch_from": "parameter.parameter_group",
+   "fieldname": "parameter_group",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Parameter Group",
+   "options": "Condition Inspection Parameter Group"
+  },
+  {
+   "fieldname": "amount",
+   "fieldtype": "Currency",
+   "label": "Amount"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2025-10-21 14:21:03.680922",
+ "modified_by": "Administrator",
+ "module": "Pangath Properties",
+ "name": "Condition Inspection Reading",
+ "owner": "Administrator",
+ "permissions": [],
+ "row_format": "Dynamic",
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

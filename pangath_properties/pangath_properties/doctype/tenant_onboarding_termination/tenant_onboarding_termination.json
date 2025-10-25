@@ -1,0 +1,306 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "naming_series:",
+ "creation": "2023-09-01 12:41:34.935953",
+ "default_view": "List",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "naming_series",
+  "customer",
+  "property",
+  "posting_date",
+  "column_break_zemj6",
+  "unit",
+  "termination_date",
+  "company",
+  "default_currency",
+  "lease_details_section",
+  "period_start_date",
+  "column_break_ursgl",
+  "period_end_date",
+  "column_break_dpryo",
+  "payment_info_tab",
+  "contract_balances_section",
+  "total_amount",
+  "occupied_rent",
+  "unoccupied_rent",
+  "total_refundable",
+  "column_break_07yb9",
+  "security_deposits",
+  "penality",
+  "refund_pdc",
+  "refund_cleared",
+  "total_refu",
+  "payment_schedule",
+  "section_break_cd7kr",
+  "penality_and_other_expenses",
+  "ajayn1991_section",
+  "rental_income",
+  "section_break_r2brp",
+  "reverse_deferred_revenue",
+  "remarks_tab",
+  "remarks",
+  "more_information_tab",
+  "tenant_onboarding",
+  "amended_from",
+  "number_of_years"
+ ],
+ "fields": [
+  {
+   "fieldname": "naming_series",
+   "fieldtype": "Select",
+   "hidden": 1,
+   "label": "Naming Series",
+   "options": "TOT-.YYYY.-"
+  },
+  {
+   "fieldname": "tenant_onboarding",
+   "fieldtype": "Link",
+   "label": "Tenant Onboarding",
+   "options": "Tenant Onboarding"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Tenant Onboarding Termination",
+   "print_hide": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "termination_date",
+   "fieldtype": "Date",
+   "label": "Termination Date"
+  },
+  {
+   "fieldname": "more_information_tab",
+   "fieldtype": "Tab Break",
+   "label": "More Information"
+  },
+  {
+   "fieldname": "customer",
+   "fieldtype": "Link",
+   "label": "Customer",
+   "options": "Customer"
+  },
+  {
+   "fieldname": "property",
+   "fieldtype": "Link",
+   "label": "Property",
+   "options": "Property"
+  },
+  {
+   "fieldname": "unit",
+   "fieldtype": "Link",
+   "label": "Unit",
+   "options": "Unit"
+  },
+  {
+   "fieldname": "column_break_zemj6",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "Today",
+   "fieldname": "posting_date",
+   "fieldtype": "Date",
+   "label": "Posting Date"
+  },
+  {
+   "fieldname": "lease_details_section",
+   "fieldtype": "Section Break",
+   "label": "Lease Details"
+  },
+  {
+   "fieldname": "period_start_date",
+   "fieldtype": "Date",
+   "label": "Period Start Date"
+  },
+  {
+   "fieldname": "column_break_ursgl",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "period_end_date",
+   "fieldtype": "Date",
+   "label": "Period End Date"
+  },
+  {
+   "fieldname": "remarks_tab",
+   "fieldtype": "Tab Break",
+   "label": "Remarks"
+  },
+  {
+   "fieldname": "remarks",
+   "fieldtype": "Text Editor"
+  },
+  {
+   "fieldname": "payment_info_tab",
+   "fieldtype": "Tab Break",
+   "label": "Payment Info"
+  },
+  {
+   "fieldname": "reverse_deferred_revenue",
+   "fieldtype": "Table",
+   "options": "Deferred Revenue Schedule"
+  },
+  {
+   "fieldname": "rental_income",
+   "fieldtype": "Table",
+   "options": "Deferred Revenue Schedule"
+  },
+  {
+   "fieldname": "company",
+   "fieldtype": "Link",
+   "label": "Company",
+   "options": "Company"
+  },
+  {
+   "fieldname": "section_break_r2brp",
+   "fieldtype": "Section Break",
+   "label": "Deferred Revenue(For Reversal)"
+  },
+  {
+   "fieldname": "contract_balances_section",
+   "fieldtype": "Section Break",
+   "label": "Contract Balances"
+  },
+  {
+   "fieldname": "total_amount",
+   "fieldtype": "Currency",
+   "label": "Total Amount",
+   "read_only": 1
+  },
+  {
+   "fieldname": "occupied_rent",
+   "fieldtype": "Currency",
+   "label": "Occupied Rent",
+   "read_only": 1
+  },
+  {
+   "fieldname": "unoccupied_rent",
+   "fieldtype": "Currency",
+   "label": "Unoccupied Rent",
+   "read_only": 1
+  },
+  {
+   "fieldname": "security_deposits",
+   "fieldtype": "Currency",
+   "label": "Security Deposits",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_07yb9",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "ajayn1991_section",
+   "fieldtype": "Section Break",
+   "label": "Rental Icome"
+  },
+  {
+   "fieldname": "penality",
+   "fieldtype": "Currency",
+   "label": "Penality And Others",
+   "read_only": 1
+  },
+  {
+   "fieldname": "total_refu",
+   "fieldtype": "Section Break",
+   "label": "Payment Schedule",
+   "read_only": 1
+  },
+  {
+   "fieldname": "penality_and_other_expenses",
+   "fieldtype": "Table",
+   "options": "Penality And Other Expenses"
+  },
+  {
+   "fieldname": "section_break_cd7kr",
+   "fieldtype": "Section Break",
+   "label": "Penality And Other Expenses"
+  },
+  {
+   "fieldname": "column_break_dpryo",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "payment_schedule",
+   "fieldtype": "Table",
+   "options": "LA Repayment Schedule",
+   "read_only": 1
+  },
+  {
+   "fieldname": "total_refundable",
+   "fieldtype": "Currency",
+   "label": "Total Refundable",
+   "read_only": 1
+  },
+  {
+   "fieldname": "refund_pdc",
+   "fieldtype": "Currency",
+   "label": "Refundable(Pdc)",
+   "read_only": 1
+  },
+  {
+   "fieldname": "refund_cleared",
+   "fieldtype": "Currency",
+   "label": "Refundable(Cleared)",
+   "read_only": 1
+  },
+  {
+   "fieldname": "number_of_years",
+   "fieldtype": "Int",
+   "hidden": 1,
+   "label": "Number of Years"
+  },
+  {
+   "fieldname": "default_currency",
+   "fieldtype": "Link",
+   "hidden": 1,
+   "label": "Default Currency",
+   "options": "Currency",
+   "print_hide": 1,
+   "read_only": 1
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [
+  {
+   "link_doctype": "Journal Entry",
+   "link_fieldname": "tenant_onboarding_termination"
+  },
+  {
+   "link_doctype": "Payment Entry",
+   "link_fieldname": "tenant_onboarding_termination"
+  }
+ ],
+ "modified": "2025-10-21 14:21:09.601766",
+ "modified_by": "Administrator",
+ "module": "Pangath Properties",
+ "name": "Tenant Onboarding Termination",
+ "naming_rule": "By \"Naming Series\" field",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "row_format": "Dynamic",
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

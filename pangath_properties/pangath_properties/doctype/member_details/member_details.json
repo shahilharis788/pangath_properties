@@ -1,0 +1,139 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2023-07-29 15:21:49.260329",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "name1",
+  "relationship",
+  "occupation",
+  "column_break_kzp8y",
+  "age",
+  "gender",
+  "dob",
+  "column_break_eqmg6",
+  "passprt_no",
+  "passport_expiry_date",
+  "passport_attachment",
+  "column_break_tz6ws",
+  "eid_no",
+  "eid_expiry_date",
+  "eid_attachment",
+  "column_break_iwsgm",
+  "uid_no",
+  "visa_no",
+  "visa_attachment"
+ ],
+ "fields": [
+  {
+   "fieldname": "name1",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Name"
+  },
+  {
+   "fieldname": "relationship",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Relationship",
+   "options": "Relationship Child"
+  },
+  {
+   "fieldname": "occupation",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Occupation"
+  },
+  {
+   "fieldname": "age",
+   "fieldtype": "Int",
+   "label": "Age"
+  },
+  {
+   "fieldname": "gender",
+   "fieldtype": "Link",
+   "label": "Gender",
+   "options": "Gender"
+  },
+  {
+   "fieldname": "dob",
+   "fieldtype": "Date",
+   "label": "DOB"
+  },
+  {
+   "fieldname": "column_break_eqmg6",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "passprt_no",
+   "fieldtype": "Data",
+   "label": "Passport No"
+  },
+  {
+   "fieldname": "passport_expiry_date",
+   "fieldtype": "Date",
+   "label": "Passport Expiry Date"
+  },
+  {
+   "fieldname": "passport_attachment",
+   "fieldtype": "Attach",
+   "label": "Passport Attachment"
+  },
+  {
+   "fieldname": "eid_no",
+   "fieldtype": "Data",
+   "label": "EID No"
+  },
+  {
+   "fieldname": "eid_expiry_date",
+   "fieldtype": "Date",
+   "label": "EID Expiry Date"
+  },
+  {
+   "fieldname": "eid_attachment",
+   "fieldtype": "Attach",
+   "label": "EID Attachment"
+  },
+  {
+   "fieldname": "uid_no",
+   "fieldtype": "Data",
+   "label": "UID No"
+  },
+  {
+   "fieldname": "visa_no",
+   "fieldtype": "Data",
+   "label": "Visa No"
+  },
+  {
+   "fieldname": "visa_attachment",
+   "fieldtype": "Attach",
+   "label": "Visa Attachment"
+  },
+  {
+   "fieldname": "column_break_tz6ws",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "column_break_iwsgm",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "column_break_kzp8y",
+   "fieldtype": "Column Break"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2023-09-21 13:27:38.353853",
+ "modified_by": "Administrator",
+ "module": "Pangath Properties",
+ "name": "Member Details",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

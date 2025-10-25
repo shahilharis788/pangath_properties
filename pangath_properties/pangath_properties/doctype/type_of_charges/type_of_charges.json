@@ -1,0 +1,259 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2023-07-28 12:55:53.807301",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "particulars",
+  "account",
+  "refund",
+  "payment_date",
+  "description",
+  "column_break_cctbe",
+  "amount",
+  "vat_percent",
+  "tax",
+  "is_pdc",
+  "is_taxable",
+  "item_tax_template",
+  "section_break_gv2v3",
+  "payment_entry_created",
+  "payment_entry",
+  "is_accrued",
+  "sales_invoice",
+  "pdc",
+  "section_break_68k4p",
+  "status",
+  "add_remarks",
+  "reference_number",
+  "reference_date",
+  "issue_date",
+  "column_break_4iwq1",
+  "mode_of_payment",
+  "bank",
+  "account_paid_to",
+  "section_break_ahm4a",
+  "cheque_end_date",
+  "cheque_attachment",
+  "remarks_section",
+  "remarkss"
+ ],
+ "fields": [
+  {
+   "fieldname": "particulars",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Particulars",
+   "options": "Particulars",
+   "reqd": 1
+  },
+  {
+   "fetch_from": "particulars.is_refundable",
+   "fieldname": "refund",
+   "fieldtype": "Select",
+   "label": "Refund",
+   "options": "\nYes\nNo",
+   "read_only": 1
+  },
+  {
+   "fieldname": "amount",
+   "fieldtype": "Currency",
+   "in_list_view": 1,
+   "label": "Amount",
+   "reqd": 1
+  },
+  {
+   "fieldname": "vat_percent",
+   "fieldtype": "Float",
+   "label": "VAT Percent"
+  },
+  {
+   "fieldname": "tax",
+   "fieldtype": "Float",
+   "label": "Tax"
+  },
+  {
+   "fieldname": "column_break_cctbe",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "section_break_68k4p",
+   "fieldtype": "Section Break"
+  },
+  {
+   "allow_on_submit": 1,
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "label": "Status",
+   "options": "\nPaid\nPDC Created\nBounce Cheque\nReturn Cheque\nHold\nUnhold\nCleared"
+  },
+  {
+   "fieldname": "column_break_4iwq1",
+   "fieldtype": "Column Break"
+  },
+  {
+   "allow_on_submit": 1,
+   "fieldname": "mode_of_payment",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Mode Of Payment",
+   "options": "Mode of Payment",
+   "read_only_depends_on": "eval:doc.status==\"Cleared\"",
+   "reqd": 1
+  },
+  {
+   "allow_on_submit": 1,
+   "fieldname": "reference_number",
+   "fieldtype": "Data",
+   "label": "Reference Number"
+  },
+  {
+   "allow_on_submit": 1,
+   "fieldname": "reference_date",
+   "fieldtype": "Date",
+   "label": "Cheque Reference Date"
+  },
+  {
+   "fieldname": "cheque_attachment",
+   "fieldtype": "Attach",
+   "label": "Cheque Attachment"
+  },
+  {
+   "fieldname": "cheque_end_date",
+   "fieldtype": "Date",
+   "label": "Cheque End Date"
+  },
+  {
+   "fieldname": "account",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Account",
+   "options": "Account",
+   "reqd": 1
+  },
+  {
+   "allow_on_submit": 1,
+   "fieldname": "bank",
+   "fieldtype": "Link",
+   "label": "Bank",
+   "options": "Bank"
+  },
+  {
+   "fieldname": "section_break_gv2v3",
+   "fieldtype": "Section Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "payment_entry_created",
+   "fieldtype": "Check",
+   "label": "Payment Entry Created",
+   "read_only": 1
+  },
+  {
+   "fieldname": "payment_entry",
+   "fieldtype": "Data",
+   "label": "Payment Entry",
+   "read_only": 1
+  },
+  {
+   "depends_on": "eval:[\"Paid\", \"PDC Created\", \"Bounce Cheque\", \"Return Cheque\", \"Hold\", \"Unhold\", \"Cleared\"].includes(doc.status);",
+   "fieldname": "add_remarks",
+   "fieldtype": "Button",
+   "label": "Add Remarks"
+  },
+  {
+   "fieldname": "remarkss",
+   "fieldtype": "Text Editor",
+   "label": "Remarks"
+  },
+  {
+   "fieldname": "remarks_section",
+   "fieldtype": "Section Break",
+   "label": "Remarks"
+  },
+  {
+   "allow_on_submit": 1,
+   "fieldname": "account_paid_to",
+   "fieldtype": "Link",
+   "label": "Account Paid To",
+   "options": "Account"
+  },
+  {
+   "fieldname": "section_break_ahm4a",
+   "fieldtype": "Section Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "is_accrued",
+   "fieldtype": "Check",
+   "label": "Is Accrued",
+   "read_only": 1
+  },
+  {
+   "fieldname": "sales_invoice",
+   "fieldtype": "Data",
+   "label": "Sales Invoice"
+  },
+  {
+   "default": "0",
+   "fieldname": "is_pdc",
+   "fieldtype": "Check",
+   "in_list_view": 1,
+   "label": "Is PDC"
+  },
+  {
+   "fieldname": "pdc",
+   "fieldtype": "Date",
+   "in_list_view": 1,
+   "label": "pdc",
+   "read_only": 1
+  },
+  {
+   "fieldname": "payment_date",
+   "fieldtype": "Date",
+   "in_list_view": 1,
+   "label": "Payment Date"
+  },
+  {
+   "fieldname": "issue_date",
+   "fieldtype": "Date",
+   "label": "Issue Date"
+  },
+  {
+   "default": "0",
+   "fieldname": "is_taxable",
+   "fieldtype": "Check",
+   "label": "Is Taxable"
+  },
+  {
+   "depends_on": "eval:doc.is_taxable == 1",
+   "fieldname": "item_tax_template",
+   "fieldtype": "Link",
+   "label": "Item Tax Template",
+   "mandatory_depends_on": "eval:doc.is_taxable == 1",
+   "options": "Item Tax Template"
+  },
+  {
+   "fieldname": "description",
+   "fieldtype": "Small Text",
+   "in_list_view": 1,
+   "label": "Description"
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2025-10-21 14:10:56.910334",
+ "modified_by": "shahilharis78@gmail.com",
+ "module": "Pangath Properties",
+ "name": "Type Of Charges",
+ "owner": "Administrator",
+ "permissions": [],
+ "row_format": "Dynamic",
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

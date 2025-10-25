@@ -1,0 +1,11 @@
+[
+ {
+  "docstatus": 0,
+  "doctype": "Workflow State",
+  "icon": "",
+  "modified": "2023-07-27 14:28:01.962849",
+  "name": "Draft",
+  "style": "Danger",
+  "workflow_state_name": "Draft"
+ }
+]

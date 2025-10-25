@@ -1,0 +1,188 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2024-07-19 14:15:45.862122",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "details_section",
+  "visitors__full_name",
+  "column_break_ibwc",
+  "date_of_visit",
+  "property_information_section",
+  "unit",
+  "property_name",
+  "column_break_ovve",
+  "property_address",
+  "contact_information_section",
+  "column_break_ojbm",
+  "email_id",
+  "phone",
+  "site_visit_schedule",
+  "feedbacks_section",
+  "property_condition",
+  "agent_professionalism",
+  "overall_experience",
+  "specific_issues_or_concerns",
+  "column_break_fojf",
+  "would_you__recommend_us",
+  "permissions_to_use_feedback_for_marketing",
+  "amended_from"
+ ],
+ "fields": [
+  {
+   "fieldname": "details_section",
+   "fieldtype": "Section Break",
+   "label": "Details"
+  },
+  {
+   "fieldname": "visitors__full_name",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Visitor's  Full Name",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_ibwc",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "date_of_visit",
+   "fieldtype": "Date",
+   "label": "Date of Visit",
+   "reqd": 1
+  },
+  {
+   "fieldname": "property_information_section",
+   "fieldtype": "Section Break",
+   "label": "Property Information"
+  },
+  {
+   "fieldname": "unit",
+   "fieldtype": "Link",
+   "label": "Unit",
+   "options": "Unit",
+   "reqd": 1
+  },
+  {
+   "fieldname": "property_name",
+   "fieldtype": "Data",
+   "label": "Property Name"
+  },
+  {
+   "fieldname": "column_break_ovve",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "property_address",
+   "fieldtype": "Data",
+   "label": "Property Address"
+  },
+  {
+   "fieldname": "contact_information_section",
+   "fieldtype": "Section Break",
+   "label": "Contact Information"
+  },
+  {
+   "fieldname": "phone",
+   "fieldtype": "Data",
+   "label": "Phone",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_ojbm",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "email_id",
+   "fieldtype": "Data",
+   "label": "Email ID"
+  },
+  {
+   "fieldname": "feedbacks_section",
+   "fieldtype": "Section Break",
+   "label": "Feedbacks"
+  },
+  {
+   "fieldname": "property_condition",
+   "fieldtype": "Rating",
+   "label": "Property Condition",
+   "reqd": 1
+  },
+  {
+   "fieldname": "agent_professionalism",
+   "fieldtype": "Rating",
+   "label": "Agent professionalism",
+   "reqd": 1
+  },
+  {
+   "fieldname": "overall_experience",
+   "fieldtype": "Rating",
+   "label": "Overall Experience",
+   "reqd": 1
+  },
+  {
+   "fieldname": "specific_issues_or_concerns",
+   "fieldtype": "Data",
+   "label": "Specific Issues or Concerns"
+  },
+  {
+   "fieldname": "column_break_fojf",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "would_you__recommend_us",
+   "fieldtype": "Check",
+   "label": "Would you  Recommend Us?"
+  },
+  {
+   "default": "0",
+   "fieldname": "permissions_to_use_feedback_for_marketing",
+   "fieldtype": "Check",
+   "label": "Permissions to Use Feedback for Marketing"
+  },
+  {
+   "fieldname": "site_visit_schedule",
+   "fieldtype": "Data",
+   "hidden": 1,
+   "label": "Site Visit Schedule"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Visitor Feedback",
+   "print_hide": 1,
+   "read_only": 1,
+   "search_index": 1
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2025-10-21 14:21:05.061885",
+ "modified_by": "Administrator",
+ "module": "Pangath Properties",
+ "name": "Visitor Feedback",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "row_format": "Dynamic",
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

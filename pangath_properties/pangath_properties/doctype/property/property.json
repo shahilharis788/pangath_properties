@@ -1,0 +1,305 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "field:building_name",
+ "creation": "2022-08-10 11:44:59.858692",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "details_html",
+  "section_break_2",
+  "id",
+  "property_no",
+  "property_type",
+  "property_owner",
+  "date_of_purchase",
+  "purchase_price",
+  "default_rent_per_unit",
+  "plot_no",
+  "plot_area",
+  "builtup_area",
+  "no_of_bed_room",
+  "column_break_dmkpr",
+  "building_name",
+  "status",
+  "company",
+  "date",
+  "no_of_floors",
+  "no_of_parking",
+  "tower_type",
+  "image",
+  "no_of_units",
+  "lft",
+  "rgt",
+  "is_group",
+  "old_parent",
+  "parent_property",
+  "section_break_uz3ph",
+  "address_line_1",
+  "address_line_2",
+  "sector",
+  "column_break_jgsl7",
+  "location",
+  "country",
+  "emirate",
+  "section_break_zjkvz",
+  "type_of_charges"
+ ],
+ "fields": [
+  {
+   "fieldname": "details_html",
+   "fieldtype": "HTML",
+   "label": "Details Html"
+  },
+  {
+   "fieldname": "section_break_2",
+   "fieldtype": "Section Break",
+   "label": "Property Details"
+  },
+  {
+   "fieldname": "building_name",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Property Name",
+   "reqd": 1,
+   "unique": 1
+  },
+  {
+   "fieldname": "default_rent_per_unit",
+   "fieldtype": "Currency",
+   "in_list_view": 1,
+   "label": "Default Rent Per unit"
+  },
+  {
+   "default": "Today",
+   "fieldname": "date",
+   "fieldtype": "Date",
+   "label": "Date"
+  },
+  {
+   "fieldname": "no_of_units",
+   "fieldtype": "Int",
+   "in_list_view": 1,
+   "label": "No Of Units",
+   "read_only": 1
+  },
+  {
+   "fieldname": "image",
+   "fieldtype": "Attach Image",
+   "hidden": 1,
+   "label": "Image"
+  },
+  {
+   "fieldname": "lft",
+   "fieldtype": "Int",
+   "hidden": 1,
+   "label": "Left",
+   "no_copy": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "rgt",
+   "fieldtype": "Int",
+   "hidden": 1,
+   "label": "Right",
+   "no_copy": 1,
+   "read_only": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "is_group",
+   "fieldtype": "Check",
+   "label": "Is Group"
+  },
+  {
+   "fieldname": "old_parent",
+   "fieldtype": "Link",
+   "label": "Old Parent",
+   "options": "Property"
+  },
+  {
+   "fieldname": "parent_property",
+   "fieldtype": "Link",
+   "label": "Parent Property",
+   "options": "Property"
+  },
+  {
+   "fieldname": "property_owner",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Property Owner",
+   "options": "Property Owner"
+  },
+  {
+   "fieldname": "property_type",
+   "fieldtype": "Link",
+   "label": "Property Type",
+   "options": "Property Type"
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "label": "Status",
+   "options": "\nActive\nDisabled"
+  },
+  {
+   "fieldname": "plot_area",
+   "fieldtype": "Float",
+   "label": "Plot Area"
+  },
+  {
+   "fieldname": "builtup_area",
+   "fieldtype": "Float",
+   "label": "Builtup Area"
+  },
+  {
+   "fieldname": "no_of_floors",
+   "fieldtype": "Int",
+   "label": "No. of Floors"
+  },
+  {
+   "fieldname": "no_of_parking",
+   "fieldtype": "Int",
+   "label": "No. of Parking"
+  },
+  {
+   "fieldname": "section_break_uz3ph",
+   "fieldtype": "Section Break",
+   "label": "Address Details"
+  },
+  {
+   "fieldname": "address_line_1",
+   "fieldtype": "Data",
+   "label": "Address Line 1"
+  },
+  {
+   "fieldname": "address_line_2",
+   "fieldtype": "Data",
+   "label": "Address Line 2"
+  },
+  {
+   "fieldname": "emirate",
+   "fieldtype": "Select",
+   "label": "Emirate",
+   "options": "\nAbu Dhabi\nAjman\nDubai\nFujairah\nRas Al Khaimah\nSharjah\nUmm Al Quwain"
+  },
+  {
+   "fieldname": "country",
+   "fieldtype": "Link",
+   "label": "Country",
+   "options": "Country"
+  },
+  {
+   "fieldname": "property_no",
+   "fieldtype": "Int",
+   "label": "Title Deed No"
+  },
+  {
+   "fieldname": "location",
+   "fieldtype": "Data",
+   "label": "Location"
+  },
+  {
+   "fieldname": "tower_type",
+   "fieldtype": "Select",
+   "label": "Tower Type",
+   "options": "\nRented\nOwned"
+  },
+  {
+   "fieldname": "column_break_jgsl7",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "column_break_dmkpr",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "section_break_zjkvz",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "type_of_charges",
+   "fieldtype": "Table",
+   "label": "Type of Charges",
+   "options": "Type Of Charges"
+  },
+  {
+   "fieldname": "company",
+   "fieldtype": "Link",
+   "label": "Company",
+   "options": "Company"
+  },
+  {
+   "fieldname": "id",
+   "fieldtype": "Data",
+   "label": "ID"
+  },
+  {
+   "fieldname": "sector",
+   "fieldtype": "Data",
+   "label": "Sector"
+  },
+  {
+   "fieldname": "plot_no",
+   "fieldtype": "Int",
+   "label": "Plot No"
+  },
+  {
+   "fieldname": "date_of_purchase",
+   "fieldtype": "Date",
+   "label": "Date Of Purchase"
+  },
+  {
+   "fieldname": "no_of_bed_room",
+   "fieldtype": "Int",
+   "label": "No Of Bed Room"
+  },
+  {
+   "fieldname": "purchase_price",
+   "fieldtype": "Currency",
+   "label": "Purchase Price"
+  }
+ ],
+ "grid_page_length": 50,
+ "image_field": "image",
+ "index_web_pages_for_search": 1,
+ "is_tree": 1,
+ "links": [
+  {
+   "link_doctype": "Unit",
+   "link_fieldname": "property"
+  },
+  {
+   "link_doctype": "Purchase Invoice",
+   "link_fieldname": "property"
+  }
+ ],
+ "modified": "2025-07-25 10:29:10.056891",
+ "modified_by": "Administrator",
+ "module": "Pangath Properties",
+ "name": "Property",
+ "naming_rule": "By fieldname",
+ "nsm_parent_field": "parent_property",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "row_format": "Dynamic",
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

@@ -1,0 +1,111 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2023-08-16 17:11:54.183530",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "owner_name",
+  "residential_status",
+  "column_break_4hnv8",
+  "occupation",
+  "ownership_",
+  "nationality",
+  "column_break_q2437",
+  "passport_no",
+  "passport_expiry_date",
+  "passport_attachment",
+  "column_break_9er7r",
+  "emirates_id",
+  "emirates_id_expiry",
+  "emirates_id_attachment"
+ ],
+ "fields": [
+  {
+   "fieldname": "owner_name",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Owner Name"
+  },
+  {
+   "fieldname": "residential_status",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Residential Status",
+   "options": "\nResident\nNon Resident"
+  },
+  {
+   "fieldname": "column_break_4hnv8",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "occupation",
+   "fieldtype": "Data",
+   "label": "Occupation"
+  },
+  {
+   "fieldname": "ownership_",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Ownership %"
+  },
+  {
+   "fieldname": "nationality",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Nationality",
+   "options": "Country"
+  },
+  {
+   "fieldname": "column_break_q2437",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "passport_no",
+   "fieldtype": "Data",
+   "label": "Passport No"
+  },
+  {
+   "fieldname": "passport_expiry_date",
+   "fieldtype": "Date",
+   "label": "Passport Expiry Date"
+  },
+  {
+   "fieldname": "passport_attachment",
+   "fieldtype": "Attach",
+   "label": "Passport Attachment"
+  },
+  {
+   "fieldname": "column_break_9er7r",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "emirates_id",
+   "fieldtype": "Data",
+   "label": "Emirates ID"
+  },
+  {
+   "fieldname": "emirates_id_expiry",
+   "fieldtype": "Date",
+   "label": "Emirates ID Expiry"
+  },
+  {
+   "fieldname": "emirates_id_attachment",
+   "fieldtype": "Attach",
+   "label": "Emirates ID Attachment"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2023-08-24 12:49:44.223237",
+ "modified_by": "Administrator",
+ "module": "Pangath Properties",
+ "name": "Owner Details",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

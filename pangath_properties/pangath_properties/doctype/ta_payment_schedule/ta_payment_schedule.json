@@ -1,0 +1,90 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2024-08-22 15:54:30.075475",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "period_start_date",
+  "period_type",
+  "number_of_period",
+  "payment_frequency",
+  "period_end_date",
+  "column_break_ufed",
+  "is_taxable",
+  "item_tax_template"
+ ],
+ "fields": [
+  {
+   "fieldname": "period_start_date",
+   "fieldtype": "Date",
+   "in_list_view": 1,
+   "label": "Period Start Date",
+   "reqd": 1
+  },
+  {
+   "fieldname": "period_type",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Period Type",
+   "options": "Year",
+   "reqd": 1
+  },
+  {
+   "description": "Over all Duration",
+   "fieldname": "number_of_period",
+   "fieldtype": "Int",
+   "in_list_view": 1,
+   "label": "Number Of period",
+   "reqd": 1
+  },
+  {
+   "description": "No of Schedule Within Duration",
+   "fieldname": "payment_frequency",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Payment Schedule ",
+   "options": "1 Payment\n2 Payment\n3 Payment\n4 Payment\n6 Payment",
+   "reqd": 1
+  },
+  {
+   "fieldname": "period_end_date",
+   "fieldtype": "Date",
+   "label": "Period End Date",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_ufed",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "is_taxable",
+   "fieldtype": "Check",
+   "label": "Is Taxable"
+  },
+  {
+   "depends_on": "eval:doc.is_taxable == 1",
+   "fieldname": "item_tax_template",
+   "fieldtype": "Link",
+   "label": "Item Tax template",
+   "mandatory_depends_on": "eval:doc.is_taxable == 1",
+   "options": "Item Tax Template"
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2025-10-21 14:10:57.466259",
+ "modified_by": "shahilharis78@gmail.com",
+ "module": "Pangath Properties",
+ "name": "TA Payment Schedule",
+ "owner": "Administrator",
+ "permissions": [],
+ "row_format": "Dynamic",
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

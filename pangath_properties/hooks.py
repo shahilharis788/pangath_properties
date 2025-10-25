@@ -43,7 +43,186 @@ app_license = "mit"
 # page_js = {"page" : "public/js/file.js"}
 
 # include js in doctype views
-# doctype_js = {"doctype" : "public/js/doctype.js"}
+fixtures = [
+		{
+			"dt": "Custom Field",
+			"filters": [
+				[
+					"name",
+					"in",
+					(
+						"Issue-unit",
+						"Issue-property",
+						"Maintenance Schedule-issue",
+						"Maintenance Schedule Item-email",
+						"Maintenance Schedule-custom_contact_number",
+                        "Maintenance Schedule-custom_unit_no",
+                        "Maintenance Schedule-custom_property",
+                        "Maintenance Schedule-custom_tenancy_contract",
+						"Sales Person-email",
+						"Customer-property_name",
+						"Customer-unit_name",
+						"Payment Entry-tenant_onboarding",
+						"Payment Entry-tenant_onboarding_termination",
+						"Payment Entry-status_je",
+						"Payment Entry-journal_entry",
+						"Journal Entry-tenant_onboarding",
+						"Journal Entry-tenant_onboarding_termination",
+						"Journal Entry-pe_created",
+						"Journal Entry-status",
+						"Company-default_rental_income",
+						"Journal Entry-payment_entry",
+						"Customer-custom_emirate_id",
+                        "Issue-custom_tenancy_contract",
+                        "Issue-property",
+                        "Issue-unit",
+                        "Maintenance Visit-custom_tenancy_contract",
+                        "Maintenance Visit-custom_property",
+                        "Maintenance Visit-custom_issue",
+                        "Maintenance Visit-custom_unit_no",
+                        "Maintenance Visit-custom_tenant_signature",
+                        "Maintenance Visit-custom_section_break_mnnxp",
+                        "Material Request-custom_maintenance_visit",
+                        "Sales Invoice-custom_maintenance_visit",
+						"Opportunity-custom_property_and_units",
+						"Opportunity-custom_property",
+						"Opportunity-custom_property_and_unit",
+						"Opportunity-custom_lead_type",
+						"Lead-custom_for_rental",
+						"Lead-custom_for_sale",
+						"Opportunity-custom_for_rental",
+						"Opportunity-custom_for_sale",
+						"Lead-custom_parking_required",
+						"Opportunity-custom_parking_required",
+						"Payment Entry-custom_tenancy_contract",
+						"Sales Invoice-custom_tenancy_contract",
+						"Journal Entry-custom_tenancy_contract",
+						"Payment Entry-custom_tenancy_application",
+						"Quotation Item-custom_current_rate",
+						"Quotation-custom_payment_frequency",
+                        "Customer-custom_nationality",
+                        "Customer-custom_contact_no",
+                        "Customer-custom_passport_no",
+                        "Stock Entry-custom_maintenance_visit",
+                        "Material Request-custom_maintenance_schedule",
+                        # TC
+                        "Tenancy Contract-cusPayment Entry-custom_cheque_issue_datetom_opportunity",
+                        #mode of payment
+                        "Mode of Payment-custom_is_pdc",
+                        # payment entry
+                        "Payment Entry-custom_cheque_issue_date",
+                        "Payment Entry-custom_is_pdc",
+                        # sales invoice
+                        'Sales Invoice-custom_bank_details',
+                        'Sales Invoice-custom_bank_account',
+                        "Sales Invoice-custom_inter_company_purchase_invoice_reference",
+                        "Sales Invoice Item-custom_proforma_invoice",
+                        'Sales Invoice-custom_naming_prefix'
+                        # payemnt entry
+                        'Payment Entry-custom_clearing_bank_account',
+                        'Lead-custom_unit_status',
+                        'Lead-custom_unit',
+                        #customer
+                        'Customer-custom_trade_licence',
+                        #company
+                        'Company-custom_naming_prefix',
+                        #purchase invoice
+                        'Purchase Invoice-custom_naming_prefix',
+                        # journal entry
+                        'Journal Entry-custom_naming_perfix',
+                        # sales invoice
+                        'Sales Invoice-custom_naming_prefix',
+			'Lead-custom_property'
+					),
+				]
+			],
+		},
+		{
+			"dt": "Property Setter",
+			"filters": [
+					[
+						"doc_type",
+						"in",
+						(
+							"Maintenance Schedule Detail",
+							"Issue",
+							"Maintenance Schedule Item",
+							"Purchase Order",
+							"Purchase Invoice",
+							"Sales Order",
+							"Sales Invoice",
+							"Payment Entry",
+                            "Maintenance Visit",
+                            "Maintenance Visit Purpose",
+							"Lead",
+							"Maintenance Schedule",
+							"Customer",
+                            "Opportunity",
+                            "Sales Invoice Item"
+						),
+					]
+			],
+		},
+		{
+            "dt": "Workflow State",
+            "filters": [
+                ["name", "in", ["Draft"]]
+            ]
+        },
+		{
+            "dt": "Workflow",
+            "filters": [
+                ["name", "in", ["Tenancy Application"]]
+            ]
+        },
+        {
+			"dt": "Print Format",
+			"filters": [
+					[
+						"name",
+						"in",
+						(
+							"Tenancy Contract sample",
+							"Payment Plan - New Tenancy & Renewal sample",
+							"Payment voucher sample",
+							"Tenancy Cancellation sample",
+							"Clearance for Tenant sample",
+							"Move Out Checklist sample",
+							"Receipt Voucher sample",
+							"Internal Contract sample",
+                            "Utility Summary sample",
+                            "Tenant Information Form sample",
+                            "Local Purchase Order sample",
+                            "Tenancy Cancellation NOC sample",
+                            "Quotation sample"
+						),
+					]
+			],
+		},
+		# {
+        #     "dt": "Party Type",
+        #     "filters": [
+        #         ["name", "in", ["Tenant"]]
+        #     ]
+        # },
+]
+
+doctype_js = {
+		"Opportunity": "public/js/opportunity.js",
+		"Issue": "public/js/issue.js",
+		"Payment Entry": "public/js/payment_entry.js",
+		"Purchase Invoice": "public/js/purchase_invoice.js",
+		"Purchase Order": "public/js/purchase_order.js",
+		"Sales Order": "public/js/sales_order.js",
+		"Sales Invoice": "public/js/sales_invoice.js",
+		"Journal Entry": "public/js/journal_entry.js",
+        	"Maintenance Visit":"public/js/maintenance_visit.js",
+		"Maintenance Schedule":"public/js/maintenance_schedule.js",
+        	"Quotation":"public/js/quotation.js",
+        	"Company":"public/js/company.js",
+		"Lead":"public/js/lead.js"
+        
+}
 # doctype_list_js = {"doctype" : "public/js/doctype_list.js"}
 # doctype_tree_js = {"doctype" : "public/js/doctype_tree.js"}
 # doctype_calendar_js = {"doctype" : "public/js/doctype_calendar.js"}
@@ -83,7 +262,7 @@ app_license = "mit"
 # ------------
 
 # before_install = "pangath_properties.install.before_install"
-# after_install = "pangath_properties.install.after_install"
+after_install = "pangath_properties.setup.install.after_install"
 
 # Uninstallation
 # ------------
@@ -129,42 +308,50 @@ app_license = "mit"
 # ---------------
 # Override standard doctype classes
 
-# override_doctype_class = {
-# 	"ToDo": "custom_app.overrides.CustomToDo"
-# }
+override_doctype_class = {
+	"Payment Entry": "real_estate.events.payment_entry.CustomPaymentEntry",
+	"Maintenance Schedule": "real_estate.events.maintenance_schedule.CustomMaintenanceSchedule",
+	"Maintenance Visit": "real_estate.events.maintenance_visit.CustomMaintenanceVisit"
+
+
+}
 
 # Document Events
 # ---------------
 # Hook on document methods and events
 
-# doc_events = {
-# 	"*": {
-# 		"on_update": "method",
-# 		"on_cancel": "method",
-# 		"on_trash": "method"
-# 	}
-# }
+doc_events = {
+		"Payment Entry": {
+				"on_submit": "real_estate.events.payment_entry.on_submit",
+				"on_cancel": "real_estate.events.payment_entry.on_cancel",
+				"before_submit":"real_estate.events.payment_entry.before_submit",
+                # "after_insert": "real_estate.events.payment_entry.after_insert"
+		},
+		"Journal Entry": {
+			"on_cancel": "real_estate.events.journal_entry.on_cancel",
+			"validate": "real_estate.events.journal_entry.validate"
+			},
+		"Issue": {
+			"before_validate": "real_estate.events.issue.validate"
+			},
+		"Maintenance Visit": {
+            		"on_submit":"real_estate.events.maintenance_visit.change_status",
+		},
+        	"Purchase Invoice":{
+            		"after_insert":"real_estate.events.purchase_invoice.after_insert_purchase_invoice"
+		},
+		"Maintenance Schedule":{
+			"validate": "real_estate.events.maintenance_schedule.validate_tenancy_property"
+		}
+}
 
 # Scheduled Tasks
 # ---------------
 
-# scheduler_events = {
-# 	"all": [
-# 		"pangath_properties.tasks.all"
-# 	],
-# 	"daily": [
-# 		"pangath_properties.tasks.daily"
-# 	],
-# 	"hourly": [
-# 		"pangath_properties.tasks.hourly"
-# 	],
-# 	"weekly": [
-# 		"pangath_properties.tasks.weekly"
-# 	],
-# 	"monthly": [
-# 		"pangath_properties.tasks.monthly"
-# 	],
-# }
+scheduler_events = {
+	"daily": "real_estate.real_estate.doctype.tenant_onboarding.tenant_onboarding.monthly_scheduler",
+				
+}
 
 # Testing
 # -------

@@ -1,0 +1,387 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "naming_series:",
+ "creation": "2023-07-28 17:58:33.338241",
+ "default_view": "List",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "naming_series",
+  "section_break_cni0k",
+  "new_renewal_lease",
+  "company",
+  "is_renew",
+  "column_break_e0ycx",
+  "issue_date",
+  "subject_of_lease",
+  "contract_start_date",
+  "contract_end_date",
+  "section_break_cafr5",
+  "name_of_tenant",
+  "customer_name",
+  "cost_center",
+  "condition_inspection",
+  "column_break_4uulm",
+  "property_owner",
+  "unit_details",
+  "yearly_rent",
+  "section_break_sfgyt",
+  "tenant_address",
+  "eid_no",
+  "column_break_cgyaw",
+  "contact_no",
+  "email",
+  "contract_info_tab",
+  "payments_section",
+  "schedule_payments",
+  "manual_schedule",
+  "schedule_section",
+  "payment_schedule",
+  "particulars_section",
+  "type_of_charges",
+  "section_break_qhh1c",
+  "total_taxes_and_charges",
+  "column_break_qojv",
+  "total",
+  "grand_total",
+  "terms_and_conditions_tab",
+  "tc_name",
+  "terms",
+  "more_information_tab",
+  "tenancy_application",
+  "amended_from",
+  "sales_team_section",
+  "table_sales",
+  "section_break_bten",
+  "remarks"
+ ],
+ "fields": [
+  {
+   "default": "Today",
+   "fieldname": "issue_date",
+   "fieldtype": "Date",
+   "label": "Posting Date"
+  },
+  {
+   "fieldname": "new_renewal_lease",
+   "fieldtype": "Select",
+   "label": "New/Renewal/Lease",
+   "options": "New\nRenewal\nLease\nTransfer\nExtension\nClosed\nOthers"
+  },
+  {
+   "fieldname": "name_of_tenant",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Customer",
+   "options": "Customer",
+   "reqd": 1
+  },
+  {
+   "fieldname": "subject_of_lease",
+   "fieldtype": "Data",
+   "label": "Subject of Lease"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Tenancy Contract",
+   "print_hide": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "tenant_address",
+   "fieldtype": "Data",
+   "label": "Tenant Address"
+  },
+  {
+   "fieldname": "tc_name",
+   "fieldtype": "Link",
+   "label": "Terms",
+   "options": "Terms and Conditions"
+  },
+  {
+   "fieldname": "terms",
+   "fieldtype": "Text Editor",
+   "label": "Terms and Conditions"
+  },
+  {
+   "fieldname": "naming_series",
+   "fieldtype": "Select",
+   "label": "Contract Number",
+   "options": "TC-.YYYY.-"
+  },
+  {
+   "fetch_from": "property_name.property_owner",
+   "fieldname": "property_owner",
+   "fieldtype": "Link",
+   "label": "Property Owner",
+   "options": "Property Owner"
+  },
+  {
+   "fieldname": "section_break_cni0k",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "section_break_cafr5",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "column_break_e0ycx",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "section_break_sfgyt",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "column_break_4uulm",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "column_break_cgyaw",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "company",
+   "fieldtype": "Link",
+   "label": "Company",
+   "options": "Company",
+   "reqd": 1
+  },
+  {
+   "fetch_from": "unit_number.rent",
+   "fieldname": "yearly_rent",
+   "fieldtype": "Float",
+   "label": "Yearly Rent",
+   "reqd": 1
+  },
+  {
+   "fieldname": "more_information_tab",
+   "fieldtype": "Tab Break",
+   "label": "More Information"
+  },
+  {
+   "fieldname": "terms_and_conditions_tab",
+   "fieldtype": "Tab Break",
+   "label": "Terms And Conditions"
+  },
+  {
+   "fieldname": "contract_info_tab",
+   "fieldtype": "Tab Break",
+   "label": "Contract Info"
+  },
+  {
+   "fieldname": "schedule_section",
+   "fieldtype": "Section Break",
+   "label": "Schedule"
+  },
+  {
+   "fieldname": "payment_schedule",
+   "fieldtype": "Table",
+   "options": "TC Payment Schedule"
+  },
+  {
+   "fieldname": "particulars_section",
+   "fieldtype": "Section Break",
+   "label": "Particulars"
+  },
+  {
+   "fieldname": "type_of_charges",
+   "fieldtype": "Table",
+   "label": "Type Of Charges",
+   "options": "Type Of Charges"
+  },
+  {
+   "fieldname": "section_break_qhh1c",
+   "fieldtype": "Section Break",
+   "label": "Totals"
+  },
+  {
+   "fieldname": "total",
+   "fieldtype": "Currency",
+   "label": "Total",
+   "read_only": 1
+  },
+  {
+   "fieldname": "payments_section",
+   "fieldtype": "Section Break",
+   "label": "Payments"
+  },
+  {
+   "fieldname": "schedule_payments",
+   "fieldtype": "Table",
+   "label": "Schedule payments",
+   "options": "TA Payment Schedule"
+  },
+  {
+   "fetch_from": "name_of_tenant.mobile_no",
+   "fieldname": "contact_no",
+   "fieldtype": "Data",
+   "label": "Mobile"
+  },
+  {
+   "fetch_from": "name_of_tenant.email_id",
+   "fieldname": "email",
+   "fieldtype": "Data",
+   "label": "Email ID"
+  },
+  {
+   "fieldname": "tenancy_application",
+   "fieldtype": "Link",
+   "label": "Tenancy Application",
+   "options": "Tenancy Application"
+  },
+  {
+   "fieldname": "sales_team_section",
+   "fieldtype": "Section Break",
+   "label": "Sales Team"
+  },
+  {
+   "fieldname": "table_sales",
+   "fieldtype": "Table",
+   "options": "Sales Team"
+  },
+  {
+   "fieldname": "condition_inspection",
+   "fieldtype": "Table",
+   "label": "Condition Inspection",
+   "options": "Condition Inspection Reading"
+  },
+  {
+   "allow_on_submit": 1,
+   "default": "0",
+   "fieldname": "is_renew",
+   "fieldtype": "Check",
+   "label": "Is Renew"
+  },
+  {
+   "fieldname": "section_break_bten",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "remarks",
+   "fieldtype": "Small Text",
+   "label": "Remarks"
+  },
+  {
+   "fetch_from": "name_of_tenant.customer_name",
+   "fieldname": "customer_name",
+   "fieldtype": "Data",
+   "label": "Customer Name"
+  },
+  {
+   "fieldname": "column_break_qojv",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "total_taxes_and_charges",
+   "fieldtype": "Currency",
+   "label": "Total Taxes and Charges",
+   "read_only": 1
+  },
+  {
+   "fieldname": "grand_total",
+   "fieldtype": "Currency",
+   "label": "Grand Total",
+   "read_only": 1
+  },
+  {
+   "fieldname": "cost_center",
+   "fieldtype": "Link",
+   "label": "Cost Center",
+   "options": "Cost Center",
+   "reqd": 1
+  },
+  {
+   "fieldname": "contract_start_date",
+   "fieldtype": "Date",
+   "label": "Contract Start Date",
+   "no_copy": 1
+  },
+  {
+   "fieldname": "contract_end_date",
+   "fieldtype": "Date",
+   "label": "Contract End Date",
+   "no_copy": 1
+  },
+  {
+   "fetch_from": "name_of_tenant.custom_emirate_id",
+   "fieldname": "eid_no",
+   "fieldtype": "Data",
+   "label": "EID No"
+  },
+  {
+   "default": "0",
+   "fieldname": "manual_schedule",
+   "fieldtype": "Check",
+   "label": "Manual Schedule"
+  },
+  {
+   "fieldname": "unit_details",
+   "fieldtype": "Table",
+   "label": "Unit Details",
+   "options": "Unit Details"
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [
+  {
+   "link_doctype": "Sales Invoice",
+   "link_fieldname": "custom_tenancy_contract"
+  },
+  {
+   "link_doctype": "Tenancy Application",
+   "link_fieldname": "tenancy_contract"
+  },
+  {
+   "link_doctype": "Payment Entry",
+   "link_fieldname": "custom_tenancy_contract"
+  },
+  {
+   "link_doctype": "Post Dated Cheque",
+   "link_fieldname": "tenancy_contract"
+  },
+  {
+   "link_doctype": "Journal Entry",
+   "link_fieldname": "custom_tenancy_contract"
+  },
+  {
+   "link_doctype": "Condition Inspection",
+   "link_fieldname": "tenancy_contract"
+  },
+  {
+   "link_doctype": "Issue",
+   "link_fieldname": "custom_tenancy_contract"
+  }
+ ],
+ "modified": "2025-10-21 15:34:00.472408",
+ "modified_by": "Administrator",
+ "module": "Pangath Properties",
+ "name": "Tenancy Contract",
+ "naming_rule": "By \"Naming Series\" field",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "row_format": "Dynamic",
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

@@ -1,0 +1,273 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2024-07-19 17:00:44.473979",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "details_section",
+  "visitors_full_name",
+  "number_of_visitors",
+  "purpose_of_visit",
+  "reason_for__visit",
+  "column_break_xcod",
+  "status",
+  "date_of_visiting",
+  "from_time",
+  "to_time",
+  "column_break_ibda",
+  "contact",
+  "email_id",
+  "whatsapp",
+  "phone",
+  "opportunity",
+  "property_information",
+  "unit",
+  "property_id",
+  "property_name",
+  "pick_and_drop",
+  "vehicle",
+  "comments",
+  "column_break_aivq",
+  "unit_status",
+  "property_type",
+  "property_address",
+  "pickup_location",
+  "driver",
+  "additional_information_section",
+  "preferred_language",
+  "parking_required",
+  "sales_person",
+  "amended_from"
+ ],
+ "fields": [
+  {
+   "fieldname": "details_section",
+   "fieldtype": "Section Break",
+   "label": "Details"
+  },
+  {
+   "fieldname": "visitors_full_name",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Visitors Full Name",
+   "reqd": 1
+  },
+  {
+   "fieldname": "number_of_visitors",
+   "fieldtype": "Int",
+   "label": "Number of Visitors"
+  },
+  {
+   "fieldname": "purpose_of_visit",
+   "fieldtype": "Select",
+   "label": "Purpose of Visit",
+   "options": "\nBuyer\nTenant\nAgent"
+  },
+  {
+   "fieldname": "reason_for__visit",
+   "fieldtype": "Small Text",
+   "label": "Reason for  Visit"
+  },
+  {
+   "fieldname": "column_break_xcod",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "label": "Status",
+   "options": "\nPending\nAwaiting\nConfirmation\nScheduled\nNo Show\nFollow-up Required\nCompleted\nCancelled"
+  },
+  {
+   "fieldname": "date_of_visiting",
+   "fieldtype": "Date",
+   "label": "Date of Visiting",
+   "reqd": 1
+  },
+  {
+   "fieldname": "from_time",
+   "fieldtype": "Time",
+   "label": "From Time",
+   "reqd": 1
+  },
+  {
+   "fieldname": "to_time",
+   "fieldtype": "Time",
+   "label": "To Time",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_ibda",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "contact",
+   "fieldtype": "Data",
+   "label": "Contact Mobile",
+   "reqd": 1
+  },
+  {
+   "fieldname": "email_id",
+   "fieldtype": "Data",
+   "label": "Email ID"
+  },
+  {
+   "fieldname": "whatsapp",
+   "fieldtype": "Data",
+   "label": "Whatsapp"
+  },
+  {
+   "fieldname": "phone",
+   "fieldtype": "Data",
+   "label": "Phone"
+  },
+  {
+   "fieldname": "property_information",
+   "fieldtype": "Section Break",
+   "label": "Property Information"
+  },
+  {
+   "fieldname": "unit",
+   "fieldtype": "Link",
+   "label": "Unit",
+   "options": "Unit",
+   "reqd": 1
+  },
+  {
+   "fieldname": "property_id",
+   "fieldtype": "Link",
+   "label": "Property ID",
+   "options": "Property"
+  },
+  {
+   "fetch_from": "property_id.building_name",
+   "fieldname": "property_name",
+   "fieldtype": "Data",
+   "label": "Property Name"
+  },
+  {
+   "fieldname": "pick_and_drop",
+   "fieldtype": "Select",
+   "label": "Pick & Drop",
+   "options": "\nYes\nNo"
+  },
+  {
+   "depends_on": "eval:doc.pick_and_drop == 'Yes'",
+   "fieldname": "vehicle",
+   "fieldtype": "Data",
+   "label": "Vehicle"
+  },
+  {
+   "fieldname": "comments",
+   "fieldtype": "Small Text",
+   "label": "Comments"
+  },
+  {
+   "fieldname": "column_break_aivq",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fetch_from": "unit.status",
+   "fieldname": "unit_status",
+   "fieldtype": "Select",
+   "label": "Unit Status",
+   "options": "\nLeased\nBooked\nAvailable\nSold\nNot Hand Over\nUnder Construction\nReservation\nRented\nAccommodation"
+  },
+  {
+   "fetch_from": "property_id.property_type",
+   "fieldname": "property_type",
+   "fieldtype": "Link",
+   "label": "Property Type",
+   "options": "Property Type"
+  },
+  {
+   "fetch_from": "property_id.address_line_1",
+   "fieldname": "property_address",
+   "fieldtype": "Data",
+   "label": "Property address"
+  },
+  {
+   "depends_on": "eval:doc.pick_and_drop == 'Yes'",
+   "fieldname": "pickup_location",
+   "fieldtype": "Data",
+   "label": "Pickup Location"
+  },
+  {
+   "depends_on": "eval:doc.pick_and_drop == 'Yes'",
+   "fieldname": "driver",
+   "fieldtype": "Data",
+   "label": "Driver"
+  },
+  {
+   "fieldname": "additional_information_section",
+   "fieldtype": "Section Break",
+   "label": "Additional Information"
+  },
+  {
+   "fieldname": "preferred_language",
+   "fieldtype": "Data",
+   "label": "Preferred Language"
+  },
+  {
+   "fieldname": "parking_required",
+   "fieldtype": "Select",
+   "label": "Parking Required",
+   "options": "\nYes\nNo"
+  },
+  {
+   "fieldname": "sales_person",
+   "fieldtype": "Link",
+   "label": "Sales Person",
+   "options": "Sales Person"
+  },
+  {
+   "fieldname": "opportunity",
+   "fieldtype": "Data",
+   "hidden": 1,
+   "label": "Opportunity",
+   "read_only": 1
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Site Visit Schedule",
+   "print_hide": 1,
+   "read_only": 1,
+   "search_index": 1
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [
+  {
+   "link_doctype": "Visitor Feedback",
+   "link_fieldname": "site_visit_schedule"
+  }
+ ],
+ "modified": "2025-10-21 14:11:03.200672",
+ "modified_by": "shahilharis78@gmail.com",
+ "module": "Pangath Properties",
+ "name": "Site Visit Schedule",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "row_format": "Dynamic",
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

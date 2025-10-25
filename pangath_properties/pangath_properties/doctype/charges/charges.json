@@ -1,0 +1,72 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2023-10-27 13:10:07.237490",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "particulars",
+  "account",
+  "refund",
+  "column_break_ok260",
+  "amount",
+  "vat_percent",
+  "tax"
+ ],
+ "fields": [
+  {
+   "fieldname": "particulars",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Particulars",
+   "options": "Particulars"
+  },
+  {
+   "fieldname": "account",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Account",
+   "options": "Account"
+  },
+  {
+   "fieldname": "refund",
+   "fieldtype": "Select",
+   "label": "Refund",
+   "options": "\nYes\nNo"
+  },
+  {
+   "fieldname": "column_break_ok260",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "amount",
+   "fieldtype": "Currency",
+   "in_list_view": 1,
+   "label": "Amount"
+  },
+  {
+   "fieldname": "vat_percent",
+   "fieldtype": "Float",
+   "label": "VAT Percent"
+  },
+  {
+   "fieldname": "tax",
+   "fieldtype": "Float",
+   "label": "Tax"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2025-10-21 14:21:08.243919",
+ "modified_by": "Administrator",
+ "module": "Pangath Properties",
+ "name": "Charges",
+ "owner": "Administrator",
+ "permissions": [],
+ "row_format": "Dynamic",
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

@@ -1,0 +1,294 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "naming_series:",
+ "creation": "2024-10-10 11:37:21.724163",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "section_break_d14t",
+  "naming_series",
+  "cheque_type",
+  "status",
+  "column_break_yans",
+  "posting_date",
+  "company",
+  "cheque_from_section",
+  "party_type",
+  "column_break_rlen",
+  "party",
+  "section_break_ygpi",
+  "bank",
+  "bank_account",
+  "column_break_wxpx",
+  "cheque_amount",
+  "amount_in_words",
+  "section_break_ymwu",
+  "cheque__no",
+  "attach_cheque",
+  "reference",
+  "column_break_uqbx",
+  "cheque_date",
+  "date_of_issue",
+  "expiry_date",
+  "amended_from",
+  "section_break_ysba",
+  "unit",
+  "column_break_tpep",
+  "property",
+  "section_break_gruy",
+  "cheque_audit_trail",
+  "section_break_kkqo",
+  "remarks",
+  "column_break_pvqh",
+  "in_words",
+  "tenancy_contract",
+  "sales_invoice"
+ ],
+ "fields": [
+  {
+   "fieldname": "section_break_d14t",
+   "fieldtype": "Section Break",
+   "label": "Cheque Type"
+  },
+  {
+   "fieldname": "cheque_type",
+   "fieldtype": "Select",
+   "label": "Cheque Type",
+   "options": "Receive\nPay"
+  },
+  {
+   "allow_on_submit": 1,
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Current Status",
+   "options": "Received\nRealised\nCancelled\nBounced\nReturned\nRejected\nExpired\nCleared",
+   "read_only": 1
+  },
+  {
+   "fieldname": "party_type",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Party Type",
+   "options": "DocType"
+  },
+  {
+   "fieldname": "party",
+   "fieldtype": "Dynamic Link",
+   "label": "Party",
+   "options": "party_type"
+  },
+  {
+   "fieldname": "column_break_yans",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "posting_date",
+   "fieldtype": "Date",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Posting Date"
+  },
+  {
+   "fieldname": "company",
+   "fieldtype": "Link",
+   "label": "Company",
+   "options": "Company"
+  },
+  {
+   "fieldname": "section_break_ygpi",
+   "fieldtype": "Section Break",
+   "label": "Accounts"
+  },
+  {
+   "fieldname": "bank",
+   "fieldtype": "Link",
+   "label": "Bank",
+   "options": "Bank"
+  },
+  {
+   "allow_on_submit": 1,
+   "fieldname": "cheque__no",
+   "fieldtype": "Data",
+   "label": "Cheque  No"
+  },
+  {
+   "allow_on_submit": 1,
+   "fieldname": "date_of_issue",
+   "fieldtype": "Data",
+   "label": "Date of Issue"
+  },
+  {
+   "allow_on_submit": 1,
+   "fieldname": "attach_cheque",
+   "fieldtype": "Attach",
+   "label": "Attach cheque"
+  },
+  {
+   "fieldname": "column_break_wxpx",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "cheque_amount",
+   "fieldtype": "Currency",
+   "label": "Cheque Amount"
+  },
+  {
+   "allow_on_submit": 1,
+   "fieldname": "cheque_date",
+   "fieldtype": "Date",
+   "label": "Cheque Date"
+  },
+  {
+   "allow_on_submit": 1,
+   "fieldname": "expiry_date",
+   "fieldtype": "Date",
+   "label": "Expiry Date"
+  },
+  {
+   "fieldname": "reference",
+   "fieldtype": "Data",
+   "hidden": 1,
+   "label": "Reference"
+  },
+  {
+   "fieldname": "cheque_from_section",
+   "fieldtype": "Section Break",
+   "label": "Cheque From"
+  },
+  {
+   "fieldname": "column_break_rlen",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "section_break_ymwu",
+   "fieldtype": "Section Break",
+   "label": "Transaction ID"
+  },
+  {
+   "fieldname": "column_break_uqbx",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Post Dated Cheque",
+   "print_hide": 1,
+   "read_only": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "section_break_ysba",
+   "fieldtype": "Section Break",
+   "label": "Accounting Dimensions"
+  },
+  {
+   "fieldname": "unit",
+   "fieldtype": "Data",
+   "in_standard_filter": 1,
+   "label": "Unit"
+  },
+  {
+   "fieldname": "column_break_tpep",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "property",
+   "fieldtype": "Data",
+   "in_standard_filter": 1,
+   "label": "Property"
+  },
+  {
+   "fieldname": "section_break_kkqo",
+   "fieldtype": "Section Break",
+   "label": "More Information"
+  },
+  {
+   "fieldname": "remarks",
+   "fieldtype": "Small Text",
+   "label": "Remarks"
+  },
+  {
+   "fieldname": "column_break_pvqh",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "in_words",
+   "fieldtype": "Data",
+   "label": "In Words"
+  },
+  {
+   "fieldname": "section_break_gruy",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "tenancy_contract",
+   "fieldtype": "Link",
+   "label": "Tenancy Contract",
+   "options": "Tenancy Contract"
+  },
+  {
+   "allow_on_submit": 1,
+   "fieldname": "cheque_audit_trail",
+   "fieldtype": "Table",
+   "options": "Cheque Audit Trail",
+   "read_only": 1
+  },
+  {
+   "fieldname": "amount_in_words",
+   "fieldtype": "Data",
+   "label": "Amount In Words"
+  },
+  {
+   "fieldname": "sales_invoice",
+   "fieldtype": "Link",
+   "label": "Sales Invoice",
+   "options": "Sales Invoice"
+  },
+  {
+   "allow_on_submit": 1,
+   "fieldname": "bank_account",
+   "fieldtype": "Link",
+   "label": "Bank Account",
+   "options": "Account"
+  },
+  {
+   "fieldname": "naming_series",
+   "fieldtype": "Select",
+   "label": "Series",
+   "options": "PDC.-."
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2025-10-21 14:10:59.265907",
+ "modified_by": "shahilharis78@gmail.com",
+ "module": "Pangath Properties",
+ "name": "Post Dated Cheque",
+ "naming_rule": "By \"Naming Series\" field",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "row_format": "Dynamic",
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

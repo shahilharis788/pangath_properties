@@ -1,0 +1,107 @@
+{
+ "_comments": "[{\"comment\": \"Action Failed<br><br>Fieldname owner is restricted\", \"by\": \"Administrator\", \"name\": \"c54f6f62b8\"}, {\"comment\": \"Action Failed<br><br>Fieldname owner is restricted\", \"by\": \"Administrator\", \"name\": \"3a91135c92\"}, {\"comment\": \"Action Failed<br><br>Fieldname owner is restricted\", \"by\": \"Administrator\", \"name\": \"8d4e4a4f21\"}, {\"comment\": \"Action Failed<br><br>Fieldname owner is restricted\", \"by\": \"Administrator\", \"name\": \"a67ef02573\"}, {\"comment\": \"Action Failed<br><br>Fieldname owner is restricted\", \"by\": \"Administrator\", \"name\": \"7d9800d5cb\"}]",
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "field:building_name",
+ "creation": "2022-08-10 11:44:59.858692",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "details_html",
+  "section_break_2",
+  "building_name",
+  "building_owner",
+  "default_rent_per_unit",
+  "column_break_3",
+  "date",
+  "image",
+  "no_of_units"
+ ],
+ "fields": [
+  {
+   "fieldname": "details_html",
+   "fieldtype": "HTML",
+   "label": "Details Html"
+  },
+  {
+   "fieldname": "section_break_2",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "building_name",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Building Name",
+   "unique": 1
+  },
+  {
+   "fieldname": "building_owner",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Building Owner",
+   "options": "Property Owner"
+  },
+  {
+   "fieldname": "default_rent_per_unit",
+   "fieldtype": "Currency",
+   "in_list_view": 1,
+   "label": "Default Rent Per unit"
+  },
+  {
+   "fieldname": "column_break_3",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "date",
+   "fieldtype": "Date",
+   "label": "Date"
+  },
+  {
+   "fieldname": "image",
+   "fieldtype": "Attach Image",
+   "hidden": 1,
+   "label": "Image"
+  },
+  {
+   "fieldname": "no_of_units",
+   "fieldtype": "Int",
+   "in_list_view": 1,
+   "label": "No Of Units",
+   "read_only": 1
+  }
+ ],
+ "image_field": "image",
+ "index_web_pages_for_search": 1,
+ "links": [
+  {
+   "link_doctype": "Unit",
+   "link_fieldname": "building"
+  }
+ ],
+ "modified": "2023-07-25 16:43:59.263154",
+ "modified_by": "Administrator",
+ "module": "Pangath Properties",
+ "name": "Building",
+ "naming_rule": "By fieldname",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}
