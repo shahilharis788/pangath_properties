@@ -132,7 +132,8 @@ fixtures = [
                         'Journal Entry-custom_naming_perfix',
                         # sales invoice
                         'Sales Invoice-custom_naming_prefix',
-			'Lead-custom_property'
+						'Lead-custom_property',
+						'Type Of Charges-custom_is_scheduled_payment'
 					),
 				]
 			],

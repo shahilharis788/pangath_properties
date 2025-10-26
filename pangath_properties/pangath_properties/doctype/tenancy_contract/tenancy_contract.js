@@ -91,14 +91,14 @@ frappe.ui.form.on('Tenancy Contract', {
 			};
 			});
 
-			frm.set_query("unit_number", function() {
-				return {
-				"filters": {
-				"property": frm.doc.property_name,
-				'company':frm.doc.company
-				}
-				};
-			});
+			// frm.set_query("unit_number", function() {
+			// 	return {
+			// 	"filters": {
+			// 	"property": frm.doc.property_name,
+			// 	'company':frm.doc.company
+			// 	}
+			// 	};
+			// });
 
 			frm.fields_dict.payment_schedule.grid.get_field('mode_of_payment').get_query = function(doc, cdt, cdn) {
             const row = locals[cdt][cdn];
@@ -119,14 +119,14 @@ frappe.ui.form.on('Tenancy Contract', {
         };
 	},
 	'property_name':function(frm){
-		frm.set_query("unit_number", function() {
-			return {
-			"filters": {
-			"property": frm.doc.property_name,
-			'company':frm.doc.company
-			}
-			};
-			});
+		// frm.set_query("unit_number", function() {
+		// 	return {
+		// 	"filters": {
+		// 	"property": frm.doc.property_name,
+		// 	'company':frm.doc.company
+		// 	}
+		// 	};
+		// 	});
 			frm.set_query("cost_center", function() {
 				return {
 				"filters": {
