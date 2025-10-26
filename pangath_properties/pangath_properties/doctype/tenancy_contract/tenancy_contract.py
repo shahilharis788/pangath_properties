@@ -27,44 +27,45 @@ class TenancyContract(Document):
 
 
     def on_submit(self):
+        pass
         # creating the single invoice
-        frappe.db.set_value('Unit', self.unit_number, 'status', 'Rented') # update the unit 
-        sinv_name = create_sigl_sales_invoice(self)
-        for idx, i in enumerate(self.payment_schedule):
-            if i.is_pdc == 1:
-                account = frappe.db.get_value('Bank Account', {'name':i.bank_account}, 'account')
-                pdc = frappe.get_doc({
-                    "doctype": "Post Dated Cheque",
-                    "party_type": "Customer",
-                    "party": self.name_of_tenant,
-                    "posting_date": i.payment_scheduled_date,
-                    "bank": i.bank,
-                    "bank_account":account if i.bank_account else "",
-                    "cheque_amount": i.payment_amount,
-                    "cheque__no": i.cheque_number,
-                    "tenancy_contract": self.name,
-                    "status":"Received",
-                    "unit":self.unit_number,
-                    "property":self.property_name,
-                    "amount_in_words":frappe.utils.money_in_words(i.payment_amount),
-                    "date_of_issue":i.date_of_issue,
-                    "expiry_date":i.expiry_date,
-                    "cheque_date":i.cheque_date,
-                    "reference":i.name,
-                    "sales_invoice":sinv_name
-                })
-                pdc.append(
-                    "cheque_audit_trail",
-                    {
-                        "transaction_date": i.payment_scheduled_date,
-                        "status": "Received",
-                        "remarks":"Cheque Received"
-                    },
-		        )
-                pdc.insert()
-                pdc.submit()
-                frappe.db.commit()
-                frappe.db.set_value("TC Payment Schedule", i.name, "pdc",pdc.name)
+        # frappe.db.set_value('Unit', self.unit_number, 'status', 'Rented') # update the unit 
+        # sinv_name = create_sigl_sales_invoice(self)
+        # for idx, i in enumerate(self.payment_schedule):
+        #     if i.is_pdc == 1:
+        #         account = frappe.db.get_value('Bank Account', {'name':i.bank_account}, 'account')
+        #         pdc = frappe.get_doc({
+        #             "doctype": "Post Dated Cheque",
+        #             "party_type": "Customer",
+        #             "party": self.name_of_tenant,
+        #             "posting_date": i.payment_scheduled_date,
+        #             "bank": i.bank,
+        #             "bank_account":account if i.bank_account else "",
+        #             "cheque_amount": i.payment_amount,
+        #             "cheque__no": i.cheque_number,
+        #             "tenancy_contract": self.name,
+        #             "status":"Received",
+        #             "unit":self.unit_number,
+        #             "property":self.property_name,
+        #             "amount_in_words":frappe.utils.money_in_words(i.payment_amount),
+        #             "date_of_issue":i.date_of_issue,
+        #             "expiry_date":i.expiry_date,
+        #             "cheque_date":i.cheque_date,
+        #             "reference":i.name,
+        #             "sales_invoice":sinv_name
+        #         })
+        #         pdc.append(
+        #             "cheque_audit_trail",
+        #             {
+        #                 "transaction_date": i.payment_scheduled_date,
+        #                 "status": "Received",
+        #                 "remarks":"Cheque Received"
+        #             },
+		#         )
+        #         pdc.insert()
+        #         pdc.submit()
+        #         frappe.db.commit()
+        #         frappe.db.set_value("TC Payment Schedule", i.name, "pdc",pdc.name)
                 # -------------------- based on the requiremnt - creating sales invoice in single invoice --------------
             # posting_date = nowdate()
             # vat = frappe.db.get_value('Sales Taxes and Charges Template',{'company':self.company,'is_default':1},'name') 
@@ -131,7 +132,7 @@ class TenancyContract(Document):
             #     frappe.db.set_value("TC Payment Schedule", i.name, "sales_invoice", sales_invoice.name)
 
 
-        for i in self.type_of_charges:
+        # for i in self.type_of_charges:
         #     sales_invoice = frappe.get_doc({
         #             "doctype": "Sales Invoice",
         #             "customer": self.name_of_tenant,
@@ -158,52 +159,52 @@ class TenancyContract(Document):
         #     frappe.db.set_value("Type Of Charges", i.name, "is_accrued", 1)
         #     frappe.db.set_value("Type Of Charges", i.name, "sales_invoice", sales_invoice.name)
 
-            if i.is_pdc == 1:
-                    pdc = frappe.get_doc({
-                        "doctype": "Post Dated Cheque",
-                        "party_type": "Customer",
-                        "party": self.name_of_tenant,
-                        "posting_date": i.payment_date,
-                        "bank": i.bank,
-                        "cheque_amount": i.amount,
-                        "cheque__no": i.payment_date,
-                        "tenancy_contract": self.name,
-                        "status":"Received",
-                        #"unit":self.unit_number,
-                        "property":self.property_name,
-                        "amount_in_words":frappe.utils.money_in_words(i.amount),
-                        "date_of_issue":i.reference_date,
-                        "expiry_date":i.cheque_end_date,
-                        "cheque_date":i.reference_date,
-                        "reference":i.name,
-                        "sales_invoice":sinv_name
-                    })
-                    pdc.append(
-                        "cheque_audit_trail",
-                        {
-                            "transaction_date": i.payment_date,
-                            "status": "Received",
-                            "remarks":"Cheque Received"
-                        },
-                    )
-                    pdc.insert()
-                    pdc.submit()
-                    frappe.db.set_value("TC Payment Schedule", i.name, "pdc",pdc.name)
+    #         if i.is_pdc == 1:
+    #                 pdc = frappe.get_doc({
+    #                     "doctype": "Post Dated Cheque",
+    #                     "party_type": "Customer",
+    #                     "party": self.name_of_tenant,
+    #                     "posting_date": i.payment_date,
+    #                     "bank": i.bank,
+    #                     "cheque_amount": i.amount,
+    #                     "cheque__no": i.payment_date,
+    #                     "tenancy_contract": self.name,
+    #                     "status":"Received",
+    #                     #"unit":self.unit_number,
+    #                     "property":self.property_name,
+    #                     "amount_in_words":frappe.utils.money_in_words(i.amount),
+    #                     "date_of_issue":i.reference_date,
+    #                     "expiry_date":i.cheque_end_date,
+    #                     "cheque_date":i.reference_date,
+    #                     "reference":i.name,
+    #                     "sales_invoice":sinv_name
+    #                 })
+    #                 pdc.append(
+    #                     "cheque_audit_trail",
+    #                     {
+    #                         "transaction_date": i.payment_date,
+    #                         "status": "Received",
+    #                         "remarks":"Cheque Received"
+    #                     },
+    #                 )
+    #                 pdc.insert()
+    #                 pdc.submit()
+    #                 frappe.db.set_value("TC Payment Schedule", i.name, "pdc",pdc.name)
 
 
-        if frappe.db.get_value("Customer",self.name_of_tenant,"lead_name"):
-            frappe.db.set_value("Lead",frappe.db.get_value("Customer",self.name_of_tenant,"lead_name"),"status","Tenancy Contract")
+    #     if frappe.db.get_value("Customer",self.name_of_tenant,"lead_name"):
+    #         frappe.db.set_value("Lead",frappe.db.get_value("Customer",self.name_of_tenant,"lead_name"),"status","Tenancy Contract")
             
-        #  update the status in Opportunity 
-        if self.opportunity:
-            frappe.db.set_value("Opportunity",self.opportunity,"status","Tenancy Contract")
+    #     #  update the status in Opportunity 
+    #     if self.opportunity:
+    #         frappe.db.set_value("Opportunity",self.opportunity,"status","Tenancy Contract")
 
-        frappe.db.set_value("Customer",self.name_of_tenant,"property_name",self.property_name)
-        #frappe.db.set_value("Customer",self.name_of_tenant,"unit_name",self.unit_number)
-        #if self.unit_number:
-            # doc = frappe.get_doc("Unit", self.unit_number)
-            # doc.status = "Rented"
-            # doc.save()
+    #     frappe.db.set_value("Customer",self.name_of_tenant,"property_name",self.property_name)
+    #     #frappe.db.set_value("Customer",self.name_of_tenant,"unit_name",self.unit_number)
+    #     #if self.unit_number:
+    #         # doc = frappe.get_doc("Unit", self.unit_number)
+    #         # doc.status = "Rented"
+    #         # doc.save()
 
     from datetime import timedelta
     from frappe.utils import getdate, nowdate, flt
@@ -321,6 +322,7 @@ class TenancyContract(Document):
                     pdc.db_set("cheque_date",i.cheque_date)
                     pdc.db_set("cheque__no",i.cheque_number)
                     pdc.db_set("status",i.cheque_status)
+
 def populate_payment_schedule(self):
     from frappe.utils import add_months, getdate, flt
 
