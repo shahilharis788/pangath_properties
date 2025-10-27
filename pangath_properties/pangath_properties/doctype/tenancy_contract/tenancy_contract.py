@@ -29,18 +29,19 @@ class TenancyContract(Document):
 		freq = int(self.schedule_payments[-1].payment_frequency.split()[0])
 		result = []
 		for index in range(freq):
-			curr_dict = []
+			curr_list = []
 			for particular in data:
-				curr_dict.append(data[particular][index])
-			result.append(curr_dict)
+				# ensure index exists in the list
+				if index < len(data[particular]):
+					curr_list.append(data[particular][index])
+			result.append(curr_list)
 		return result
-				  
+
 	def return_si_info(self):
-		posting_date = nowdate()
-		pay_sch = self.payment_schedule 
-		scheduled_payment_tc = {} 
-		schedule_si_no = []
-		non_scheduled_payment_tc = {} 
+		pay_sch = self.payment_schedule
+		scheduled_payment_tc = {}
+		non_scheduled_payment_tc = {}
+
 		for row in self.type_of_charges:
 			if row.custom_is_scheduled_payment and self.schedule_payments[-1].number_of_period > 1:
 				scheduled_payment_tc.setdefault(row.particulars, [])
@@ -48,121 +49,104 @@ class TenancyContract(Document):
 			else:
 				non_scheduled_payment_tc.setdefault(row.particulars, [])
 				non_scheduled_payment_tc[row.particulars].append(row.as_dict())
-		
+
 		return pay_sch, non_scheduled_payment_tc, self.set_sch_pay_invoice_wise(scheduled_payment_tc)
 
-	
-	
-	def connect_si_tc(si, self):
-		pass
-		# for row in self.type_of_charges:
-		# 	 frappe.db.set_value("Type Of Charges", row.name, "sales_invoice", si.name)
-		# for row in self.type_of_charges:
-		# 	 frappe.db.set_value("TC Payment Schedule", row.name, "sales_invoice", si.name)
-	
-	def set_in_ps_row(self, si, rent, freq, unit, part, tax, acc):
-		rate = flt(rent / freq)
+	def set_in_ps_row(self, si, amount, freq, unit, part, tax, acc):
+		"""Append one item row to Sales Invoice"""
+		rate = flt(amount / freq)
 		si.append("items", {
-			"item_code":unit, 
-			"qty":1, 
-			"rate":rate, 
+			"item_code": unit,
+			"qty": 1,
+			"rate": rate,
 			"description": part,
 			"item_tax_template": tax,
 			"income_account": acc
 		})
-	
+
 	def on_submit(self):
-		posting_date =nowdate()
+		posting_date = nowdate()
 		freq = int(self.schedule_payments[-1].payment_frequency.split()[0])
+
 		
 		for unit_det in self.unit_details:
-			frappe.db.set_value('Unit', unit_det.unit, 'status', 'Rented') # update the unit 
+			frappe.db.set_value('Unit', unit_det.unit, 'status', 'Rented')
+
 		
-		ps, non_sp, sp  = self.return_si_info()
+		ps, non_sp, sp = self.return_si_info()
+
 		
-		for row in ps:
-			si_list = []
-			si_md= { 
+		si_list = []
+		for idx in range(freq):
+			row = ps[idx]
+			si_doc = frappe.get_doc({
 				"doctype": "Sales Invoice",
 				"customer": self.name_of_tenant,
 				"set_posting_time": 1,
 				"posting_date": row.payment_scheduled_date,
-				"due_date":  add_days(row.payment_scheduled_date, 14),
-				#"property": self.property_name,
-				#"unit": self.unit_number,  #above 2 are multiple fields
+				"due_date": add_days(row.payment_scheduled_date, 14),
 				"custom_tenancy_contract": self.name,
-			}
-			for index in range(6):
-				si_list.append(frappe.get_doc(si_md))
-			
+			})
+			si_list.append(si_doc)
+
+		
+		for idx, row in enumerate(ps):
 			for unit_info in self.unit_details:
-				if row.idx == 1:
-					self.set_in_ps_row(si_list[0], unit_info.rent_amount, freq,  unit_info.unit, "", row.get('item_tax_detail', ""), row.income_account)
-				if row.idx == 2:
-					self.set_in_ps_row(si_list[1], unit_info.rent_amount, freq,  unit_info.unit, "", row.get('item_tax_detail', ""), row.income_account)
-				if row.idx == 3:
-					self.set_in_ps_row(si_list[2], unit_info.rent_amount, freq,  unit_info.unit, "", row.get('item_tax_detail', ""), row.income_account)
-				if row.idx == 4:
-					self.set_in_ps_row(si_list[3], unit_info.rent_amount, freq,  unit_info.unit, "", row.get('item_tax_detail', ""), row.income_account)
-				if row.idx == 5:
-					self.set_in_ps_row(si_list[4], unit_info.rent_amount, freq,  unit_info.unit, "", row.get('item_tax_detail', ""), row.income_account)
-				if row.idx == 6:
-					self.set_in_ps_row(si_list[5], unit_info.rent_amount, freq,  unit_info.unit, "", row.get('item_tax_detail', ""), row.income_account)
+				self.set_in_ps_row(
+					si_list[idx],
+					unit_info.rent_amount,
+					freq,
+					unit_info.unit,
+					"Rent",
+					row.get('item_tax_detail', ""),
+					row.income_account
+				)
 			frappe.db.set_value("TC Payment Schedule", row.name, "is_accrued", 1)
+
 		
 		for part in non_sp:
-			for row in non_sp[particulars]:
+			for row in non_sp[part]:
 				for unit_info in self.unit_details:
 					si_list[0].append("items", {
-						"item_code": unit_info.unit, 
-						"qty":1, 
-						"rate":row.amount, 
-						"description": particulars,
+						"item_code": unit_info.unit,
+						"qty": 1,
+						"rate": flt(row.amount / freq),
+						"description": part,
 						"item_tax_template": row.get('item_tax_detail', ""),
 						"income_account": row.income_account
-						})
-			frappe.db.set_value("Type Of Charges", row.name, "is_accrued", 1)
+					})
+				frappe.db.set_value("Type Of Charges", row.name, "is_accrued", 1)
 
 		
-		for index, each_si_rows in enumerate(sp):#index 1 means for si_1 and so on
-			for row in each_si_rows:
-				for unit_info in self.unit_details:
-					if index + 1 == 1:
-						self.set_in_ps_row(si_list[0], unit_info.rent_amount, freq,  unit_info.unit, row.particulars, row.get('item_tax_detail', ""), row.income_account)
-					if index + 1 == 2:
-						self.set_in_ps_row(si_list[1], unit_info.rent_amount, freq,  unit_info.unit, row.particulars, row.get('item_tax_detail', ""), row.income_account)
-					if index + 1 == 3:
-						self.set_in_ps_row(si_list[2], unit_info.rent_amount, freq,  unit_info.unit, row.particulars, row.get('item_tax_detail', ""), row.income_account)
-					if index + 1 == 4:
-						self.set_in_ps_row(si_list[3], unit_info.rent_amount, freq,  unit_info.unit, row.particulars, row.get('item_tax_detail', ""), row.income_account)
-					if index + 1 == 5:
-						self.set_in_ps_row(si_list[4], unit_info.rent_amount, freq,  unit_info.unit, row.particulars, row.get('item_tax_detail', ""), row.income_account)
-					if index + 1 == 6:
-						self.set_in_ps_row(si_list[5], unit_info.rent_amount, freq,  unit_info.unit, row.particulars, row.get('item_tax_detail', ""), row.income_account)
-			frappe.db.set_value("TC Payment Schedule", row.name, "is_accrued", 1)
-		
-		si_list[0].save()
-		
-		if si_list[1]:
-			si_list[1].save()
-			self.connect_si_tc(si_list[1])
-		# if si_list[2]:
-		# 	si_list[2].save()
-		# 	self.connect_si_tc(si_list[1])
+		index = 0
+		for idx, invoice_rows in enumerate(sp):
+			if index == len(self.unit_details):
+				break
 
-		# if si_list[3]:
-		# 	si_list[3].save()
-		# 	self.connect_si_tc(si_list[1])
+			unit_info = self.unit_details[index]
 
-		# if si_list[4]:
-		# 	si_list[4].save()
-		# 	self.connect_si_tc(si_list[1])
+			for row in invoice_rows:
+				self.set_in_ps_row(
+					si_list[idx],
+					row.amount * freq,
+					freq,
+					unit_info.unit,
+					row.particulars,
+					row.get('item_tax_detail', ""),
+					row.income_account
+				)
+				frappe.db.set_value("Type Of Charges", row.name, "is_accrued", 1)
+
+			index += 1
+
 		
-		# if si_list[5]:
-		# 	si_list[5].save()
-		# 	self.connect_si_tc(si_list[1])
-					 
-			
+		for si in si_list:
+			if si.items:
+				si.insert()
+				si.submit()
+
+		
+		frappe.msgprint(f"{len(si_list)} Sales Invoices successfully created with rent + scheduled + non-scheduled charges.")
 		# for idx, i in enumerate(self.payment_schedule):
 		#     if i.is_pdc == 1:
 		#         account = frappe.db.get_value('Bank Account', {'name':i.bank_account}, 'account')
