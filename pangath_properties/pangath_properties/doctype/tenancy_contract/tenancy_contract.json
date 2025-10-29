@@ -35,12 +35,14 @@
   "email",
   "contract_info_tab",
   "payments_section",
+  "is_multiple_invoices",
   "schedule_payments",
   "manual_schedule",
   "schedule_section",
   "payment_schedule",
   "particulars_section",
   "type_of_charges",
+  "schedule_based_charges",
   "section_break_qhh1c",
   "total_taxes_and_charges",
   "column_break_qojv",
@@ -325,6 +327,19 @@
    "fieldtype": "Table",
    "label": "Unit Details",
    "options": "Unit Details"
+  },
+  {
+   "default": "0",
+   "fieldname": "is_multiple_invoices",
+   "fieldtype": "Check",
+   "label": "Is Multiple Invoices"
+  },
+  {
+   "fieldname": "schedule_based_charges",
+   "fieldtype": "Table",
+   "label": "Schedule Based Charges",
+   "options": "Type Of Charges",
+   "read_only": 1
   }
  ],
  "grid_page_length": 50,
@@ -360,7 +375,7 @@
    "link_fieldname": "custom_tenancy_contract"
   }
  ],
- "modified": "2025-10-21 15:34:00.472408",
+ "modified": "2025-10-29 14:46:28.931370",
  "modified_by": "Administrator",
  "module": "Pangath Properties",
  "name": "Tenancy Contract",
