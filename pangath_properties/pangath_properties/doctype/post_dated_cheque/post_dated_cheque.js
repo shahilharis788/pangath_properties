@@ -14,7 +14,7 @@ frappe.ui.form.on("Post Dated Cheque", {
             frm.add_custom_button(__('Received'),function () {
                
                 frappe.call({
-                    'method': 'real_estate.real_estate.doctype.post_dated_cheque.post_dated_cheque.cheque_status',
+                    'method': 'pangath_properties.pangath_properties.doctype.post_dated_cheque.post_dated_cheque.cheque_status',
                     'args': {
                         "name": frm.doc.name,
                         "status":"Received"
@@ -24,7 +24,7 @@ frappe.ui.form.on("Post Dated Cheque", {
             }, __('Cheque Status'));
             frm.add_custom_button(__('Cancelled'),function () {
                 frappe.call({
-                    'method': 'real_estate.real_estate.doctype.post_dated_cheque.post_dated_cheque.cheque_status',
+                    'method': 'pangath_properties.pangath_properties.doctype.post_dated_cheque.post_dated_cheque.cheque_status',
                     'args': {
                         "name": frm.doc.name,
                         "status":"Cancelled"
@@ -34,7 +34,7 @@ frappe.ui.form.on("Post Dated Cheque", {
             }, __('Cheque Status'));
             frm.add_custom_button(__('Bounced'),function () {
                 frappe.call({
-                    'method': 'real_estate.real_estate.doctype.post_dated_cheque.post_dated_cheque.cheque_status',
+                    'method': 'pangath_properties.pangath_properties.doctype.post_dated_cheque.post_dated_cheque.cheque_status',
                     'args': {
                         "name": frm.doc.name,
                         "status":"Bounced"
@@ -44,7 +44,7 @@ frappe.ui.form.on("Post Dated Cheque", {
             }, __('Cheque Status'));
             frm.add_custom_button(__('Returned'),function () {
                 frappe.call({
-                    'method': 'real_estate.real_estate.doctype.post_dated_cheque.post_dated_cheque.cheque_status',
+                    'method': 'pangath_properties.pangath_properties.doctype.post_dated_cheque.post_dated_cheque.cheque_status',
                     'args': {
                         "name": frm.doc.name,
                         "status":"Returned"
@@ -54,7 +54,7 @@ frappe.ui.form.on("Post Dated Cheque", {
             }, __('Cheque Status'));
             frm.add_custom_button(__('Rejected'),function () {
                 frappe.call({
-                    'method': 'real_estate.real_estate.doctype.post_dated_cheque.post_dated_cheque.cheque_status',
+                    'method': 'pangath_properties.pangath_properties.doctype.post_dated_cheque.post_dated_cheque.cheque_status',
                     'args': {
                         "name": frm.doc.name,
                         "status":"Rejected"
@@ -64,7 +64,7 @@ frappe.ui.form.on("Post Dated Cheque", {
             }, __('Cheque Status'));
             frm.add_custom_button(__('Expired'),function () {
                 frappe.call({
-                    'method': 'real_estate.real_estate.doctype.post_dated_cheque.post_dated_cheque.cheque_status',
+                    'method': 'pangath_properties.pangath_properties.doctype.post_dated_cheque.post_dated_cheque.cheque_status',
                     'args': {
                         "name": frm.doc.name,
                         "status":"Expired"
@@ -74,7 +74,7 @@ frappe.ui.form.on("Post Dated Cheque", {
             }, __('Cheque Status'));
             frm.add_custom_button(__('Cleared'),function () {
                 frappe.call({
-                    'method': 'real_estate.real_estate.doctype.post_dated_cheque.post_dated_cheque.cheque_status',
+                    'method': 'pangath_properties.pangath_properties.doctype.post_dated_cheque.post_dated_cheque.cheque_status',
                     'args': {
                         "name": frm.doc.name,
                         "status":"Cleared"

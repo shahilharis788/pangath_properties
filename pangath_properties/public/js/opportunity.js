@@ -2,14 +2,14 @@ frappe.ui.form.on("Opportunity", {
 	refresh: function (frm) {
 		frm.add_custom_button(__("Site Visit Schedule"), () => {
 			frappe.model.open_mapped_doc({
-				method: "real_estate.events.opportunity.schedule_site_visit",
+				method: "pangath_properties.events.opportunity.schedule_site_visit",
 				frm:frm
 			})
 			
 		}, ("Create"));
 		frm.add_custom_button(__("Tenancy Application"), () => {
 			frappe.model.open_mapped_doc({
-				method: "real_estate.events.opportunity.create_tenancy_application",
+				method: "pangath_properties.events.opportunity.create_tenancy_application",
 				frm:frm
 			})
 			

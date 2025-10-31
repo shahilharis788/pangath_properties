@@ -6,7 +6,7 @@ frappe.ui.form.on("Maintenance Schedule", {
         if(frm.doc.docstatus ==1){
             frm.add_custom_button(__('Material Request'),function () {
                 frappe.model.open_mapped_doc({
-                    method: "real_estate.events.maintenance_schedule.create_material_request",
+                    method: "pangath_properties.events.maintenance_schedule.create_material_request",
                     frm:frm
                 })
             },__('Create'));

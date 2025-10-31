@@ -32,7 +32,7 @@ Property = Class.extend({
 		var me = this;
 		me.wrapper.empty();
 		return frappe.call({
-			method: "real_estate.real_estate.page.property_view.property_view.get_properties",
+			method: "pangath_properties.pangath_properties.page.property_view.property_view.get_properties",
 			args: {
 			},
 			callback: function (r) {

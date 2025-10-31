@@ -72,7 +72,7 @@ frappe.ui.form.on("Purchase Invoice", {
                 primary_action(values) {
                     frm.clear_table('items');
                     frappe.call({
-                        method: 'real_estate.events.purchase_invoice.get_units_property_items',
+                        method: 'pangath_properties.events.purchase_invoice.get_units_property_items',
                         args: {
                             data: values.items_table
                         },

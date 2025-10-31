@@ -24,7 +24,7 @@ Building = Class.extend({
 		var me = this;
 		me.wrapper.empty();
 		return frappe.call({
-			method: "real_estate.real_estate.page.building_view.building_view.get_buildings",
+			method: "pangath_properties.pangath_properties.page.building_view.building_view.get_buildings",
 			args: {
 			},
 			callback: function (r) {

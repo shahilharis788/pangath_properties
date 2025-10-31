@@ -1,5 +1,5 @@
 import frappe
-from real_estate.setup.install import after_install
+from pangath_properties.setup.install import after_install
 
 def execute():
     after_install()

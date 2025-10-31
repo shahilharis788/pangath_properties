@@ -34,8 +34,9 @@ class TenantOnboarding(Document):
 
 		k=0
 		j = 0
-		for i in self.payment_schedule:
-			k = k + i.payment_amount
+		if self.payment_schedule:
+			for i in self.payment_schedule:
+				k = k + i.payment_amount
 		for o in self.type_of_charges:
 			j = j + o.amount
 		self.total = k +j
@@ -53,6 +54,7 @@ class TenantOnboarding(Document):
 			if self.type_of_charges:
 				for toc in self.type_of_charges:
 					reference_number.append(toc.reference_number)
+		
 			for sch in self.payment_schedule:
 				if sch.reference_number:
 					if reference_number.count(sch.reference_number) > 1:
@@ -801,12 +803,13 @@ def cancel_tenant_onboarding(doc, values):
 					"cheque_end_date":i.cheque_end_date
 				},
 		)
-
-	for i in toc.payment_schedule:
-		if i.status == "Return Cheque":
-			pdc+=i.payment_amount
-		if i.status == "Cleared":
-			cleared+=i.payment_amount
+	
+	if toc.payment_schedule:
+		for i in toc.payment_schedule:
+			if i.status == "Return Cheque":
+				pdc+=i.payment_amount
+			if i.status == "Cleared":
+				cleared+=i.payment_amount
 
 	cleared_refundable=flt(cleared)-flt(toc.occupied_rent)
 	toc.refund_cleared=rounded(cleared_refundable,2)

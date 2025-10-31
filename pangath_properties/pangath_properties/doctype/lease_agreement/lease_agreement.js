@@ -2,6 +2,63 @@
 // For license information, please see license.txt
 
 frappe.ui.form.on('Lease Agreement', {
+	refresh: function (frm) {
+        
+        if (frm.doc.docstatus === 1) {
+            frm.add_custom_button("Tenancy Contract", async function () {
+                try {
+                    let addr = '';
+                    let email = '';
+                    let phone = '';
+                    let eid = '';
+                    let cus_name = '';
+
+                    
+                    const customer_res = await frappe.db.get_value("Customer", frm.doc.customer, [
+                        "customer_primary_address",
+                        "custom_emirate_id",
+                        "customer_name"
+                    ]);
+
+                    if (customer_res.message) {
+                        addr = customer_res.message.customer_primary_address;
+                        eid = customer_res.message.custom_emirate_id;
+                        cus_name = customer_res.message.customer_name;
+                    }
+
+                    
+                    if (addr) {
+                        const address_res = await frappe.db.get_value("Address", addr, [
+                            "email_id",
+                            "phone"
+                        ]);
+
+                        if (address_res.message) {
+                            email = address_res.message.email_id;
+                            phone = address_res.message.phone;
+                        }
+                    }
+
+                    
+                    frappe.new_doc("Tenancy Contract", {
+                        tenant_onboarding: frm.doc.lease_application,
+                        issue_date: frm.doc.posting_date,
+                        name_of_tenant: frm.doc.customer,
+                        tenant_address: addr,
+                        contact_no: phone,
+                        email: email,
+                        eid_no: eid,
+                        customer_name: cus_name,
+						contract_start_date: frm.doc.period_start_date,
+						contract_end_date: frm.doc.period_end_date
+                    });
+                } catch (e) {
+                    frappe.msgprint(__('Error creating Tenancy Contract: ') + e.message);
+                    console.error(e);
+                }
+            });
+        }
+    },
 	lease_application: function (frm) {
 		set_html(frm);
 	},

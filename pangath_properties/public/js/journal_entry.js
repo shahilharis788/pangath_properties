@@ -103,7 +103,7 @@ frappe.ui.form.on('Journal Entry', {
 					console.log(values);
 					frm.clear_table('accounts');
 					frappe.call({
-						method: 'real_estate.events.journal_entry.get_units_r_proty',
+						method: 'pangath_properties.events.journal_entry.get_units_r_proty',
 						args: {
 							data: values.accounts_table
 						},

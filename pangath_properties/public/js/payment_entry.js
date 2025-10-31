@@ -17,7 +17,7 @@ frappe.ui.form.on("Payment Entry", {
 		if(frm.doc.__islocal){
 			$.each(frm.doc.references, function(i, ref){
 				frappe.call({
-					"method": "real_estate.events.payment_entry.get_refernce",
+					"method": "pangath_properties.events.payment_entry.get_refernce",
 					"args": {
 						'ref': ref.reference_name
 					},

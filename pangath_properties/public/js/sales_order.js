@@ -10,7 +10,7 @@ frappe.ui.form.on("Sales Order",{
 		}, 1000);
         frm.add_custom_button(__('Proforma Invoice'), function() {
             frappe.model.open_mapped_doc({
-                method: "real_estate.events.sales_order.make_proforma_invoice",
+                method: "pangath_properties.events.sales_order.make_proforma_invoice",
                 frm: frm
             });
         }, __('Create'));

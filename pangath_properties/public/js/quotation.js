@@ -2,7 +2,7 @@
 //     refresh: function(frm) {
 //         frm.add_custom_button(__('Tenancy Application'), function() {
 //             frappe.model.open_mapped_doc({
-// 				method: "real_estate.events.quotation.create_tenancy_application",
+// 				method: "pangath_properties.events.quotation.create_tenancy_application",
 // 				frm:frm
 // 			})
 //         }, __('Create'));  // Group under 'Actions' menu (optional)

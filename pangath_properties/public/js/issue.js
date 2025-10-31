@@ -17,7 +17,7 @@ frappe.ui.form.on("Issue", {
 		  }, 10);
 		  frm.add_custom_button(__("Create Maintenance Schedule"), function(){
 			frappe.call({
-				method: 'real_estate.events.issue.create_maintenance_schedule',
+				method: 'pangath_properties.events.issue.create_maintenance_schedule',
 				args: { 'doc': frm.doc.name },
 				callback: function(r) {
 					if (r && r.message) {

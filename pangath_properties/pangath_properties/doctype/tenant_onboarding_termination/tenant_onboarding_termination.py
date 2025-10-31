@@ -156,11 +156,12 @@ class TenantOnboardingTermination(Document):
 			self.penality = 0
 		pdc=0
 		cleared=0
-		for i in self.payment_schedule:
-			if i.status == "Return Cheque":
-				pdc+=i.payment_amount
-			if i.status == "Cleared":
-				cleared+=i.payment_amount
+		if self.payment_schedule:
+			for i in self.payment_schedule:
+				if i.status == "Return Cheque":
+					pdc+=i.payment_amount
+				if i.status == "Cleared":
+					cleared+=i.payment_amount
 		to=frappe.get_doc("Tenant Onboarding",self.tenant_onboarding)
 		clr_depo=0
 		pdc_depo=0

@@ -310,9 +310,9 @@ after_install = "pangath_properties.setup.install.after_install"
 # Override standard doctype classes
 
 override_doctype_class = {
-	"Payment Entry": "real_estate.events.payment_entry.CustomPaymentEntry",
-	"Maintenance Schedule": "real_estate.events.maintenance_schedule.CustomMaintenanceSchedule",
-	"Maintenance Visit": "real_estate.events.maintenance_visit.CustomMaintenanceVisit"
+	"Payment Entry": "pangath_properties.events.payment_entry.CustomPaymentEntry",
+	"Maintenance Schedule": "pangath_properties.events.maintenance_schedule.CustomMaintenanceSchedule",
+	"Maintenance Visit": "pangath_properties.events.maintenance_visit.CustomMaintenanceVisit"
 
 
 }
@@ -323,26 +323,26 @@ override_doctype_class = {
 
 doc_events = {
 		"Payment Entry": {
-				"on_submit": "real_estate.events.payment_entry.on_submit",
-				"on_cancel": "real_estate.events.payment_entry.on_cancel",
-				"before_submit":"real_estate.events.payment_entry.before_submit",
-                # "after_insert": "real_estate.events.payment_entry.after_insert"
+				"on_submit": "pangath_properties.events.payment_entry.on_submit",
+				"on_cancel": "pangath_properties.events.payment_entry.on_cancel",
+				"before_submit":"pangath_properties.events.payment_entry.before_submit",
+                # "after_insert": "pangath_properties.events.payment_entry.after_insert"
 		},
 		"Journal Entry": {
-			"on_cancel": "real_estate.events.journal_entry.on_cancel",
-			"validate": "real_estate.events.journal_entry.validate"
+			"on_cancel": "pangath_properties.events.journal_entry.on_cancel",
+			"validate": "pangath_properties.events.journal_entry.validate"
 			},
 		"Issue": {
-			"before_validate": "real_estate.events.issue.validate"
+			"before_validate": "pangath_properties.events.issue.validate"
 			},
 		"Maintenance Visit": {
-            		"on_submit":"real_estate.events.maintenance_visit.change_status",
+            		"on_submit":"pangath_properties.events.maintenance_visit.change_status",
 		},
         	"Purchase Invoice":{
-            		"after_insert":"real_estate.events.purchase_invoice.after_insert_purchase_invoice"
+            		"after_insert":"pangath_properties.events.purchase_invoice.after_insert_purchase_invoice"
 		},
 		"Maintenance Schedule":{
-			"validate": "real_estate.events.maintenance_schedule.validate_tenancy_property"
+			"validate": "pangath_properties.events.maintenance_schedule.validate_tenancy_property"
 		}
 }
 
@@ -350,7 +350,7 @@ doc_events = {
 # ---------------
 
 scheduler_events = {
-	"daily": "real_estate.real_estate.doctype.tenant_onboarding.tenant_onboarding.monthly_scheduler",
+	"daily": "pangath_properties.pangath_properties.doctype.tenant_onboarding.tenant_onboarding.monthly_scheduler",
 				
 }
 

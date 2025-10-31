@@ -11,7 +11,7 @@ frappe.ui.form.on('Tenant Onboarding Termination', {
 		if (frm.doc.docstatus == 1) {
 			cur_frm.add_custom_button(__('Payment Entry'), () => {
 				return frappe.call({
-					method: 'real_estate.real_estate.doctype.tenant_onboarding_termination.tenant_onboarding_termination.create_payment_entry',
+					method: 'pangath_properties.pangath_properties.doctype.tenant_onboarding_termination.tenant_onboarding_termination.create_payment_entry',
 					args: { 'doc': frm.doc },
 					callback: function(r) {
 						frappe.set_route("Form", "Payment Entry", r.message);

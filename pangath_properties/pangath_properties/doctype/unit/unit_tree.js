@@ -1,7 +1,7 @@
 frappe.treeview_settings['Unit'] = {
 	breadcrumb: "Real Estate",
-	add_tree_node: "real_estate.real_estate.doctype.unit.unit.add_node",
-	get_tree_nodes: "real_estate.real_estate.doctype.unit.unit.get_children",
+	add_tree_node: "pangath_properties.pangath_properties.doctype.unit.unit.add_node",
+	get_tree_nodes: "pangath_properties.pangath_properties.doctype.unit.unit.get_children",
 	get_tree_root: true,
 	root_label: "Unit",
 

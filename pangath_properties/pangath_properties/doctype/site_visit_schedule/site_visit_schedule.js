@@ -5,7 +5,7 @@ frappe.ui.form.on("Site Visit Schedule", {
     refresh(frm) {
           frm.add_custom_button(__("Visitor Feedback"), () => {
               frappe.model.open_mapped_doc({
-                  method: "real_estate.real_estate.doctype.site_visit_schedule.site_visit_schedule.create_site_visit_feedback",
+                  method: "pangath_properties.pangath_properties.doctype.site_visit_schedule.site_visit_schedule.create_site_visit_feedback",
                   frm:frm
               })
         // frappe.new_doc('Visitor Feedback', {

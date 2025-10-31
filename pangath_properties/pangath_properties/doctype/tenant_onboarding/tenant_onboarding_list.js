@@ -12,7 +12,7 @@ frappe.listview_settings["Tenant Onboarding"] = {
 	},
 	before_render() {
 		frappe.call({
-		  method: 'real_estate.real_estate.doctype.tenant_onboarding.tenant_onboarding.change_status',
+		  method: 'pangath_properties.pangath_properties.doctype.tenant_onboarding.tenant_onboarding.change_status',
 		  // callback: function(r) {
 		  // }
 		});

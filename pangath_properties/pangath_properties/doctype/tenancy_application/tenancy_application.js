@@ -6,13 +6,13 @@ frappe.ui.form.on('Tenancy Application', {
 		if (frm.doc.docstatus == 1) {
             frm.add_custom_button(__('Tenancy Contract'),function () {
                 frappe.model.open_mapped_doc({
-                    method: "real_estate.real_estate.doctype.tenancy_application.tenancy_application.create_tenancy_contract",
+                    method: "pangath_properties.pangath_properties.doctype.tenancy_application.tenancy_application.create_tenancy_contract",
                     frm:frm
                 })
 			},__('Create'));
             frm.add_custom_button(__('Payment Entry'),function () {
                 frappe.model.open_mapped_doc({
-                    method: "real_estate.real_estate.doctype.tenancy_application.tenancy_application.create_payment_entry",
+                    method: "pangath_properties.pangath_properties.doctype.tenancy_application.tenancy_application.create_payment_entry",
                     frm:frm
                 })
 			},__('Create'));

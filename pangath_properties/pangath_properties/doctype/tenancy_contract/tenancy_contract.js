@@ -9,19 +9,19 @@ frappe.ui.form.on('Tenancy Contract', {
 		if(frm.doc.docstatus == 1){
 			frm.add_custom_button(__('Move-Out'),function () {
 				frappe.model.open_mapped_doc({
-					method: "real_estate.real_estate.doctype.tenancy_contract.tenancy_contract.create_condition_inspection",
+					method: "pangath_properties.pangath_properties.doctype.tenancy_contract.tenancy_contract.create_condition_inspection",
 					frm:frm
 				})
 			});
 			frm.add_custom_button(__('Renew'),function () {
 				frappe.model.open_mapped_doc({
-					method: "real_estate.real_estate.doctype.tenancy_contract.tenancy_contract.renew_tenancy_contract",
+					method: "pangath_properties.pangath_properties.doctype.tenancy_contract.tenancy_contract.renew_tenancy_contract",
 					frm:frm
 				})
 			});
 			frm.add_custom_button(__('Quotation'),function () {
 				frappe.model.open_mapped_doc({
-					method: "real_estate.real_estate.doctype.tenancy_contract.tenancy_contract.create_quotation",
+					method: "pangath_properties.pangath_properties.doctype.tenancy_contract.tenancy_contract.create_quotation",
 					frm:frm
 				})
 			});
@@ -54,6 +54,7 @@ frappe.ui.form.on('Tenancy Contract', {
 		        ]
 		    }
 		}
+		
 
 	},
 	tc_name: function (frm) {
@@ -205,3 +206,14 @@ function calculate_yearly_rent(frm) {
 
     frm.set_value("yearly_rent", total);
 }
+
+frappe.ui.form.on('TA Payment Schedule', {
+    number_of_period: function(frm, cdt, cdn) {
+        let row = frappe.get_doc(cdt, cdn);
+
+        if (row.number_of_period > 1) {
+            frm.set_value('custom_number_of_period', row.number_of_period);
+			
+        }
+    }
+});

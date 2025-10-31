@@ -13,7 +13,7 @@ frappe.ui.form.on('Tenant Onboarding', {
 						'total' :frm.doc.total
 				}
 				frappe.call({
-					'method': 'real_estate.real_estate.doctype.tenant_onboarding.tenant_onboarding.create_tenancy_contract',
+					'method': 'pangath_properties.pangath_properties.doctype.tenant_onboarding.tenant_onboarding.create_tenancy_contract',
 					'args': {"args": args},
 					callback: function (r) {
 						if (r && r.message) {
@@ -24,7 +24,7 @@ frappe.ui.form.on('Tenant Onboarding', {
 			}, __('Create'));
 			cur_frm.add_custom_button(__('Payment Entry (Auto)'), () => {
 				frappe.call({
-						method: 'real_estate.real_estate.doctype.tenant_onboarding.tenant_onboarding.auto_create_payment_entry',
+						method: 'pangath_properties.pangath_properties.doctype.tenant_onboarding.tenant_onboarding.auto_create_payment_entry',
 						args: { 'docname': frm.doc.name },
 						callback: function(r) {
 							var doc = frappe.model.sync(r.message);
@@ -35,7 +35,7 @@ frappe.ui.form.on('Tenant Onboarding', {
 
 			cur_frm.add_custom_button(__('Payment Entry (Paid)'), () => {
 				frappe.call({
-						method: 'real_estate.real_estate.doctype.tenant_onboarding.tenant_onboarding.create_payment_entry',
+						method: 'pangath_properties.pangath_properties.doctype.tenant_onboarding.tenant_onboarding.create_payment_entry',
 					args: { 'doc': frm.doc },
 					callback: function(r) {
 						var doc = frappe.model.sync(r.message);
@@ -45,7 +45,7 @@ frappe.ui.form.on('Tenant Onboarding', {
 			}, __('Create'));
 			cur_frm.add_custom_button(__('Payment Entry (PDC Created)'), () => {
 				return frappe.call({
-					method: 'real_estate.real_estate.doctype.tenant_onboarding.tenant_onboarding.create_payment_entry_pdc_created',
+					method: 'pangath_properties.pangath_properties.doctype.tenant_onboarding.tenant_onboarding.create_payment_entry_pdc_created',
 					args: { 'doc': frm.doc },
 					callback: function(r) {
 						var doc = frappe.model.sync(r.message);
@@ -53,10 +53,10 @@ frappe.ui.form.on('Tenant Onboarding', {
 					}
 				});
 			}, __('Create'));
-			cur_frm.add_custom_button(__('Create PDC Reconciliation'), () => {
-					new_doc=frappe.new_doc("PDC Register")
-					frappe.set_route("Form","PDC Register",new_doc)
-			}, __('Create'));
+			// cur_frm.add_custom_button(__('Create PDC Reconciliation'), () => {
+			// 		new_doc=frappe.new_doc("PDC Register")
+			// 		frappe.set_route("Form","PDC Register",new_doc)
+			// }, __('Create'));
 			if(frm.doc.status != "Terminated"){
 			cur_frm.add_custom_button(__('Tenant Onboarding'), () => {
 				let d = new frappe.ui.Dialog({
@@ -80,7 +80,7 @@ frappe.ui.form.on('Tenant Onboarding', {
 						}
 						else{
 						return frappe.call({
-							method: 'real_estate.real_estate.doctype.tenant_onboarding.tenant_onboarding.cancel_tenant_onboarding',
+							method: 'pangath_properties.pangath_properties.doctype.tenant_onboarding.tenant_onboarding.cancel_tenant_onboarding',
 							args: { 'doc': frm.doc,
 									'values': values.cancellation_date },
 							callback: function(r) {
@@ -98,7 +98,7 @@ frappe.ui.form.on('Tenant Onboarding', {
 
 			cur_frm.add_custom_button(__('Tenant Onboarding'), () => {
 				return frappe.call({
-					method: 'real_estate.real_estate.doctype.tenant_onboarding.tenant_onboarding.renew_tenant_onboarding',
+					method: 'pangath_properties.pangath_properties.doctype.tenant_onboarding.tenant_onboarding.renew_tenant_onboarding',
 					args: { 'doc': frm.doc },
 					callback: function(r) {
 						if (r && r.message) {
@@ -180,7 +180,7 @@ frappe.ui.form.on('LA Repayment Schedule', {
 			primary_action_label: 'Add',
 			primary_action(values) {
 				frappe.call({
-					method: 'real_estate.real_estate.doctype.tenant_onboarding.tenant_onboarding.cheque_status',
+					method: 'pangath_properties.pangath_properties.doctype.tenant_onboarding.tenant_onboarding.cheque_status',
 					args:{
 						"pay_ref": row.name,
 						"to_name": frm.doc.name,

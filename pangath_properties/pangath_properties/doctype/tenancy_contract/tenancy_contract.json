@@ -220,13 +220,11 @@
    "options": "TA Payment Schedule"
   },
   {
-   "fetch_from": "name_of_tenant.mobile_no",
    "fieldname": "contact_no",
    "fieldtype": "Data",
    "label": "Mobile"
   },
   {
-   "fetch_from": "name_of_tenant.email_id",
    "fieldname": "email",
    "fieldtype": "Data",
    "label": "Email ID"
@@ -375,7 +373,7 @@
    "link_fieldname": "custom_tenancy_contract"
   }
  ],
- "modified": "2025-10-29 14:46:28.931370",
+ "modified": "2025-10-30 11:24:58.913645",
  "modified_by": "Administrator",
  "module": "Pangath Properties",
  "name": "Tenancy Contract",

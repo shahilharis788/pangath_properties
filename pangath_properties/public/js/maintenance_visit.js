@@ -11,10 +11,10 @@ frappe.ui.form.on("Maintenance Visit",{
         if(frm.doc.docstatus == 1){
         frm.add_custom_button(__("Material Request"), function(){
 			frappe.call({
-				method: 'real_estate.events.maintenance_visit.create_material_request',
+				method: 'pangath_properties.events.maintenance_visit.create_material_request',
 				args: { 'doc': frm.doc.name},
 				callback: function(r) {
-					if (r && r.message) {
+					if (r && r.message) {pangath_properties
 						var doc = frappe.model.sync(r.message);
 					frappe.set_route("Form", r.message.doctype, r.message.name);
 					}
@@ -26,7 +26,7 @@ frappe.ui.form.on("Maintenance Visit",{
         if(frm.doc.docstatus == 1){
           frm.add_custom_button(__("Sales Invoice"), function(){
 			frappe.call({
-				method: 'real_estate.events.maintenance_visit.create_sales_invoice',
+				method: 'pangath_properties.events.maintenance_visit.create_sales_invoice',
 				args: { 'doc': frm.doc.name },
 				callback: function(r) {
 					if (r && r.message) {
@@ -41,7 +41,7 @@ frappe.ui.form.on("Maintenance Visit",{
         if(frm.doc.docstatus == 1){
             frm.add_custom_button(__("Material Issue"), function(){
               frappe.call({
-                  method: 'real_estate.events.maintenance_visit.create_material_issue',
+                  method: 'pangath_properties.events.maintenance_visit.create_material_issue',
                   args: { 'doc': frm.doc.name },
                   callback: function(r) {
                       if (r && r.message) {

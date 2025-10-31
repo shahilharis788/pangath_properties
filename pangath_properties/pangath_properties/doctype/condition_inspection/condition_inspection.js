@@ -6,7 +6,7 @@ frappe.ui.form.on("Condition Inspection", {
         if(frm.doc.docstatus == 1 && frm.doc.inspection_type == "Move-In"){
             frm.add_custom_button(__("Move-Out"), () => {
                 frappe.model.open_mapped_doc({
-                    method: "real_estate.real_estate.doctype.condition_inspection.condition_inspection.create_move_out",
+                    method: "pangath_properties.pangath_properties.doctype.condition_inspection.condition_inspection.create_move_out",
                     frm:frm
                 })
                 
@@ -15,7 +15,7 @@ frappe.ui.form.on("Condition Inspection", {
         if(frm.doc.docstatus == 1 && frm.doc.inspection_type == "Move-Out"){
             frm.add_custom_button(__("Final Settlement"), () => {
                 frappe.model.open_mapped_doc({
-                    method: "real_estate.real_estate.doctype.condition_inspection.condition_inspection.final_settlement",
+                    method: "pangath_properties.pangath_properties.doctype.condition_inspection.condition_inspection.final_settlement",
                     frm:frm
                 })
                 
