@@ -1,0 +1,427 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "format:Proposal-2025-{####}",
+ "creation": "2025-10-30 11:32:32.920943",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "naming_series",
+  "section_break_2",
+  "customer",
+  "tenant_address",
+  "company",
+  "building",
+  "unit_nature",
+  "column_break_5",
+  "tenant_type",
+  "posting_date",
+  "status",
+  "unit",
+  "sales_person",
+  "company_details_section",
+  "company_name",
+  "trade_license_no",
+  "column_break_pwrlg",
+  "trade_license_expiry_date",
+  "trade_license_attachment",
+  "column_break_zpxcf",
+  "noc",
+  "noc_attachment",
+  "member_details_section",
+  "member_details",
+  "contract_info_tab",
+  "lease_agreement_period_section",
+  "period_start_date",
+  "number",
+  "column_break_13",
+  "period_end_date",
+  "period",
+  "payment_details_section",
+  "payment_amount",
+  "monthly_rent",
+  "mode_of_payment",
+  "column_break_16",
+  "payment_frequency",
+  "deferred_revenue_account",
+  "la_schedule_section",
+  "payment_schedule",
+  "section_break_dddu1",
+  "type_of_charges",
+  "deferred_revenue_schedule_section",
+  "deferred_revenue_schedule",
+  "section_break_17",
+  "total",
+  "remarks_tab",
+  "remarks",
+  "more_information_tab",
+  "tenant_onboarding",
+  "tenancy_application",
+  "opportunity",
+  "amended_from"
+ ],
+ "fields": [
+  {
+   "fieldname": "naming_series",
+   "fieldtype": "Select",
+   "hidden": 1,
+   "label": "Naming Series",
+   "options": "TO-.YYYY.-",
+   "read_only": 1
+  },
+  {
+   "fieldname": "section_break_2",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "customer",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Customer",
+   "options": "Customer"
+  },
+  {
+   "fieldname": "tenant_address",
+   "fieldtype": "Data",
+   "label": "Tenant Address"
+  },
+  {
+   "fieldname": "company",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Company",
+   "options": "Company"
+  },
+  {
+   "fieldname": "building",
+   "fieldtype": "Link",
+   "label": "Property",
+   "options": "Property",
+   "reqd": 1
+  },
+  {
+   "fieldname": "unit_nature",
+   "fieldtype": "Select",
+   "label": "Unit Nature",
+   "options": "Residential\nCommercial"
+  },
+  {
+   "fieldname": "column_break_5",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "tenant_type",
+   "fieldtype": "Select",
+   "label": "Tenant Type",
+   "options": "\nCompany\nIndividual"
+  },
+  {
+   "default": "Today",
+   "fieldname": "posting_date",
+   "fieldtype": "Date",
+   "label": "Posting Date"
+  },
+  {
+   "allow_on_submit": 1,
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Status",
+   "options": "\nActive\nDisabled\nTerminated\nRenewed\nExpired"
+  },
+  {
+   "depends_on": "eval:doc.building;",
+   "fieldname": "unit",
+   "fieldtype": "Link",
+   "label": "Unit",
+   "options": "Unit",
+   "reqd": 1
+  },
+  {
+   "fieldname": "sales_person",
+   "fieldtype": "Link",
+   "label": "Sales Person",
+   "options": "Sales Person"
+  },
+  {
+   "depends_on": "eval:doc.tenant_type=='Company'",
+   "fieldname": "company_details_section",
+   "fieldtype": "Section Break",
+   "label": "Company Details"
+  },
+  {
+   "fieldname": "company_name",
+   "fieldtype": "Data",
+   "label": "Company Name"
+  },
+  {
+   "fieldname": "trade_license_no",
+   "fieldtype": "Data",
+   "label": "Trade License No"
+  },
+  {
+   "fieldname": "column_break_pwrlg",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "trade_license_expiry_date",
+   "fieldtype": "Date",
+   "label": "Trade License Expiry Date"
+  },
+  {
+   "fieldname": "trade_license_attachment",
+   "fieldtype": "Attach",
+   "label": "Trade License Attachment"
+  },
+  {
+   "fieldname": "column_break_zpxcf",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "noc",
+   "fieldtype": "Data",
+   "label": "NOC"
+  },
+  {
+   "fieldname": "noc_attachment",
+   "fieldtype": "Attach",
+   "label": "NOC Attachment"
+  },
+  {
+   "fieldname": "member_details_section",
+   "fieldtype": "Section Break",
+   "label": "Member Details"
+  },
+  {
+   "allow_on_submit": 1,
+   "fieldname": "member_details",
+   "fieldtype": "Table",
+   "label": "Member Details",
+   "options": "Member Details"
+  },
+  {
+   "fieldname": "contract_info_tab",
+   "fieldtype": "Tab Break",
+   "label": "Contract Info"
+  },
+  {
+   "fieldname": "lease_agreement_period_section",
+   "fieldtype": "Section Break",
+   "label": "Lease Details"
+  },
+  {
+   "default": "Today",
+   "fieldname": "period_start_date",
+   "fieldtype": "Date",
+   "label": "Period Start Date"
+  },
+  {
+   "fieldname": "number",
+   "fieldtype": "Int",
+   "label": "Number"
+  },
+  {
+   "fieldname": "column_break_13",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "period_end_date",
+   "fieldtype": "Date",
+   "label": "Period End Date"
+  },
+  {
+   "fieldname": "period",
+   "fieldtype": "Select",
+   "label": "Period",
+   "options": "Year\nMonth"
+  },
+  {
+   "fieldname": "payment_details_section",
+   "fieldtype": "Section Break",
+   "label": "Payment Details"
+  },
+  {
+   "fetch_from": "unit.rent",
+   "fetch_if_empty": 1,
+   "fieldname": "payment_amount",
+   "fieldtype": "Currency",
+   "label": "Yearly Payment Amount",
+   "reqd": 1
+  },
+  {
+   "fetch_from": "unit.monthly_rent",
+   "fieldname": "monthly_rent",
+   "fieldtype": "Currency",
+   "label": "Monthly Rent",
+   "read_only": 1
+  },
+  {
+   "fieldname": "mode_of_payment",
+   "fieldtype": "Link",
+   "hidden": 1,
+   "label": "Mode of Payment",
+   "options": "Mode of Payment"
+  },
+  {
+   "fieldname": "column_break_16",
+   "fieldtype": "Column Break"
+  },
+  {
+   "depends_on": "eval:doc.period=='Year'",
+   "fieldname": "payment_frequency",
+   "fieldtype": "Select",
+   "label": "Payment Frequency",
+   "options": "Monthly\nBimonthly\nQuaterly\nHalf-yearly\nYearly"
+  },
+  {
+   "depends_on": "eval:doc.payment_frequency!='Monthly'",
+   "fetch_from": "company.default_deferred_revenue_account",
+   "fieldname": "deferred_revenue_account",
+   "fieldtype": "Link",
+   "label": "Deferred Revenue Account",
+   "mandatory_depends_on": "eval:doc.payment_frequency!='Monthly'",
+   "options": "Account"
+  },
+  {
+   "allow_on_submit": 1,
+   "fieldname": "la_schedule_section",
+   "fieldtype": "Section Break",
+   "label": "Schedule"
+  },
+  {
+   "fieldname": "payment_schedule",
+   "fieldtype": "Table",
+   "label": "Payment Schedule",
+   "options": "LA Repayment Schedule"
+  },
+  {
+   "fieldname": "section_break_dddu1",
+   "fieldtype": "Section Break",
+   "label": "Particulars"
+  },
+  {
+   "fieldname": "type_of_charges",
+   "fieldtype": "Table",
+   "label": "Type Of Charges",
+   "options": "Type Of Charges"
+  },
+  {
+   "depends_on": "eval:doc.payment_frequency!='Monthly'",
+   "fieldname": "deferred_revenue_schedule_section",
+   "fieldtype": "Section Break",
+   "label": "Deferred Revenue Schedule"
+  },
+  {
+   "fieldname": "deferred_revenue_schedule",
+   "fieldtype": "Table",
+   "label": "Deferred Revenue Schedule",
+   "options": "Deferred Revenue Schedule"
+  },
+  {
+   "fieldname": "section_break_17",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "total",
+   "fieldtype": "Currency",
+   "label": "Total",
+   "read_only": 1
+  },
+  {
+   "fieldname": "remarks_tab",
+   "fieldtype": "Tab Break",
+   "label": "Remarks"
+  },
+  {
+   "fieldname": "remarks",
+   "fieldtype": "Text Editor"
+  },
+  {
+   "fieldname": "more_information_tab",
+   "fieldtype": "Tab Break",
+   "label": "More Information"
+  },
+  {
+   "fieldname": "tenant_onboarding",
+   "fieldtype": "Link",
+   "label": "Tenant Onboarding",
+   "options": "Tenant Onboarding",
+   "read_only": 1
+  },
+  {
+   "fieldname": "tenancy_application",
+   "fieldtype": "Link",
+   "label": "Tenancy Application",
+   "options": "Tenancy Application"
+  },
+  {
+   "fieldname": "opportunity",
+   "fieldtype": "Link",
+   "label": "Opportunity",
+   "options": "Opportunity",
+   "read_only": 1
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Proposal Agreement",
+   "print_hide": 1,
+   "read_only": 1,
+   "search_index": 1
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [
+  {
+   "link_doctype": "Tenancy Contract",
+   "link_fieldname": "tenant_onboarding"
+  },
+  {
+   "link_doctype": "Journal Entry",
+   "link_fieldname": "tenant_onboarding"
+  },
+  {
+   "link_doctype": "Tenant Onboarding Termination",
+   "link_fieldname": "tenant_onboarding"
+  },
+  {
+   "link_doctype": "Payment Entry",
+   "link_fieldname": "tenant_onboarding"
+  }
+ ],
+ "modified": "2025-10-30 11:43:43.968735",
+ "modified_by": "Administrator",
+ "module": "Pangath Properties",
+ "name": "Proposal Agreement",
+ "naming_rule": "Expression",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "amend": 1,
+   "cancel": 1,
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  }
+ ],
+ "row_format": "Dynamic",
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1
+}

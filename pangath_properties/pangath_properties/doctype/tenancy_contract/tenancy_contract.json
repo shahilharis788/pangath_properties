@@ -54,6 +54,7 @@
   "more_information_tab",
   "tenancy_application",
   "amended_from",
+  "proposal_agreement",
   "sales_team_section",
   "table_sales",
   "section_break_bten",
@@ -338,6 +339,13 @@
    "label": "Schedule Based Charges",
    "options": "Type Of Charges",
    "read_only": 1
+  },
+  {
+   "fieldname": "proposal_agreement",
+   "fieldtype": "Link",
+   "label": "Proposal Agreement",
+   "options": "Proposal Agreement",
+   "read_only": 1
   }
  ],
  "grid_page_length": 50,
@@ -373,7 +381,7 @@
    "link_fieldname": "custom_tenancy_contract"
   }
  ],
- "modified": "2025-10-30 11:24:58.913645",
+ "modified": "2025-10-31 16:10:33.691514",
  "modified_by": "Administrator",
  "module": "Pangath Properties",
  "name": "Tenancy Contract",
