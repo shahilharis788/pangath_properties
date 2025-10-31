@@ -1,5 +1,6 @@
-# Copyright (c) 2023, iterative and contributors
+# Copyright (c) 2025, iterative and contributors
 # For license information, please see license.txt
+
 
 import frappe
 import json
@@ -7,6 +8,7 @@ from frappe.model.document import Document
 from frappe import _
 from frappe.model.mapper import get_mapped_doc
 from frappe.utils import flt
+
 class TenancyApplication(Document):
     def validate(self):
         if self.workflow_state == "Rejected" and not self.remarks:

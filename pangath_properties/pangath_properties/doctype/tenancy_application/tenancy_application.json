@@ -2,12 +2,11 @@
  "actions": [],
  "allow_rename": 1,
  "autoname": "naming_series:",
- "creation": "2023-07-26 17:50:39.725980",
- "default_view": "List",
+ "creation": "2025-10-31 12:58:01.595526",
  "doctype": "DocType",
- "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
+  "section_break_tqby",
   "naming_series",
   "applicant_details_section",
   "is_existing_customer",
@@ -17,115 +16,50 @@
   "email",
   "gender",
   "territory",
-  "column_break_cjxp4",
+  "column_break_dxxc",
   "posting_date",
   "passport_no",
+  "amended_from",
   "customer_name",
   "contact_no",
   "nationality",
+  "custom_emirates_id",
   "company_details_section",
   "company_name",
-  "column_break_nnsyb",
+  "column_break_mths",
   "trade_license_number",
   "application_details_section",
   "property_name",
   "unit",
   "unit_type",
   "floor",
-  "column_break_a1vxi",
+  "column_break_fkzk",
   "unit_nature",
   "facing",
-  "section_break_mgna8",
+  "allocation_section",
   "request_type",
   "parking_required",
   "condition_inspection",
-  "column_break_cfxkf",
+  "column_break_owig",
   "yearly_rent",
   "monthly_rent",
-  "amended_from",
-  "security_deposite",
+  "security_deposit",
   "remarks_section",
   "remarks",
-  "section_break_dbjp",
   "opportunity",
-  "column_break_knsu",
   "tenancy_contract",
   "payment_schedule_section",
   "payments",
   "payment_details",
   "particulars_section",
   "type_of_charges",
-  "section_break_eiek",
-  "total",
-  "more__info_tab",
-  "sales_team_section",
-  "table_sales"
+  "section_break_ncso",
+  "total"
  ],
  "fields": [
   {
-   "fieldname": "email",
-   "fieldtype": "Data",
-   "in_list_view": 1,
-   "label": "Email"
-  },
-  {
-   "fetch_from": "unit.unit_type",
-   "fieldname": "unit_type",
-   "fieldtype": "Link",
-   "in_list_view": 1,
-   "in_standard_filter": 1,
-   "label": "Unit Type",
-   "options": "Unit Type"
-  },
-  {
-   "fieldname": "facing",
-   "fieldtype": "Link",
-   "in_list_view": 1,
-   "in_standard_filter": 1,
-   "label": "Landmark",
-   "options": "Facing"
-  },
-  {
-   "fieldname": "amended_from",
-   "fieldtype": "Link",
-   "label": "Amended From",
-   "no_copy": 1,
-   "options": "Tenancy Application",
-   "print_hide": 1,
-   "read_only": 1
-  },
-  {
-   "fieldname": "territory",
-   "fieldtype": "Link",
-   "label": "Territory",
-   "options": "Territory"
-  },
-  {
-   "depends_on": "eval:doc.is_existing_customer==0",
-   "fieldname": "tenant_name",
-   "fieldtype": "Data",
-   "in_list_view": 1,
-   "in_standard_filter": 1,
-   "label": "Tenant Name",
-   "mandatory_depends_on": "eval:doc.is_existing_customer == 0"
-  },
-  {
-   "fieldname": "property_name",
-   "fieldtype": "Link",
-   "label": "Property Name",
-   "options": "Property"
-  },
-  {
-   "fieldname": "parking_required",
-   "fieldtype": "Select",
-   "label": "Parking Required",
-   "options": "Yes\nNo"
-  },
-  {
-   "fieldname": "contact_no",
-   "fieldtype": "Data",
-   "label": "Contact No",
-   "reqd": 1
+   "fieldname": "section_break_tqby",
+   "fieldtype": "Section Break"
   },
   {
    "fieldname": "naming_series",
@@ -134,46 +68,82 @@
    "options": "TAN-.YYYY.-"
   },
   {
-   "fieldname": "unit",
-   "fieldtype": "Link",
-   "label": "Unit",
-   "options": "Unit"
-  },
-  {
-   "fieldname": "column_break_cjxp4",
-   "fieldtype": "Column Break"
-  },
-  {
    "fieldname": "application_details_section",
    "fieldtype": "Section Break",
    "label": "Application Details"
   },
   {
-   "fieldname": "column_break_a1vxi",
+   "default": "0",
+   "fieldname": "is_existing_customer",
+   "fieldtype": "Check",
+   "label": "Is Existing Customer"
+  },
+  {
+   "fieldname": "tenant_name",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Tenant Name"
+  },
+  {
+   "fieldname": "column_break_dxxc",
    "fieldtype": "Column Break"
   },
   {
-   "fieldname": "section_break_mgna8",
-   "fieldtype": "Section Break",
-   "label": "Allocation"
+   "default": "Today",
+   "fieldname": "posting_date",
+   "fieldtype": "Date",
+   "in_standard_filter": 1,
+   "label": "Posting Date"
   },
   {
-   "fieldname": "applicant_details_section",
-   "fieldtype": "Section Break",
-   "label": "Applicant Details"
-  },
-  {
-   "fetch_from": "unit.floor",
-   "fieldname": "floor",
+   "depends_on": "eval:doc.is_existing_customer==1 || doc.docstatus == 1;",
+   "fieldname": "customer",
    "fieldtype": "Link",
-   "label": "Floor",
-   "options": "Floor"
+   "label": "Customer",
+   "options": "Customer"
   },
   {
-   "fieldname": "unit_nature",
+   "depends_on": "eval:doc.is_existing_customer==1 || doc.docstatus == 1;",
+   "fieldname": "passport_no",
+   "fieldtype": "Data",
+   "in_standard_filter": 1,
+   "label": "Passport No"
+  },
+  {
+   "fieldname": "type",
    "fieldtype": "Select",
-   "label": "Unit Nature",
-   "options": "\nResidential - Rental\nCommercial"
+   "in_list_view": 1,
+   "label": "Tenant Type",
+   "options": "\nCompany\nIndividual",
+   "reqd": 1
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Tenancy Application",
+   "print_hide": 1,
+   "read_only": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "email",
+   "fieldtype": "Data",
+   "in_standard_filter": 1,
+   "label": "Email"
+  },
+  {
+   "fieldname": "customer_name",
+   "fieldtype": "Data",
+   "label": "Customer Name",
+   "read_only": 1
+  },
+  {
+   "fieldname": "contact_no",
+   "fieldtype": "Data",
+   "label": "Contact No",
+   "reqd": 1
   },
   {
    "fieldname": "nationality",
@@ -189,24 +159,23 @@
    "options": "Gender"
   },
   {
-   "fieldname": "passport_no",
-   "fieldtype": "Data",
-   "label": "Passport No"
+   "fieldname": "territory",
+   "fieldtype": "Link",
+   "label": "Territory",
+   "options": "Territory"
   },
   {
-   "depends_on": "eval:doc.type=='Company'",
-   "fieldname": "company_name",
-   "fieldtype": "Data",
-   "label": "Company Name"
-  },
-  {
-   "depends_on": "eval:doc.type=='Company'",
    "fieldname": "company_details_section",
    "fieldtype": "Section Break",
    "label": "Company Details"
   },
   {
-   "fieldname": "column_break_nnsyb",
+   "fieldname": "company_name",
+   "fieldtype": "Data",
+   "label": "Company Name"
+  },
+  {
+   "fieldname": "column_break_mths",
    "fieldtype": "Column Break"
   },
   {
@@ -214,6 +183,81 @@
    "fieldname": "trade_license_number",
    "fieldtype": "Data",
    "label": "Trade License Number"
+  },
+  {
+   "fieldname": "applicant_details_section",
+   "fieldtype": "Section Break",
+   "label": "Applicant Details"
+  },
+  {
+   "fieldname": "property_name",
+   "fieldtype": "Link",
+   "label": "Property Name",
+   "options": "Property"
+  },
+  {
+   "fieldname": "column_break_fkzk",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "unit_nature",
+   "fieldtype": "Select",
+   "label": "Unit Nature",
+   "options": "\nResidential - Rental\nCommercial"
+  },
+  {
+   "fieldname": "facing",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Landmark",
+   "options": "Facing"
+  },
+  {
+   "fieldname": "unit",
+   "fieldtype": "Link",
+   "label": "Unit",
+   "options": "Unit"
+  },
+  {
+   "fieldname": "unit_type",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Unit Type",
+   "options": "Unit Type"
+  },
+  {
+   "fieldname": "floor",
+   "fieldtype": "Link",
+   "label": "Floor",
+   "options": "Floor"
+  },
+  {
+   "fieldname": "allocation_section",
+   "fieldtype": "Section Break",
+   "label": "Allocation"
+  },
+  {
+   "fieldname": "request_type",
+   "fieldtype": "Select",
+   "label": "Request Type",
+   "options": "\nFurnished\nSemi Furnished\nUnfurnished"
+  },
+  {
+   "fieldname": "parking_required",
+   "fieldtype": "Select",
+   "label": "Parking Required",
+   "options": "Yes\nNo"
+  },
+  {
+   "fieldname": "column_break_owig",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "condition_inspection",
+   "fieldtype": "Table",
+   "label": "Condition Inspection",
+   "options": "Condition Inspection Reading"
   },
   {
    "fieldname": "yearly_rent",
@@ -228,11 +272,11 @@
    "read_only": 1
   },
   {
-   "fieldname": "column_break_cfxkf",
-   "fieldtype": "Column Break"
+   "fieldname": "security_deposit",
+   "fieldtype": "Currency",
+   "label": "Security Deposit"
   },
   {
-   "collapsible": 1,
    "fieldname": "remarks_section",
    "fieldtype": "Section Break",
    "label": "Remarks"
@@ -243,36 +287,10 @@
    "label": "Remarks"
   },
   {
-   "fieldname": "section_break_dbjp",
-   "fieldtype": "Section Break"
-  },
-  {
    "fieldname": "opportunity",
    "fieldtype": "Data",
    "hidden": 1,
    "label": "Opportunity"
-  },
-  {
-   "default": "Today",
-   "fieldname": "posting_date",
-   "fieldtype": "Date",
-   "label": "Posting Date"
-  },
-  {
-   "fieldname": "security_deposite",
-   "fieldtype": "Currency",
-   "label": "Security Deposite"
-  },
-  {
-   "fieldname": "type",
-   "fieldtype": "Select",
-   "label": "Tenant Type",
-   "options": "\nCompany\nIndividual",
-   "reqd": 1
-  },
-  {
-   "fieldname": "column_break_knsu",
-   "fieldtype": "Column Break"
   },
   {
    "fieldname": "tenancy_contract",
@@ -299,16 +317,6 @@
    "options": "TA Payment  Details"
   },
   {
-   "fieldname": "more__info_tab",
-   "fieldtype": "Tab Break",
-   "label": "More  Info"
-  },
-  {
-   "fieldname": "sales_team_section",
-   "fieldtype": "Section Break",
-   "label": "Sales Team"
-  },
-  {
    "fieldname": "particulars_section",
    "fieldtype": "Section Break",
    "label": "Particulars"
@@ -320,12 +328,7 @@
    "options": "Type Of Charges"
   },
   {
-   "fieldname": "table_sales",
-   "fieldtype": "Table",
-   "options": "Sales Team"
-  },
-  {
-   "fieldname": "section_break_eiek",
+   "fieldname": "section_break_ncso",
    "fieldtype": "Section Break"
   },
   {
@@ -334,59 +337,39 @@
    "label": "Total"
   },
   {
-   "fieldname": "condition_inspection",
-   "fieldtype": "Table",
-   "label": "Condition Inspection",
-   "options": "Condition Inspection Reading"
-  },
-  {
-   "depends_on": "eval:doc.is_existing_customer==1 || doc.docstatus == 1;",
-   "fieldname": "customer",
-   "fieldtype": "Link",
-   "label": "Customer",
-   "options": "Customer",
-   "read_only_depends_on": "eval:doc.is_existing_customer==0"
-  },
-  {
-   "fetch_from": "customer.customer_name",
-   "fieldname": "customer_name",
+   "fetch_from": "customer.custom_emirate_id",
+   "fieldname": "custom_emirates_id",
    "fieldtype": "Data",
-   "label": "Customer Name",
-   "read_only": 1
-  },
-  {
-   "fieldname": "request_type",
-   "fieldtype": "Select",
-   "label": "Request Type",
-   "options": "\nFurnished\nSemi Furnished\nUnfurnished"
-  },
-  {
-   "default": "0",
-   "fieldname": "is_existing_customer",
-   "fieldtype": "Check",
-   "label": "Is Existing Customer"
+   "label": "Emirates Id"
   }
  ],
+ "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
- "links": [
-  {
-   "link_doctype": "Tenancy Contract",
-   "link_fieldname": "tenancy_application"
-  },
-  {
-   "link_doctype": "Payment Entry",
-   "link_fieldname": "custom_tenancy_application"
-  }
- ],
- "modified": "2025-10-24 14:45:32.853766",
+ "links": [],
+ "modified": "2025-10-31 14:28:36.244650",
  "modified_by": "Administrator",
  "module": "Pangath Properties",
  "name": "Tenancy Application",
  "naming_rule": "By \"Naming Series\" field",
  "owner": "Administrator",
- "permissions": [],
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  }
+ ],
  "row_format": "Dynamic",
+ "rows_threshold_for_grid_search": 20,
  "sort_field": "modified",
  "sort_order": "DESC",
  "states": []
