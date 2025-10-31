@@ -13,10 +13,12 @@ from frappe.utils import flt
 class TenantOnboardingTermination(Document):
 	def on_submit(self):
 		cost_center = frappe.db.get_value("Company",self.company,"cost_center")
+		to_doc = ""
 		if not cost_center:
 			frappe.throw(f"Configure Default Cost Center for company {frappe.bold(self.company)}")
-
-		to_doc = frappe.get_doc('Tenant Onboarding', self.tenant_onboarding)
+		
+		if self.tenant_onboarding:
+			to_doc = frappe.get_doc('Tenant Onboarding', self.tenant_onboarding)
 
 		if self.rental_income:
 			for i in self.rental_income:
@@ -51,7 +53,7 @@ class TenantOnboardingTermination(Document):
 				journal_entry_doc.posting_date = self.posting_date
 				journal_entry_doc.tenant_onboarding_termination = self.name
 				journal_entry_doc.append("accounts", {
-					'account': to_doc.deferred_revenue_account,
+					'account': to_doc.deferred_revenue_account if to_doc else "",
 					'debit_in_account_currency': k.rent,
 					'cost_center' : cost_center,
 					'unit':self.unit,
@@ -74,48 +76,49 @@ class TenantOnboardingTermination(Document):
 					'journal_entry_created': 1,
 					'journal_entry': journal_entry_doc.name
 				})
-
-		for j in to_doc.deferred_revenue_schedule:
-			if j.start_date <= getdate(self.termination_date) <= j.end_date:
-				frappe.db.set_value(j.doctype, j.name, 'terminated', 1)
-			elif getdate(self.termination_date) < j.end_date:
-				frappe.db.set_value(j.doctype, j.name, 'terminated', 1)
+		if to_doc:
+			for j in to_doc.deferred_revenue_schedule:
+				if j.start_date <= getdate(self.termination_date) <= j.end_date:
+					frappe.db.set_value(j.doctype, j.name, 'terminated', 1)
+				elif getdate(self.termination_date) < j.end_date:
+					frappe.db.set_value(j.doctype, j.name, 'terminated', 1)
 
 		#Type of Charges Reversal for refunds
-		for m in to_doc.type_of_charges:
-			if m.refund == 'Yes' and m.payment_entry_created == 1 and m.status != "Cleared":
-				journal_entry_doc = frappe.new_doc('Journal Entry')
-				journal_entry_doc.company = to_doc.company
-				# journal_entry_doc.posting_date = to_doc.posting_date
-				journal_entry_doc.posting_date = self.termination_date
-				journal_entry_doc.tenant_onboarding_termination = self.name
-				journal_entry_doc.append("accounts", {
-					'account': m.account,
-					'debit_in_account_currency': m.amount,
-					'cost_center' : cost_center,
-					'unit':self.unit,
-					'customer':self.customer,
-					'property':self.property
-				})
-				journal_entry_doc.append("accounts", {
-					'party_type': "Customer",
-					'party': to_doc.customer,
-					# 'account': frappe.db.get_value('Party Account',{'parent' : to_doc.customer, 'company': to_doc.company}, 'account') if frappe.db.get_value('Party Account',{'parent' : to_doc.customer, 'company': to_doc.company}, 'account') else frappe.db.get_value('Company', self.company, 'default_receivable_account'),
-					'account':frappe.db.get_value("Mode of Payment Account", {"parent":m.mode_of_payment, "company":self.company},"default_account"),
-					'credit_in_account_currency':  m.amount,
-					'cost_center' : cost_center,
-					'unit':self.unit,
-					'customer':self.customer,
-					'property':self.property
-				})
-				journal_entry_doc.submit()
+		if to_doc:
+			for m in to_doc.type_of_charges:
+				if m.refund == 'Yes' and m.payment_entry_created == 1 and m.status != "Cleared":
+					journal_entry_doc = frappe.new_doc('Journal Entry')
+					journal_entry_doc.company = to_doc.company
+					# journal_entry_doc.posting_date = to_doc.posting_date
+					journal_entry_doc.posting_date = self.termination_date
+					journal_entry_doc.tenant_onboarding_termination = self.name
+					journal_entry_doc.append("accounts", {
+						'account': m.account,
+						'debit_in_account_currency': m.amount,
+						'cost_center' : cost_center,
+						'unit':self.unit,
+						'customer':self.customer,
+						'property':self.property
+					})
+					journal_entry_doc.append("accounts", {
+						'party_type': "Customer",
+						'party': to_doc.customer,
+						# 'account': frappe.db.get_value('Party Account',{'parent' : to_doc.customer, 'company': to_doc.company}, 'account') if frappe.db.get_value('Party Account',{'parent' : to_doc.customer, 'company': to_doc.company}, 'account') else frappe.db.get_value('Company', self.company, 'default_receivable_account'),
+						'account':frappe.db.get_value("Mode of Payment Account", {"parent":m.mode_of_payment, "company":self.company},"default_account"),
+						'credit_in_account_currency':  m.amount,
+						'cost_center' : cost_center,
+						'unit':self.unit,
+						'customer':self.customer,
+						'property':self.property
+					})
+					journal_entry_doc.submit()
 
 		#Penality And Other Expenses
 		if self.penality_and_other_expenses:
 			for penality in self.penality_and_other_expenses:
 				if penality.journal_entry_created == 0:
 					journal_entry_doc = frappe.new_doc('Journal Entry')
-					journal_entry_doc.company = to_doc.company
+					journal_entry_doc.company = to_doc.company if to_doc else ""
 					journal_entry_doc.posting_date = self.termination_date
 					journal_entry_doc.tenant_onboarding_termination = self.name
 					journal_entry_doc.append("accounts", {
@@ -128,7 +131,7 @@ class TenantOnboardingTermination(Document):
 					})
 					journal_entry_doc.append("accounts", {
 						'party_type': "Customer",
-						'party': to_doc.customer,
+						'party': to_doc.customer if to_doc else "",
 						'account':frappe.db.get_value('Company', self.company, 'default_receivable_account'),
 						'debit_in_account_currency':  penality.amount,
 						'cost_center' : cost_center,
@@ -162,19 +165,20 @@ class TenantOnboardingTermination(Document):
 					pdc+=i.payment_amount
 				if i.status == "Cleared":
 					cleared+=i.payment_amount
-		to=frappe.get_doc("Tenant Onboarding",self.tenant_onboarding)
 		clr_depo=0
 		pdc_depo=0
-		for i in to.type_of_charges:
-			if i.refund == 'Yes':
-				if i.status == "Cleared":
-					clr_depo=clr_depo+i.amount
-				if  i.status == "PDC Created":
-					pdc_depo=pdc_depo+i.amount
+		if self.tenant_onboarding:
+			to=frappe.get_doc("Tenant Onboarding",self.tenant_onboarding)
+			for i in to.type_of_charges:
+				if i.refund == 'Yes':
+					if i.status == "Cleared":
+						clr_depo=clr_depo+i.amount
+					if  i.status == "PDC Created":
+						pdc_depo = pdc_depo+ i.amount
 
 		cleared_refundable= flt(cleared)-flt(self.occupied_rent)
 		self.refund_cleared=rounded(cleared_refundable,2)
-		self.refund_pdc=pdc+pdc_depo
+		self.refund_pdc= pdc + pdc_depo
 		total_refundable=clr_depo+self.refund_cleared-self.penality
 		self.total_refundable=total_refundable
 		if getdate(self.termination_date) < getdate(self.period_start_date )or getdate(self.termination_date) > getdate(self.period_end_date):

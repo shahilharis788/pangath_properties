@@ -349,8 +349,11 @@ def populate_deferred_revenue_schedule(doc):
 def create_tenancy_contract(args):
 	args = json.loads(args)
 	to_doc = frappe.get_doc('Tenant Onboarding', args.get("name"))
+	yearly_rent = frappe.db.get_value("Unit", to_doc.get("unit"), "rent")
 	tc = frappe.new_doc('Tenancy Contract')
 	tc.name_of_tenant = args.get("customer")
+	tc.yearly_rent = yearly_rent
+	tc.cost_center = frappe.db.get_value("Cost Center", {"company": to_doc.company}, "name")
 	tc.property_name = args.get("building")
 	tc.unit_number = args.get("unit")
 	tc.tenant_onboarding = args.get("name")
@@ -713,32 +716,32 @@ def cancel_tenant_onboarding(doc, values):
 	toc.total_amount = doc.payment_amount*doc.number
 	toc.number_of_years=doc.number
 	occupied_rent = 0
+	if to_doc.deferred_revenue_schedule:
+		for i in to_doc.deferred_revenue_schedule:
+			remaining_rent = 0
 
-	for i in to_doc.deferred_revenue_schedule:
-		remaining_rent = 0
+			if toc.termination_date > i.end_date:
+				occupied_rent  = occupied_rent + i.rent
 
-		if toc.termination_date > i.end_date:
-			occupied_rent  = occupied_rent + i.rent
-
-		if i.start_date <= getdate(values)<= i.end_date:
-			days = date_diff(getdate(values),i.start_date)
-			total_days = date_diff(i.end_date, i.start_date)
-			per_day_rent =  i.rent/(total_days+1)
-			rent = (days+1) * per_day_rent
-			remaining_rent = i.rent - rent
-			toc.append(
-				"rental_income",
-				{
-					"start_date": i.start_date,
-					"end_date": getdate(values),
-					"payment_date": getdate(values),
-					"rent": rent
-				},
-			)
-			if toc.termination_date == i.end_date:
-				pass
-			else:
+			if i.start_date <= getdate(values)<= i.end_date:
+				days = date_diff(getdate(values),i.start_date)
+				total_days = date_diff(i.end_date, i.start_date)
+				per_day_rent =  i.rent/(total_days+1)
+				rent = (days+1) * per_day_rent
+				remaining_rent = i.rent - rent
 				toc.append(
+					"rental_income",
+					{
+						"start_date": i.start_date,
+						"end_date": getdate(values),
+						"payment_date": getdate(values),
+						"rent": rent
+					},
+				)
+				if toc.termination_date == i.end_date:
+					pass
+				else:
+					toc.append(
 					"reverse_deferred_revenue",
 					{
 						"start_date": frappe.utils.add_days(getdate(values), 1),
@@ -747,34 +750,36 @@ def cancel_tenant_onboarding(doc, values):
 						"rent": remaining_rent
 					},
 				)
-			toc.occupied_rent = occupied_rent + rent
+				toc.occupied_rent = occupied_rent + rent
 
-		elif getdate(values) < i.end_date:
-			toc.append(
-				"reverse_deferred_revenue",
-				{
-					"start_date":i.start_date,
-					"end_date":i.end_date,
-					"payment_date": i.end_date,
-					"rent": i.rent
-				},
-			)
+			elif getdate(values) < i.end_date:
+				toc.append(
+					"reverse_deferred_revenue",
+					{
+						"start_date":i.start_date,
+						"end_date":i.end_date,
+						"payment_date": i.end_date,
+						"rent": i.rent
+					},
+				)
 
 	deposits = 0
 	clr_depo=0
 	pdc_depo=0
-	for m in to_doc.type_of_charges:
-		if m.refund == 'Yes':
-			deposits = deposits + m.amount
-			if m.status == "Cleared":
-				clr_depo=clr_depo+m.amount
-			if m.status == "PDC Created":
-				pdc_depo=pdc_depo+m.amount
-	toc.security_deposits = deposits
+	if to_doc.type_of_charges:
+		for m in to_doc.type_of_charges:
+			if m.refund == 'Yes':
+				deposits = deposits + m.amount
+				if m.status == "Cleared":
+					clr_depo=clr_depo+m.amount
+				if m.status == "PDC Created":
+					pdc_depo=pdc_depo+m.amount
+		toc.security_deposits = deposits
 
 	unoccupied_rent = 0
-	for un_rent in toc.reverse_deferred_revenue:
-		unoccupied_rent += un_rent.rent
+	if toc.reverse_deferred_revenue:
+		for un_rent in toc.reverse_deferred_revenue:
+			unoccupied_rent += un_rent.rent
 
 	toc.unoccupied_rent = unoccupied_rent
 	toc.total_refu = deposits + unoccupied_rent
@@ -782,27 +787,28 @@ def cancel_tenant_onboarding(doc, values):
 	cleared=0
 	pdc=0
 	toc.payment_schedule=None
-	for i in to_doc.payment_schedule:
-		if i.status == "PDC Created":
-			status ="Return Cheque"
-		if i.status == "Cleared":
-			status="Cleared"
-		toc.append(
-			"payment_schedule",
-				{
-					"payment_scheduled_date":i.payment_scheduled_date,
-					"payment_amount":i.payment_amount,
-					"paid_amount":i.paid_amount,
-					"status":status,
-					"mode_of_payment":i.mode_of_payment,
-					"reference_number":i.reference_number,
-					"reference_date":i.reference_date,
-					"payment_entry_created":i.payment_entry_created	,
-					"bank":i.bank,
-					"account_paid_to":i.account_paid_to,
-					"cheque_end_date":i.cheque_end_date
-				},
-		)
+	if to_doc.payment_schedule:
+		for i in to_doc.payment_schedule:
+			if i.status == "PDC Created":
+				status ="Return Cheque"
+			if i.status == "Cleared":
+				status="Cleared"
+			toc.append(
+				"payment_schedule",
+					{
+						"payment_scheduled_date":i.payment_scheduled_date,
+						"payment_amount":i.payment_amount,
+						"paid_amount":i.paid_amount,
+						"status":status,
+						"mode_of_payment":i.mode_of_payment,
+						"reference_number":i.reference_number,
+						"reference_date":i.reference_date,
+						"payment_entry_created":i.payment_entry_created	,
+						"bank":i.bank,
+						"account_paid_to":i.account_paid_to,
+						"cheque_end_date":i.cheque_end_date
+					},
+			)
 	
 	if toc.payment_schedule:
 		for i in toc.payment_schedule:
@@ -810,13 +816,13 @@ def cancel_tenant_onboarding(doc, values):
 				pdc+=i.payment_amount
 			if i.status == "Cleared":
 				cleared+=i.payment_amount
-
-	cleared_refundable=flt(cleared)-flt(toc.occupied_rent)
-	toc.refund_cleared=rounded(cleared_refundable,2)
-	toc.refund_pdc=pdc+pdc_depo
-	total_refundable=clr_depo+toc.refund_cleared
-	toc.total_refundable = total_refundable
-	toc.save()
+	
+	cleared_refundable=flt(cleared)-flt(toc.occupied_rent) if toc.get("occupied_rent") else flt(cleared)
+	# toc.refund_cleared= rounded(cleared_refundable,2)
+	# toc.refund_pdc= pdc + pdc_depo
+	# total_refundable= clr_depo + toc.refund_cleared
+	# toc.total_refundable = total_refundable
+	# toc.save()
 	if toc:
 		return toc.name
 

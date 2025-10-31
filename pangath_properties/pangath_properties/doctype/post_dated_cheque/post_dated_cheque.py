@@ -18,15 +18,19 @@ class PostDatedCheque(Document):
 	pass
 
 	def before_submit(self):
+		if not self.sales_invoice:
+			frappe.throw("Enter Sales Invoice")
+		
 		np_doc = frappe.new_doc("Payment Entry")
 		mop_list = frappe.get_list('Mode of Payment', pluck='name')
 
 		mode_of_payment = ""
 		# pdc_amount = 0
-		contract = frappe.get_doc("Tenancy Contract", self.tenancy_contract)
-		for row in contract.payment_schedule:
-			if row.is_pdc == 1:
-				mode_of_payment = row.mode_of_payment
+		if self.tenancy_contract:
+			contract = frappe.get_doc("Tenancy Contract", self.tenancy_contract)
+			for row in contract.payment_schedule:
+				if row.is_pdc == 1:
+					mode_of_payment = row.mode_of_payment
 				
 
 		# if "PDC" not in mop_list:
@@ -48,7 +52,7 @@ class PostDatedCheque(Document):
 			'paid_to': frappe.db.get_value("Mode of Payment Account", {
 				"parent": mode_of_payment,
 				"company": self.company
-			}, "custom__bank_clearance_account")
+			}, "default_account")
 		})
 
 		np_doc.append('references', {
