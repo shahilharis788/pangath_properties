@@ -37,22 +37,7 @@ class TenancyContract(Document):
 			result.append(curr_list)
 		return result
 
-	def return_si_info(self):
-		pay_sch = self.payment_schedule
-		scheduled_payment_tc = {}
-		non_scheduled_payment_tc = {}
-
-		for row in self.type_of_charges:
-			if not row.is_scheduled_payment: #need to added to first invoice rgardless of multiple/single
-				non_scheduled_payment_tc.setdefault(row.particulars, [])
-				non_scheduled_payment_tc[row.particulars].append(row.as_dict())
-
-		for row in self.schedule_based_charges:
-			if row.is_scheduled_payment and self.schedule_payments[-1].number_of_period > 1:
-				scheduled_payment_tc.setdefault(row.particulars, [])
-				scheduled_payment_tc[row.particulars].append(row.as_dict())
-		
-		return pay_sch, non_scheduled_payment_tc, self.set_sch_pay_invoice_wise(scheduled_payment_tc)
+	
 
 	def set_in_ps_row(self, si, amount, freq, unit, part, tax, acc):
 		"""Append one item row to Sales Invoice"""
@@ -75,66 +60,52 @@ class TenancyContract(Document):
 			frappe.db.set_value('Unit', unit_det.unit, 'status', 'Rented')
 
 		if self.is_multiple_invoices:		
-			ps, non_sp, sp = self.return_si_info()
-
-		
+			unit_count = len(self.unit_details)
 			si_list = []
-			for idx in range(freq): #takin pay_sch each row for si main doc details =>1
-				row = ps[idx]
-				si_doc = frappe.get_doc({
-					"doctype": "Sales Invoice",
-					"customer": self.name_of_tenant,
-					"set_posting_time": 1,
-					"posting_date": row.payment_scheduled_date,
-					"due_date": add_days(row.payment_scheduled_date, 14),
-					"custom_tenancy_contract": self.name,
-				})
-				si_list.append(si_doc)
+			#adding doctype fields for each
+			for pay_sch in self.payment_schedule: #takin pay_sch each row for si main doc details =>1
+					si_doc = frappe.get_doc({
+						"doctype": "Sales Invoice",
+						"customer": self.name_of_tenant,
+						"set_posting_time": 1,
+						"posting_date": pay_sch.payment_scheduled_date,
+						"due_date": add_days(pay_sch.payment_scheduled_date, 14),
+						"custom_tenancy_contract": self.name,
+					})
+					si_list.append(si_doc)
 
-		
-			for idx, row in enumerate(ps): #takin pay_sch each row for respective child item => 2 
+			#against each payment schedule add rows = unit count
+			for idx, pay_sch in enumerate(self.payment_schedule): #takin pay_sch each row for respective child item => 2 
 				for unit_info in self.unit_details:
 					self.set_in_ps_row(
 						si_list[idx],
-						unit_info.rent_amount,
-						freq,
+						pay_sch.payment_amount,
+						unit_count,
 						unit_info.unit,
 						"Rent",
-						row.get('item_tax_detail', ""),
-						row.income_account
+						pay_sch.get('item_tax_detail', ""),
+						pay_sch.income_account
 					)
-				frappe.db.set_value("TC Payment Schedule", row.name, "is_accrued", 1)
+				frappe.db.set_value("TC Payment Schedule", pay_sch.name, "is_accrued", 1)
 
+			if si_list[0]:# add all type of charges
+				for row in self.type_of_charges:
+					if not frappe.db.exists("Item", row.particulars):
+						item = frappe.new_doc("Item")
+						item.name = row.particulars
+						item.item_code = row.particulars
+						item.item_group = "Services"
+						item.maintain_stock = 0
+						item.save()
 
-			for part in non_sp: #adding non_scheduled charges into 1st invoice
-				for row in non_sp[part]:
-						unit_info = self.unit_details[0]
-						particulars = str(row.particulars)+" "+"against"+ " "+",".join(map(str, all_units))
-						si_list[0].append("items", {
-							"item_code": unit_info.unit,
-							"qty": 1,
-							"rate": flt(row.amount / freq),
-							"description": particulars,
-							"item_tax_template": row.get('item_tax_detail', ""),
-							"income_account": row.income_account
-						})
-				frappe.db.set_value("Type Of Charges", row.name, "is_accrued", 1)
-
-			# here sp need to changed
-			for idx, invoice_rows in enumerate(sp):# adding scheduled payment 
-				for each_row in invoice_rows:
-						unit = self.unit_details[0]
-						particulars = str(each_row.particulars)+" "+"against"+ " "+",".join(map(str, all_units))
-						self.set_in_ps_row(
-							si_list[idx],
-							each_row.amount * freq ,
-							freq,
-							unit.unit,
-							particulars,
-							each_row.get('item_tax_detail', ""),
-							each_row.income_account
-						)
-						frappe.db.set_value("Type Of Charges", each_row.name, "is_accrued", 1)
+					si_list[0].append("items", {
+						"item_code": row.particulars,
+						"qty": 1,
+						"rate": row.amount,
+						"description": row.particulars,
+						"item_tax_template": row.item_tax_template,
+						"income_account": row.account_paid_to
+					})
 
 			for si in si_list:
 				if si.items:
@@ -143,75 +114,44 @@ class TenancyContract(Document):
 
 			frappe.msgprint("Sales Invoices successfully created with rent")
 		else:
-			pos_date = self.payment_schedule[-1].payment_scheduled_date
 			single_si = frappe.get_doc({
-					"doctype": "Sales Invoice",
-					"customer": self.name_of_tenant,
-					"set_posting_time": 1,
-					"posting_date": pos_date,
-					"due_date": add_days(pos_date, 14),
-					"custom_tenancy_contract": self.name,
-				})
+						"doctype": "Sales Invoice",
+						"customer": self.name_of_tenant,
+						"set_posting_time": 1,
+						"posting_date": self.payment_schedule[0].payment_scheduled_date,
+						"due_date": add_days(self.payment_schedule[0].payment_scheduled_date, 14),
+						"custom_tenancy_contract": self.name,
+					})
 			
-			for row in self.payment_schedule:
-				for unit_info in self.unit_details:
-					self.set_in_ps_row(
-						single_si,
-						unit_info.rent_amount,
-						freq,
-						unit_info.unit,
-						"Rent",
-						row.get('item_tax_detail', ""),
-						row.income_account
-					)
-				frappe.db.set_value("TC Payment Schedule", row.name, "is_accrued", 1)
-
 			
-			non_scheduled = [row for row in self.type_of_charges if row.is_scheduled_payment == 0]
+			for unit in self.unit_details:
+					single_si.append("items",{
+						"item_code": unit.unit,
+						"qty": 1,
+						"rate": unit.rent_amount,
+						"description": unit,
+						"item_tax_template": self.payment_schedule[0].item_tax_template,
+						"income_account": self.payment_schedule[0].income_account
+					})
 			
-			for row in non_scheduled: #adding all non scheduled payments
-				unit_info = self.unit_details[0]
-				particulars = str(row.particulars)+" "+"against"+ " " + ",".join(map(str, all_units))
-				single_si.append("items", {
-					"item_code": unit_info.unit,
-					"qty": 1,
-					"rate": row.amount,
-					"description": particulars,
-					"item_tax_template": row.get('item_tax_detail', ""),
-					"income_account": row.account
-				})
-				frappe.db.set_value("Type Of Charges", row.name, "is_accrued", 1)
-
-			sc = False
-			if self.schedule_based_charges: #table for scheduled payments
+			for row in self.type_of_charges:
+				if not frappe.db.exists("Item", row.particulars):
+						item = frappe.new_doc("Item")
+						item.name = row.particulars
+						item.item_code = row.particulars
+						item.item_group = "Services"
+						item.maintain_stock = 0
+						item.save()
 				
-				for row in self.schedule_based_charges:
-					unit_info = self.unit_details[0]
-					particulars = str(row.particulars)+"  " + "against" + " " + "  "+ ",".join(map(str, all_units))
-					single_si.append("items", {
-						"item_code": unit_info.unit,
+				single_si.append("items",{
+						"item_code": row.particulars,
 						"qty": 1,
 						"rate": row.amount,
-						"description": particulars,
-						"item_tax_template": row.get('item_tax_detail', ""),
-						"income_account": row.account
-						})
-					frappe.db.set_value("Type Of Charges", row.name, "is_accrued", 1)
-					sc = True
-			elif not self.schedule_based_charges and not sc:
-				for row in self.type_of_charges:
-					if not row.is_scheduled_payment:# adding remianing if custom_schedule_based_charges is []
-						unit_info = self.unit_details[0]
-						particulars = str(row.particulars)+"  "+"against"+"  " + ",".join(map(str, all_units))
-						single_si.append("items", {
-							"item_code": unit_info.unit,
-							"qty": 1,
-							"rate": row.amount,
-							"description": particulars,
-							"item_tax_template": row.get('item_tax_detail', ""),
-							"income_account": row.account
-						})
-						frappe.db.set_value("Type Of Charges", row.name, "is_accrued", 1)
+						"description": row.particulars,
+						"item_tax_template": row.item_tax_template,
+						"income_account": row.account_paid_to
+				})
+
 			single_si.save()
 		# for idx, i in enumerate(self.payment_schedule):
 		#     if i.is_pdc == 1:
@@ -394,8 +334,12 @@ class TenancyContract(Document):
 	def validate(self):
 		from frappe.utils import getdate, add_days, flt
 		
-		if not self.type_of_charges: #suppose when if type_of_charges removed 
-			self.custom_schedule_based_charges = []
+		if self.payment_schedule:
+			tot_amt = 0
+			for row in self.payment_schedule:
+				tot_amt += row.payment_amount
+			if tot_amt != self.yearly_rent:
+				frappe.throw(f'Total Payment amount should be {self.yearly_rent}')
 		
 		# Ensure contract dates are date objects
 		# if not self.is_new():
@@ -559,42 +503,8 @@ def populate_payment_schedule(self):
 
 					self.append("payment_schedule", row)
 	
-	split_rows = {}
-	freq = 0
-	req_part = []
-	sc_p_count = {}
-	is_split = False
 	
-	for row in self.type_of_charges:
-		if self.schedule_payments[-1].number_of_period == 1:
-			continue
-		if row.is_scheduled_payment: #splittable components
-			sc_p_count.setdefault(row.particulars, 0)
-			sc_p_count[row.particulars] += 1
-			if sc_p_count[row.particulars] > 1:
-				is_split = True
-
-
-	if self.schedule_payments and self.schedule_payments[-1].number_of_period > 1 and self.schedule_payments[-1].payment_frequency != '1 Payment' and not is_split:
-		freq = int(self.schedule_payments[-1].payment_frequency.split()[0])
-		for row in self.type_of_charges:
-			if row.is_scheduled_payment:
-				req_part.append(row.particulars)
-				for index in range(freq):
-					new_row = frappe._dict({
-						"particulars": row.particulars,
-						"amount": row.amount/freq,
-						"is_scheduled_payment": row.is_scheduled_payment,
-						"mode_of_payment": row.mode_of_payment,
-						"account": row.account
-					})
-					split_rows[row.particulars] = new_row
 	
-		self.schedule_based_charges = []
-		for value in req_part:
-			data = split_rows[value]
-			for index in range(freq):
-				self.append("schedule_based_charges", data)
 
 		 
 

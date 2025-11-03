@@ -42,7 +42,6 @@
   "payment_schedule",
   "particulars_section",
   "type_of_charges",
-  "schedule_based_charges",
   "section_break_qhh1c",
   "total_taxes_and_charges",
   "column_break_qojv",
@@ -334,13 +333,6 @@
    "label": "Is Multiple Invoices"
   },
   {
-   "fieldname": "schedule_based_charges",
-   "fieldtype": "Table",
-   "label": "Schedule Based Charges",
-   "options": "Type Of Charges",
-   "read_only": 1
-  },
-  {
    "fieldname": "proposal_agreement",
    "fieldtype": "Link",
    "label": "Proposal Agreement",
@@ -381,7 +373,7 @@
    "link_fieldname": "custom_tenancy_contract"
   }
  ],
- "modified": "2025-10-31 16:10:33.691514",
+ "modified": "2025-11-03 15:18:20.830732",
  "modified_by": "Administrator",
  "module": "Pangath Properties",
  "name": "Tenancy Contract",
