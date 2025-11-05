@@ -1,7 +1,7 @@
 {
  "actions": [],
  "allow_rename": 1,
- "autoname": "naming_series:",
+ "autoname": "format:PROP-{YYYY}-{#####}",
  "creation": "2025-10-31 12:58:01.595526",
  "doctype": "DocType",
  "engine": "InnoDB",
@@ -347,11 +347,11 @@
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2025-10-31 14:28:36.244650",
+ "modified": "2025-11-05 14:18:40.455228",
  "modified_by": "Administrator",
  "module": "Pangath Properties",
  "name": "Tenancy Application",
- "naming_rule": "By \"Naming Series\" field",
+ "naming_rule": "Expression",
  "owner": "Administrator",
  "permissions": [
   {

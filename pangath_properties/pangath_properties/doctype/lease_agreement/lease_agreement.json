@@ -1,7 +1,7 @@
 {
  "actions": [],
  "allow_rename": 1,
- "autoname": "naming_series:",
+ "autoname": "format:BOOKING-{YYYY}-{#####}",
  "creation": "2022-08-11 16:16:36.406517",
  "doctype": "DocType",
  "editable_grid": 1,
@@ -205,11 +205,11 @@
    "link_fieldname": "lease_agreement"
   }
  ],
- "modified": "2023-07-29 14:46:28.849503",
+ "modified": "2025-11-05 14:24:12.741013",
  "modified_by": "Administrator",
  "module": "Pangath Properties",
  "name": "Lease Agreement",
- "naming_rule": "By \"Naming Series\" field",
+ "naming_rule": "Expression",
  "owner": "Administrator",
  "permissions": [
   {
@@ -227,6 +227,7 @@
    "write": 1
   }
  ],
+ "row_format": "Dynamic",
  "sort_field": "modified",
  "sort_order": "DESC",
  "states": []

@@ -133,7 +133,14 @@ fixtures = [
                         # sales invoice
                         'Sales Invoice-custom_naming_prefix',
 						'Lead-custom_property',
-						'Type Of Charges-custom_is_scheduled_payment'
+						'Type Of Charges-custom_is_scheduled_payment',
+						'Mode of Payment Account-custom_bank_clearance_account',
+						'Lead-custom_property',
+						'Company-custom_naming_prefix',
+						'Sales Invoice-custom_naming_prefix',
+						'Purchase Invoice-custom_naming_prefix',
+						'Journal Entry-custom_naming_perfix',
+						'Customer-custom_emirate_id',
 					),
 				]
 			],
@@ -200,12 +207,12 @@ fixtures = [
 					]
 			],
 		},
-		# {
-        #     "dt": "Party Type",
-        #     "filters": [
-        #         ["name", "in", ["Tenant"]]
-        #     ]
-        # },
+		{
+            "dt": "Translation",
+            "filters": [
+                ["name", "in", ["44rq0frbjk", "59plq27d2l"]]
+            ]
+        },
 ]
 
 doctype_js = {
