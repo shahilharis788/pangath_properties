@@ -48,13 +48,15 @@ class TenancyContract(Document):
 			"rate": rate,
 			"description": part,
 			"item_tax_template": tax,
-			"income_account": acc
+			"income_account": acc,
+			"cost_center": frappe.db.get_value("Company", self.company, "cost_center")
 		})
 
 	def on_submit(self):
 		posting_date = nowdate()
 		freq = self.schedule_payments[-1].number_of_period
-
+		cost_center = frappe.db.get_value("Company", self.company, "cost_center")
+		
 		all_units = [unit.unit for unit in self.unit_details]
 		for unit_det in self.unit_details:
 			frappe.db.set_value('Unit', unit_det.unit, 'status', 'Rented')
@@ -71,6 +73,7 @@ class TenancyContract(Document):
 						"posting_date": pay_sch.payment_scheduled_date,
 						"due_date": add_days(pay_sch.payment_scheduled_date, 14),
 						"custom_tenancy_contract": self.name,
+						"cost_center": cost_center
 					})
 					si_list.append(si_doc)
 
@@ -104,14 +107,19 @@ class TenancyContract(Document):
 						"rate": row.amount,
 						"description": row.particulars,
 						"item_tax_template": row.item_tax_template,
-						"income_account": row.account_paid_to
+						"income_account": row.account,
+						"cost_center": cost_center
 					})
-
+			
 			for si in si_list:
 				if si.items:
 					si.insert()
+					if si.taxes:
+						for t in si.taxes:
+							t.cost_center = cost_center
 					si.submit()
-
+			
+			
 			frappe.msgprint("Sales Invoices successfully created with rent")
 		else:
 			single_si = frappe.get_doc({
@@ -121,6 +129,7 @@ class TenancyContract(Document):
 						"posting_date": self.payment_schedule[0].payment_scheduled_date,
 						"due_date": add_days(self.payment_schedule[0].payment_scheduled_date, 14),
 						"custom_tenancy_contract": self.name,
+						"cost_center": cost_center
 					})
 			
 			
@@ -131,7 +140,8 @@ class TenancyContract(Document):
 						"rate": unit.rent_amount,
 						"description": unit,
 						"item_tax_template": self.payment_schedule[0].item_tax_template,
-						"income_account": self.payment_schedule[0].income_account
+						"income_account": self.payment_schedule[0].income_account,
+						"cost_center": cost_center
 					})
 			
 			for row in self.type_of_charges:
@@ -149,10 +159,12 @@ class TenancyContract(Document):
 						"rate": row.amount,
 						"description": row.particulars,
 						"item_tax_template": row.item_tax_template,
-						"income_account": row.account_paid_to
+						"income_account": row.account,
+						"cost_center": cost_center
 				})
 
 			single_si.save()
+			single_si.submit()
 		# for idx, i in enumerate(self.payment_schedule):
 		#     if i.is_pdc == 1:
 		#         account = frappe.db.get_value('Bank Account', {'name':i.bank_account}, 'account')
@@ -333,12 +345,11 @@ class TenancyContract(Document):
 	
 	def validate(self):
 		from frappe.utils import getdate, add_days, flt
-		
 		if self.payment_schedule:
 			tot_amt = 0
 			for row in self.payment_schedule:
 				tot_amt += row.payment_amount
-			if tot_amt != self.yearly_rent:
+			if int(tot_amt) != int(self.yearly_rent):
 				frappe.throw(f'Total Payment amount should be {self.yearly_rent}')
 		
 		# Ensure contract dates are date objects
@@ -918,3 +929,4 @@ def creating_post_date_cheque(name):
 			pdc.insert()
 			pdc.submit()
 			frappe.db.set_value("TC Payment Schedule", i.name, "pdc", pdc.name)
+
