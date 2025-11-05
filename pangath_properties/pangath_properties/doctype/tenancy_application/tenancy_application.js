@@ -11,10 +11,19 @@ frappe.ui.form.on('Tenancy Application', {
                     frm:frm
                 })
 			},__('Create'));
-            frm.add_custom_button(__('Payment Entry'),function () {
+            // frm.add_custom_button(__('Payment Entry'),function () {
+            //     frappe.model.open_mapped_doc({
+            //         method: "pangath_properties.pangath_properties.doctype.tenancy_application.tenancy_application.create_payment_entry",
+            //         frm:frm
+            //     })
+			// },__('Create'));
+            frm.add_custom_button(__('Booking Agreement'),function () {
                 frappe.model.open_mapped_doc({
-                    method: "pangath_properties.pangath_properties.doctype.tenancy_application.tenancy_application.create_payment_entry",
-                    frm:frm
+                    method: "pangath_properties.pangath_properties.doctype.tenancy_application.tenancy_application.create_booking_agreement",
+                    frm:frm,
+                    args:{
+
+                    }
                 })
 			},__('Create'));
 		}

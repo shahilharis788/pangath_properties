@@ -218,3 +218,18 @@ def create_payment_entry(source_name, target_doc=None):
         }, target_doc)
         doclist.party_type = "Customer"
         return doclist
+
+@frappe.whitelist()
+def create_booking_agreement(source_name, target_doc=None):
+     if source_name:
+        doclist = get_mapped_doc("Tenancy Application", source_name, {
+            "Tenancy Application": {
+                "doctype": "Lease Agreement",
+                 "field_map": {
+                    "customer":"customer",
+                    "name":"proposal_agreement",
+                }
+            },
+        }, target_doc)
+       
+        return doclist 
