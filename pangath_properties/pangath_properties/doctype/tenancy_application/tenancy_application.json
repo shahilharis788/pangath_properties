@@ -24,6 +24,25 @@
   "contact_no",
   "nationality",
   "custom_emirates_id",
+  "premises_details_section",
+  "gross_leasable_area_of_premises",
+  "permitted_use",
+  "column_break_nzcr",
+  "trading_name",
+  "rental_details_section",
+  "regular_rent_per_sqmt",
+  "unit_details",
+  "column_break_uboj",
+  "service_fee",
+  "contract_fees",
+  "admin_fees",
+  "payment_and_contract_terms_section",
+  "payment_terms",
+  "payment_frequency",
+  "column_break_pjgh",
+  "tentative_hand_over_date",
+  "agreement_term_date",
+  "fit_out_period",
   "company_details_section",
   "company_name",
   "column_break_mths",
@@ -341,13 +360,110 @@
    "fieldname": "custom_emirates_id",
    "fieldtype": "Data",
    "label": "Emirates Id"
+  },
+  {
+   "collapsible": 1,
+   "fieldname": "premises_details_section",
+   "fieldtype": "Section Break",
+   "label": "Premises Details"
+  },
+  {
+   "fieldname": "gross_leasable_area_of_premises",
+   "fieldtype": "Data",
+   "label": "Gross Leasable Area of Premises"
+  },
+  {
+   "fieldname": "permitted_use",
+   "fieldtype": "Data",
+   "label": "Permitted Use"
+  },
+  {
+   "fieldname": "column_break_nzcr",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "trading_name",
+   "fieldtype": "Data",
+   "label": "Trading Name"
+  },
+  {
+   "collapsible": 1,
+   "fieldname": "rental_details_section",
+   "fieldtype": "Section Break",
+   "label": "Rental Details"
+  },
+  {
+   "fieldname": "regular_rent_per_sqmt",
+   "fieldtype": "Currency",
+   "label": "Regular Rent Per Sqmt"
+  },
+  {
+   "fieldname": "column_break_uboj",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "service_fee",
+   "fieldtype": "Currency",
+   "label": "Service Fee"
+  },
+  {
+   "fieldname": "contract_fees",
+   "fieldtype": "Currency",
+   "label": "Contract Fees"
+  },
+  {
+   "fieldname": "admin_fees",
+   "fieldtype": "Currency",
+   "label": "Admin Fees"
+  },
+  {
+   "fieldname": "unit_details",
+   "fieldtype": "Table",
+   "label": "Unit Details",
+   "options": "Unit Details"
+  },
+  {
+   "collapsible": 1,
+   "fieldname": "payment_and_contract_terms_section",
+   "fieldtype": "Section Break",
+   "label": "Payment And Contract Terms"
+  },
+  {
+   "fieldname": "payment_terms",
+   "fieldtype": "Link",
+   "label": "Payment Terms",
+   "options": "Payment Term"
+  },
+  {
+   "fieldname": "column_break_pjgh",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "tentative_hand_over_date",
+   "fieldtype": "Date",
+   "label": "Tentative Hand Over Date"
+  },
+  {
+   "fieldname": "payment_frequency",
+   "fieldtype": "Data",
+   "label": "Payment Frequency"
+  },
+  {
+   "fieldname": "agreement_term_date",
+   "fieldtype": "Date",
+   "label": "Agreement Term Date"
+  },
+  {
+   "fieldname": "fit_out_period",
+   "fieldtype": "Date",
+   "label": "Fit out Period"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2025-11-05 14:18:40.455228",
+ "modified": "2025-11-05 15:01:35.189226",
  "modified_by": "Administrator",
  "module": "Pangath Properties",
  "name": "Tenancy Application",
