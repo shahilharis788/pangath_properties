@@ -27,6 +27,10 @@
   "mortgage",
   "ownership_type",
   "amenitie",
+  "address_section",
+  "location",
+  "column_break_sdds",
+  "address",
   "section_break_xcqr",
   "payment_frequency",
   "section_break_5",
@@ -418,6 +422,25 @@
    "fieldname": "amenitie",
    "fieldtype": "Small Text",
    "label": "Amenities"
+  },
+  {
+   "fieldname": "address_section",
+   "fieldtype": "Section Break",
+   "label": "Address"
+  },
+  {
+   "fieldname": "location",
+   "fieldtype": "Data",
+   "label": "Location"
+  },
+  {
+   "fieldname": "column_break_sdds",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "address",
+   "fieldtype": "Small Text",
+   "label": "Address"
   }
  ],
  "grid_page_length": 50,
@@ -425,8 +448,8 @@
  "index_web_pages_for_search": 1,
  "is_tree": 1,
  "links": [],
- "modified": "2025-10-21 14:10:53.945880",
- "modified_by": "shahilharis78@gmail.com",
+ "modified": "2025-11-05 15:26:46.169010",
+ "modified_by": "Administrator",
  "module": "Pangath Properties",
  "name": "Unit",
  "naming_rule": "Expression",
