@@ -14,29 +14,42 @@ class TenancyApplication(Document):
         if self.workflow_state == "Rejected" and not self.remarks:
             frappe.throw(_("Please Enter Remarks"))
         populate_payment_schedule(self)
-        total = 0
+        total_charges = 0
         for i in self.type_of_charges:
-            total += i.amount
+            total_charges += i.amount
 
-        self.total = total + flt(self.yearly_rent)
-
+        self.total = total_charges + flt(self.yearly_rent)
+        
+        if not self.is_existing_customer:
+            pass
+        
+        if self.is_existing_customer and self.customer:
+            tax_id, terms = frappe.db.get_value("Customer", self.customer, ["tax_id","payment_terms"])
+            self.tax_id = tax_id
+            self.payment_terms_template = terms
+    
     def on_cancel(self):
         self.workflow_state = "Draft"
         frappe.db.set_value("Unit", self.unit, "status", "Available")
         frappe.db.set_value("Unit", self.parking, "status", "Available")
 
     def before_submit(self):
-        if self.is_existing_customer == 0:
-            customer = frappe.new_doc("Customer")
-            customer.customer_name = self.tenant_name
-            customer.custom_passport_no = self.passport_no
-            customer.custom_contact_no = self.contact_no
-            customer.email_id = self.email
-            customer.custom_nationality = self.nationality
-            customer.custom_emirate_id = self.custom_emirates_id
-            customer.territory = self.territory,
-            customer.opportunity_name =  self.opportunity
-
+        # if self.is_existing_customer == 0:
+        #     if frappe.db.exists("Customer", {"name": self.tenant_name}):
+        #         frappe.throw(f'There is Already a customer named {self.tenant_name}')
+        #     customer = frappe.new_doc("Customer")
+        #     customer.customer_name = self.tenant_name
+        #     customer.custom_passport_no = self.passport_no
+        #     customer.custom_contact_no = self.contact_no
+        #     customer.email_id = self.email
+        #     customer.custom_nationality = self.nationality
+        #     customer.custom_emirate_id = self.custom_emirates_id
+        #     customer.territory = self.territory,
+        #     customer.opportunity_name =  self.opportunity
+        #     customer.tax_id = self.tax_id
+        #     customer.custom_emirates_id = self.custom_emirates_id
+        #     customer.payment_terms = self.payment_terms_template
+            
             if self.opportunity:
                 opportunity = frappe.get_doc("Opportunity",self.opportunity)
                 # frappe.set_value('Opportunity', self.opportunity,'status', 'Tenancy Application')
@@ -44,20 +57,20 @@ class TenancyApplication(Document):
                     customer.lead_name  = opportunity.party_name
 
 
-            customer.save()
-            self.db_set("customer",customer.name)
-            frappe.db.set_value("Lead",customer.lead_name,"status","Tenancy Application")
+            # customer.save()
+            # self.db_set("customer",customer.name)
+            # frappe.db.set_value("Lead",customer.lead_name,"status","Tenancy Application")
 
                 
 
-            if self.unit:
-                doc = frappe.get_doc("Unit", self.unit)
-                doc.status = "Reservation"
-                doc.save()
+            # if self.unit:
+            #     doc = frappe.get_doc("Unit", self.unit)
+            #     doc.status = "Reservation"
+            #     doc.save()
 
         # update the status if its new or old customer
-        if self.opportunity:
-            frappe.set_value('Opportunity', self.opportunity,'status', 'Tenancy Application')
+        # if self.opportunity:
+        #     frappe.set_value('Opportunity', self.opportunity,'status', 'Tenancy Application')
 
 @frappe.whitelist()
 def create_tenant_onboarding(args):
@@ -231,5 +244,5 @@ def create_booking_agreement(source_name, target_doc=None):
                 }
             },
         }, target_doc)
-       
+        
         return doclist 

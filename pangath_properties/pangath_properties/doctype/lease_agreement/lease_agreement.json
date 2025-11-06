@@ -9,19 +9,40 @@
  "field_order": [
   "naming_series",
   "section_break_2",
-  "lease_application",
-  "column_break_4",
   "posting_date",
+  "lease_application",
+  "applicant_details_section",
+  "is_existing_customer",
+  "tenant_name",
+  "customer",
+  "type",
+  "customer_company_name",
+  "email",
+  "gender",
+  "territory",
+  "column_break_eqhp",
+  "passport_no",
+  "customer_name",
+  "contact_no",
+  "nationality",
+  "custom_emirates_id",
+  "tax_id",
+  "payment_terms_template",
   "section_break_6",
   "lease_agreement_details",
   "schedule_section",
   "payment_schedule",
+  "unit_details_section",
+  "unit_details",
+  "yearly_rent",
+  "particulars_section",
+  "type_of_charges",
+  "total_charges",
   "terms_section_break",
   "tc_name",
   "terms",
   "amended_from",
   "section_break_14",
-  "customer",
   "company",
   "building",
   "unit",
@@ -41,6 +62,7 @@
   {
    "fieldname": "lease_application",
    "fieldtype": "Link",
+   "hidden": 1,
    "label": "Tenant Onboarding",
    "options": "Tenant Onboarding"
   },
@@ -99,12 +121,9 @@
    "fieldtype": "Section Break"
   },
   {
-   "fieldname": "column_break_4",
-   "fieldtype": "Column Break"
-  },
-  {
    "fieldname": "schedule_section",
    "fieldtype": "Section Break",
+   "hidden": 1,
    "label": "Schedule"
   },
   {
@@ -117,12 +136,12 @@
    "fieldtype": "Section Break"
   },
   {
-   "fetch_from": "lease_application.customer",
+   "depends_on": "eval: doc.is_existing_customer == 1",
    "fieldname": "customer",
    "fieldtype": "Link",
+   "in_list_view": 1,
    "label": "Customer",
-   "options": "Customer",
-   "read_only": 1
+   "options": "Customer"
   },
   {
    "fetch_from": "lease_application.company",
@@ -135,6 +154,7 @@
    "fetch_from": "lease_application.building",
    "fieldname": "building",
    "fieldtype": "Link",
+   "hidden": 1,
    "label": "Property",
    "options": "Property"
   },
@@ -142,6 +162,7 @@
    "fetch_from": "lease_application.unit",
    "fieldname": "unit",
    "fieldtype": "Link",
+   "hidden": 1,
    "label": "Unit",
    "options": "Unit"
   },
@@ -184,11 +205,13 @@
    "fetch_from": "lease_application.posting_date",
    "fieldname": "posting_date_1",
    "fieldtype": "Date",
+   "hidden": 1,
    "label": "Posting Date"
   },
   {
    "fieldname": "unit_nature",
    "fieldtype": "Select",
+   "hidden": 1,
    "label": "Unit Nature",
    "options": "Residential\nCommercial"
   },
@@ -208,6 +231,130 @@
    "fieldtype": "Link",
    "label": "Proposal Agreement",
    "options": "Tenancy Application"
+  },
+  {
+   "fieldname": "unit_details_section",
+   "fieldtype": "Section Break",
+   "label": "Unit Details"
+  },
+  {
+   "fieldname": "unit_details",
+   "fieldtype": "Table",
+   "label": "Unit Details",
+   "options": "Unit Details"
+  },
+  {
+   "fieldname": "yearly_rent",
+   "fieldtype": "Currency",
+   "label": "Yearly Rent",
+   "read_only": 1
+  },
+  {
+   "fieldname": "particulars_section",
+   "fieldtype": "Section Break",
+   "label": "Particulars"
+  },
+  {
+   "fieldname": "type_of_charges",
+   "fieldtype": "Table",
+   "label": "Type of Charges",
+   "options": "Charge Details"
+  },
+  {
+   "fieldname": "total_charges",
+   "fieldtype": "Currency",
+   "label": "Total Charges",
+   "read_only": 1
+  },
+  {
+   "fieldname": "applicant_details_section",
+   "fieldtype": "Section Break",
+   "label": "Applicant Details"
+  },
+  {
+   "default": "0",
+   "fieldname": "is_existing_customer",
+   "fieldtype": "Check",
+   "label": "Is Existing Customer"
+  },
+  {
+   "fieldname": "tenant_name",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Tenant Name"
+  },
+  {
+   "depends_on": "eval:doc.type==\"Company\"",
+   "fieldname": "customer_company_name",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Customer Company Name"
+  },
+  {
+   "fieldname": "email",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Email"
+  },
+  {
+   "fieldname": "gender",
+   "fieldtype": "Link",
+   "label": "Gender",
+   "options": "Gender"
+  },
+  {
+   "fieldname": "territory",
+   "fieldtype": "Link",
+   "label": "Territory",
+   "options": "Territory"
+  },
+  {
+   "fieldname": "column_break_eqhp",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "passport_no",
+   "fieldtype": "Data",
+   "label": "Passport No"
+  },
+  {
+   "depends_on": "eval: doc.is_existing_customer == 1",
+   "fieldname": "customer_name",
+   "fieldtype": "Data",
+   "label": "Customer Name"
+  },
+  {
+   "fieldname": "contact_no",
+   "fieldtype": "Data",
+   "label": "Contact No"
+  },
+  {
+   "fieldname": "nationality",
+   "fieldtype": "Data",
+   "label": "Nationality"
+  },
+  {
+   "fieldname": "custom_emirates_id",
+   "fieldtype": "Data",
+   "label": "Emirates Id"
+  },
+  {
+   "fieldname": "tax_id",
+   "fieldtype": "Data",
+   "label": "Tax Id"
+  },
+  {
+   "fieldname": "payment_terms_template",
+   "fieldtype": "Link",
+   "label": "Payment Terms Template",
+   "options": "Payment Terms Template"
+  },
+  {
+   "fieldname": "type",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Tenant Type",
+   "options": "\nCompany\nIndividual"
   }
  ],
  "index_web_pages_for_search": 1,
@@ -218,7 +365,7 @@
    "link_fieldname": "lease_agreement"
   }
  ],
- "modified": "2025-11-05 15:13:05.188115",
+ "modified": "2025-11-06 20:17:54.812989",
  "modified_by": "Administrator",
  "module": "Pangath Properties",
  "name": "Lease Agreement",

@@ -3,8 +3,35 @@
 
 
 frappe.ui.form.on('Tenancy Application', {
+    is_existing_customer:function(frm){
+        if(frm.doc.is_existing_customer){
+            
+            if(frm.doc.customer){
+                
+                frappe.db.get_value("Customer", frm.doc.customer, "custom_emirates_id").then(r=>{
+                    if(r.message){
+                        frm.set_value("custom_emirates_id", r.message.custom_emirates_id)
+                        
+                    }
+                })
+            }
+        }
+        else{
+
+        }
+    },
+
 	refresh: function(frm) {
 		if (frm.doc.docstatus == 1) {
+            frm.add_custom_button(__('Booking Agreement'),function () {
+                frappe.model.open_mapped_doc({
+                    method: "pangath_properties.pangath_properties.doctype.tenancy_application.tenancy_application.create_booking_agreement",
+                    frm:frm,
+                    args:{
+
+                    }
+                })
+			},__('Create'));
             frm.add_custom_button(__('Tenancy Contract'),function () {
                 frappe.model.open_mapped_doc({
                     method: "pangath_properties.pangath_properties.doctype.tenancy_application.tenancy_application.create_tenancy_contract",
@@ -17,15 +44,7 @@ frappe.ui.form.on('Tenancy Application', {
             //         frm:frm
             //     })
 			// },__('Create'));
-            frm.add_custom_button(__('Booking Agreement'),function () {
-                frappe.model.open_mapped_doc({
-                    method: "pangath_properties.pangath_properties.doctype.tenancy_application.tenancy_application.create_booking_agreement",
-                    frm:frm,
-                    args:{
-
-                    }
-                })
-			},__('Create'));
+            
 		}
 		if (frm.doc.opportunity && frm.doc.__islocal && !frm.doc.property_name) {
         let d = new frappe.ui.Dialog({
@@ -127,44 +146,52 @@ frappe.ui.form.on('Tenancy Application', {
 
 	},
 	onload: function (frm) {
-		frm.set_query('unit', function (doc) {
-			let filters = []
-			if (frm.doc.property_name) {
-				filters.push(["Unit", "property", "in", frm.doc.property_name])
-			}
-			if (frm.doc.property_name) {
-				filters.push(["Unit", "status", "=", "Available"])
-			}
-			if (frm.doc.unit_type) {
-				filters.push(["Unit", "unit_type", "=", frm.doc.unit_type])
-			}
-			if (frm.doc.floor) {
-				filters.push(["Unit", "floor", "=", frm.doc.floor])
-			}
-			if (frm.doc.unit_nature) {
-				filters.push(["Unit", "unit_nature", "=", frm.doc.unit_nature])
-			}
+        frm.fields_dict["unit_details"].grid.get_field("unit").get_query = function(doc, cdt, cdn) {
+            return {
+                filters: {
+                    "status": ["!=", "Rented"],
+                    "property": locals[cdt][cdn].property
+                }
+            };
+        };
+		// frm.set_query('unit', function (doc) {
+		// 	let filters = []
+		// 	if (frm.doc.property_name) {
+		// 		filters.push(["Unit", "property", "in", frm.doc.property_name])
+		// 	}
+		// 	if (frm.doc.property_name) {
+		// 		filters.push(["Unit", "status", "=", "Available"])
+		// 	}
+		// 	if (frm.doc.unit_type) {
+		// 		filters.push(["Unit", "unit_type", "=", frm.doc.unit_type])
+		// 	}
+		// 	if (frm.doc.floor) {
+		// 		filters.push(["Unit", "floor", "=", frm.doc.floor])
+		// 	}
+		// 	if (frm.doc.unit_nature) {
+		// 		filters.push(["Unit", "unit_nature", "=", frm.doc.unit_nature])
+		// 	}
 		
-			return {
-				"filters": filters
-			};
-		})
+		// 	return {
+		// 		"filters": filters
+		// 	};
+		// })
 
-		frm.set_query('parking', function (doc) {
-			let filters = []
-			if (frm.doc.property_name) {
-				filters.push(["Unit", "property", "in", frm.doc.property_name])
-			}
-			if (frm.doc.property_name) {
-				filters.push(["Unit", "status", "=", "Available"])
-			}
-			if (frm.doc.property_name) {
-				filters.push(["Unit", "unit_nature", "=", "Parking"])
-			}
-			return {
-				"filters": filters
-			};
-		})
+		// frm.set_query('parking', function (doc) {
+		// 	let filters = []
+		// 	if (frm.doc.property_name) {
+		// 		filters.push(["Unit", "property", "in", frm.doc.property_name])
+		// 	}
+		// 	if (frm.doc.property_name) {
+		// 		filters.push(["Unit", "status", "=", "Available"])
+		// 	}
+		// 	if (frm.doc.property_name) {
+		// 		filters.push(["Unit", "unit_nature", "=", "Parking"])
+		// 	}
+		// 	return {
+		// 		"filters": filters
+		// 	};
+		// })
 	},
 
     unit:function(frm){
@@ -186,3 +213,87 @@ frappe.ui.form.on('Tenancy Application', {
 		})
     }
 });
+
+frappe.ui.form.on('Unit Details', {
+	unit_details_remove:function(frm){
+		calculate_yearly_rent(frm);
+        
+	},
+    property: function(frm, cdt, cdn) {
+        let row = locals[cdt][cdn];
+
+        
+        if (row.property) {
+            frappe.db.get_value("Property", row.property, ["property_owner", "building_name"])
+                .then(r => {
+                    if (r && r.message) {
+                        frappe.model.set_value(cdt, cdn, "property_owner", r.message.property_owner);
+                        frappe.model.set_value(cdt, cdn, "property_name", r.message.building_name);
+                    }
+                });
+        }
+    },
+
+    unit: function(frm, cdt, cdn) {
+        let row = locals[cdt][cdn];
+
+        if (row.unit) {
+            frappe.db.get_value("Unit", row.unit, ["carpet_area", "unit_type", "floor","rent", "unit_nature"])
+                .then(r => {
+                    if (r && r.message) {
+                        frappe.model.set_value(cdt, cdn, "unit_type", r.message.unit_type);
+                        frappe.model.set_value(cdt, cdn, "sq_ft", r.message.carpet_area);
+                        frappe.model.set_value(cdt, cdn, "floor", r.message.floor);
+                        frappe.model.set_value(cdt, cdn, "rent_amount", r.message.rent);
+                         frappe.model.set_value(cdt, cdn, "unit_nature", r.message.unit_nature);
+                    }
+                });
+        }
+    },
+
+	rent_amount: function(frm, cdt, cdn) {
+        let row = locals[cdt][cdn];
+        if (row.property && row.unit) {
+            calculate_yearly_rent(frm);
+        }
+    }
+	
+	
+});
+
+function calculate_yearly_rent(frm) {
+    let total = 0;
+
+    (frm.doc.unit_details || []).forEach(row => {
+        total += flt(row.rent_amount); 
+    });
+
+    frm.set_value("yearly_rent", total);
+}
+
+
+frappe.ui.form.on('Charge Details', {
+	type_of_charges_remove:function(frm){
+		calculate_total_charges(frm);
+        
+	},
+   
+	amount: function(frm, cdt, cdn) {
+        let row = locals[cdt][cdn];
+        if (row.amount) {
+            calculate_total_charges(frm);
+        }
+    }
+	
+});
+
+function calculate_total_charges(frm) {
+    let total = 0;
+
+    (frm.doc.type_of_charges || []).forEach(row => {
+        total += flt(row.amount); 
+    });
+
+    frm.set_value("total_charges", total);
+}
+

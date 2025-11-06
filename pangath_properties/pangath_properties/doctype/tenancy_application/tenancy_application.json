@@ -13,6 +13,7 @@
   "tenant_name",
   "customer",
   "type",
+  "customer_company_name",
   "email",
   "gender",
   "territory",
@@ -24,20 +25,18 @@
   "contact_no",
   "nationality",
   "custom_emirates_id",
+  "tax_id",
   "premises_details_section",
   "gross_leasable_area_of_premises",
   "permitted_use",
   "column_break_nzcr",
   "trading_name",
   "rental_details_section",
-  "regular_rent_per_sqmt",
   "unit_details",
-  "column_break_uboj",
-  "service_fee",
-  "contract_fees",
-  "admin_fees",
+  "yearly_rent",
+  "regular_rent_per_sqmt",
   "payment_and_contract_terms_section",
-  "payment_terms",
+  "payment_terms_template",
   "payment_frequency",
   "column_break_pjgh",
   "tentative_hand_over_date",
@@ -58,11 +57,8 @@
   "allocation_section",
   "request_type",
   "parking_required",
-  "condition_inspection",
-  "column_break_owig",
-  "yearly_rent",
   "monthly_rent",
-  "security_deposit",
+  "condition_inspection",
   "remarks_section",
   "remarks",
   "opportunity",
@@ -72,6 +68,7 @@
   "payment_details",
   "particulars_section",
   "type_of_charges",
+  "total_charges",
   "section_break_ncso",
   "total"
  ],
@@ -89,6 +86,7 @@
   {
    "fieldname": "application_details_section",
    "fieldtype": "Section Break",
+   "hidden": 1,
    "label": "Application Details"
   },
   {
@@ -186,6 +184,7 @@
   {
    "fieldname": "company_details_section",
    "fieldtype": "Section Break",
+   "hidden": 1,
    "label": "Company Details"
   },
   {
@@ -269,10 +268,6 @@
    "options": "Yes\nNo"
   },
   {
-   "fieldname": "column_break_owig",
-   "fieldtype": "Column Break"
-  },
-  {
    "fieldname": "condition_inspection",
    "fieldtype": "Table",
    "label": "Condition Inspection",
@@ -282,6 +277,7 @@
    "fieldname": "yearly_rent",
    "fieldtype": "Currency",
    "label": "Yearly Rent",
+   "read_only": 1,
    "reqd": 1
   },
   {
@@ -289,11 +285,6 @@
    "fieldtype": "Currency",
    "label": "Monthly Rent",
    "read_only": 1
-  },
-  {
-   "fieldname": "security_deposit",
-   "fieldtype": "Currency",
-   "label": "Security Deposit"
   },
   {
    "fieldname": "remarks_section",
@@ -321,6 +312,7 @@
   {
    "fieldname": "payment_schedule_section",
    "fieldtype": "Section Break",
+   "hidden": 1,
    "label": "Payment Schedule"
   },
   {
@@ -344,7 +336,7 @@
    "fieldname": "type_of_charges",
    "fieldtype": "Table",
    "label": "Type Of Charges",
-   "options": "Type Of Charges"
+   "options": "Charge Details"
   },
   {
    "fieldname": "section_break_ncso",
@@ -356,7 +348,6 @@
    "label": "Total"
   },
   {
-   "fetch_from": "customer.custom_emirate_id",
    "fieldname": "custom_emirates_id",
    "fieldtype": "Data",
    "label": "Emirates Id"
@@ -398,25 +389,6 @@
    "label": "Regular Rent Per Sqmt"
   },
   {
-   "fieldname": "column_break_uboj",
-   "fieldtype": "Column Break"
-  },
-  {
-   "fieldname": "service_fee",
-   "fieldtype": "Currency",
-   "label": "Service Fee"
-  },
-  {
-   "fieldname": "contract_fees",
-   "fieldtype": "Currency",
-   "label": "Contract Fees"
-  },
-  {
-   "fieldname": "admin_fees",
-   "fieldtype": "Currency",
-   "label": "Admin Fees"
-  },
-  {
    "fieldname": "unit_details",
    "fieldtype": "Table",
    "label": "Unit Details",
@@ -427,12 +399,6 @@
    "fieldname": "payment_and_contract_terms_section",
    "fieldtype": "Section Break",
    "label": "Payment And Contract Terms"
-  },
-  {
-   "fieldname": "payment_terms",
-   "fieldtype": "Link",
-   "label": "Payment Terms",
-   "options": "Payment Term"
   },
   {
    "fieldname": "column_break_pjgh",
@@ -457,13 +423,36 @@
    "fieldname": "fit_out_period",
    "fieldtype": "Date",
    "label": "Fit out Period"
+  },
+  {
+   "fieldname": "total_charges",
+   "fieldtype": "Currency",
+   "label": "Total Charges",
+   "read_only": 1
+  },
+  {
+   "fieldname": "tax_id",
+   "fieldtype": "Data",
+   "label": "Tax Id"
+  },
+  {
+   "fieldname": "payment_terms_template",
+   "fieldtype": "Link",
+   "label": "Payment Terms Template",
+   "options": "Payment Terms Template"
+  },
+  {
+   "depends_on": "eval:doc.type==\"Company\"",
+   "fieldname": "customer_company_name",
+   "fieldtype": "Data",
+   "label": "Customer Company Name"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2025-11-05 15:01:35.189226",
+ "modified": "2025-11-06 18:02:13.311285",
  "modified_by": "Administrator",
  "module": "Pangath Properties",
  "name": "Tenancy Application",
