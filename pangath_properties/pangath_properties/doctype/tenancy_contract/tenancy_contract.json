@@ -22,11 +22,10 @@
   "name_of_tenant",
   "customer_name",
   "cost_center",
-  "condition_inspection",
-  "column_break_4uulm",
-  "property_owner",
   "unit_details",
   "yearly_rent",
+  "property_owner",
+  "condition_inspection",
   "section_break_sfgyt",
   "tenant_address",
   "eid_no",
@@ -120,6 +119,7 @@
    "fetch_from": "property_name.property_owner",
    "fieldname": "property_owner",
    "fieldtype": "Link",
+   "hidden": 1,
    "label": "Property Owner",
    "options": "Property Owner"
   },
@@ -138,10 +138,6 @@
   {
    "fieldname": "section_break_sfgyt",
    "fieldtype": "Section Break"
-  },
-  {
-   "fieldname": "column_break_4uulm",
-   "fieldtype": "Column Break"
   },
   {
    "fieldname": "column_break_cgyaw",
@@ -373,7 +369,7 @@
    "link_fieldname": "custom_tenancy_contract"
   }
  ],
- "modified": "2025-11-03 15:18:20.830732",
+ "modified": "2025-11-07 14:30:45.267580",
  "modified_by": "Administrator",
  "module": "Pangath Properties",
  "name": "Tenancy Contract",

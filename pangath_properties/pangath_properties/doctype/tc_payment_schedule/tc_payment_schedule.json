@@ -99,6 +99,7 @@
    "depends_on": "eval:doc.is_pdc == 1",
    "fieldname": "bank",
    "fieldtype": "Link",
+   "hidden": 1,
    "in_list_view": 1,
    "label": "Bank",
    "mandatory_depends_on": "eval:doc.is_pdc == 1",
@@ -245,6 +246,7 @@
   {
    "fieldname": "bank_account",
    "fieldtype": "Link",
+   "hidden": 1,
    "label": "Bank Account",
    "options": "Bank Account"
   },
@@ -289,8 +291,8 @@
  "grid_page_length": 50,
  "istable": 1,
  "links": [],
- "modified": "2025-10-21 14:10:56.353620",
- "modified_by": "shahilharis78@gmail.com",
+ "modified": "2025-11-07 12:38:31.488863",
+ "modified_by": "Administrator",
  "module": "Pangath Properties",
  "name": "TC Payment Schedule",
  "owner": "Administrator",

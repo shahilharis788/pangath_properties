@@ -27,7 +27,11 @@
   "nationality",
   "custom_emirates_id",
   "tax_id",
-  "payment_terms_template",
+  "premises_details_section",
+  "gross_leasable_area_of_premises",
+  "permitted_use",
+  "column_break_vvfh",
+  "trading_name",
   "section_break_6",
   "lease_agreement_details",
   "schedule_section",
@@ -35,6 +39,13 @@
   "unit_details_section",
   "unit_details",
   "yearly_rent",
+  "payment_and_contract_terms_section",
+  "payment_terms_template",
+  "payment_frequency",
+  "column_break_jfgv",
+  "tentative_hand_over_date",
+  "agreement_term_date",
+  "fit_out_period",
   "particulars_section",
   "type_of_charges",
   "total_charges",
@@ -55,6 +66,8 @@
   "payment_amount",
   "total",
   "posting_date_1",
+  "condition_inspection_template_section",
+  "condition_inspection",
   "references_section",
   "proposal_agreement"
  ],
@@ -94,6 +107,7 @@
   {
    "fieldname": "naming_series",
    "fieldtype": "Select",
+   "hidden": 1,
    "label": "Agreement NO",
    "options": "LEASE-.YYYY.-"
   },
@@ -109,7 +123,8 @@
   {
    "fieldname": "posting_date",
    "fieldtype": "Date",
-   "label": "Posting Date"
+   "label": "Posting Date",
+   "reqd": 1
   },
   {
    "fieldname": "section_break_2",
@@ -281,7 +296,8 @@
    "fieldname": "tenant_name",
    "fieldtype": "Data",
    "in_list_view": 1,
-   "label": "Tenant Name"
+   "label": "Tenant Name",
+   "reqd": 1
   },
   {
    "depends_on": "eval:doc.type==\"Company\"",
@@ -319,6 +335,7 @@
   },
   {
    "depends_on": "eval: doc.is_existing_customer == 1",
+   "fetch_from": "customer.customer_name",
    "fieldname": "customer_name",
    "fieldtype": "Data",
    "label": "Customer Name"
@@ -355,6 +372,71 @@
    "in_list_view": 1,
    "label": "Tenant Type",
    "options": "\nCompany\nIndividual"
+  },
+  {
+   "fieldname": "premises_details_section",
+   "fieldtype": "Section Break",
+   "label": "Premises Details"
+  },
+  {
+   "fieldname": "gross_leasable_area_of_premises",
+   "fieldtype": "Data",
+   "label": "Gross Leasable Area of Premises"
+  },
+  {
+   "fieldname": "permitted_use",
+   "fieldtype": "Data",
+   "label": "Permitted Use"
+  },
+  {
+   "fieldname": "column_break_vvfh",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "trading_name",
+   "fieldtype": "Data",
+   "label": "Trading Name"
+  },
+  {
+   "fieldname": "payment_and_contract_terms_section",
+   "fieldtype": "Section Break",
+   "label": "Payment And Contract Terms"
+  },
+  {
+   "fieldname": "payment_frequency",
+   "fieldtype": "Data",
+   "label": "Payment Frequency"
+  },
+  {
+   "fieldname": "column_break_jfgv",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "tentative_hand_over_date",
+   "fieldtype": "Date",
+   "label": "Tentative Hand Over Date"
+  },
+  {
+   "fieldname": "agreement_term_date",
+   "fieldtype": "Date",
+   "label": "Agreement Term Date"
+  },
+  {
+   "fieldname": "fit_out_period",
+   "fieldtype": "Date",
+   "label": "Fit out Period"
+  },
+  {
+   "fieldname": "condition_inspection_template_section",
+   "fieldtype": "Section Break",
+   "hidden": 1,
+   "label": "Condition Inspection Template"
+  },
+  {
+   "fieldname": "condition_inspection",
+   "fieldtype": "Table",
+   "label": "Condition Inspection",
+   "options": "Condition Inspection Reading"
   }
  ],
  "index_web_pages_for_search": 1,
@@ -365,7 +447,7 @@
    "link_fieldname": "lease_agreement"
   }
  ],
- "modified": "2025-11-06 20:17:54.812989",
+ "modified": "2025-11-07 14:24:18.428616",
  "modified_by": "Administrator",
  "module": "Pangath Properties",
  "name": "Lease Agreement",

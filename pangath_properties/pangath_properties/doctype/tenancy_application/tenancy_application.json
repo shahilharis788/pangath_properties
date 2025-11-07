@@ -34,7 +34,9 @@
   "rental_details_section",
   "unit_details",
   "yearly_rent",
+  "monthly_rent",
   "regular_rent_per_sqmt",
+  "total_area_sqmt",
   "payment_and_contract_terms_section",
   "payment_terms_template",
   "payment_frequency",
@@ -57,7 +59,6 @@
   "allocation_section",
   "request_type",
   "parking_required",
-  "monthly_rent",
   "condition_inspection",
   "remarks_section",
   "remarks",
@@ -80,6 +81,7 @@
   {
    "fieldname": "naming_series",
    "fieldtype": "Select",
+   "hidden": 1,
    "label": "Series",
    "options": "TAN-.YYYY.-"
   },
@@ -99,7 +101,8 @@
    "fieldname": "tenant_name",
    "fieldtype": "Data",
    "in_list_view": 1,
-   "label": "Tenant Name"
+   "label": "Tenant Name",
+   "reqd": 1
   },
   {
    "fieldname": "column_break_dxxc",
@@ -283,8 +286,7 @@
   {
    "fieldname": "monthly_rent",
    "fieldtype": "Currency",
-   "label": "Monthly Rent",
-   "read_only": 1
+   "label": "Monthly Rent"
   },
   {
    "fieldname": "remarks_section",
@@ -431,11 +433,13 @@
    "read_only": 1
   },
   {
+   "fetch_from": "customer.tax_id",
    "fieldname": "tax_id",
    "fieldtype": "Data",
    "label": "Tax Id"
   },
   {
+   "fetch_from": "customer.payment_terms",
    "fieldname": "payment_terms_template",
    "fieldtype": "Link",
    "label": "Payment Terms Template",
@@ -446,13 +450,18 @@
    "fieldname": "customer_company_name",
    "fieldtype": "Data",
    "label": "Customer Company Name"
+  },
+  {
+   "fieldname": "total_area_sqmt",
+   "fieldtype": "Float",
+   "label": "Total Area Sqmt"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2025-11-06 18:02:13.311285",
+ "modified": "2025-11-07 12:51:38.702525",
  "modified_by": "Administrator",
  "module": "Pangath Properties",
  "name": "Tenancy Application",

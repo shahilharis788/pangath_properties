@@ -18,7 +18,8 @@
   "residents",
   "unit_nature",
   "floor",
-  "landmark"
+  "landmark",
+  "unit_area_sqm"
  ],
  "fields": [
   {
@@ -106,13 +107,19 @@
    "fieldtype": "Data",
    "in_list_view": 1,
    "label": "Property Name"
+  },
+  {
+   "fetch_from": "unit.total_area_sqm",
+   "fieldname": "unit_area_sqm",
+   "fieldtype": "Float",
+   "label": "Unit Area (Sq.m)"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2025-11-06 14:40:12.503313",
+ "modified": "2025-11-07 10:09:59.992757",
  "modified_by": "Administrator",
  "module": "Pangath Properties",
  "name": "Unit Details",

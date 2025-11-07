@@ -3,25 +3,46 @@
 
 
 frappe.ui.form.on('Tenancy Application', {
-    is_existing_customer:function(frm){
-        if(frm.doc.is_existing_customer){
-            
+    before_save:function(frm){
+		 frm.set_df_property('naming_series', 'hidden', 1);
+	},
+    yearly_rent(frm){
+        frm.set_value("total", frm.doc.yearly_rent + frm.doc.total_charges)
+    },
+    total_charges(frm){
+        frm.set_value("total", frm.doc.yearly_rent + frm.doc.total_charges)
+    },
+    customer:function(frm){
             if(frm.doc.customer){
-                
-                frappe.db.get_value("Customer", frm.doc.customer, "custom_emirates_id").then(r=>{
+				frm.set_value("tenant_name", frm.doc.customer)
+                frappe.db.get_value("Customer", frm.doc.customer, ["custom_emirate_id", "tax_id", "payment_terms", "custom_passport_no", "custom_nationality", "custom_contact_no", "customer_name"]).then(r=>{
                     if(r.message){
-                        frm.set_value("custom_emirates_id", r.message.custom_emirates_id)
+                        frm.set_value("custom_emirates_id", r.message.custom_emirate_id)
+						frm.set_value("contact_no", r.message.custom_contact_no)
+						frm.set_value("nationality", r.message.custom_nationality)
+						frm.set_value("tax_id", r.message.tax_id)
+						frm.set_value("payment_terms_template",  r.message.payment_terms)
+						frm.set_value("passport_no",  r.message.custom_passport_no)
+						frm.set_value("customer_name",  r.message.customer_name)
+
+                    }
+                })
+                frappe.db.get_value("Customer", frm.doc.customer, "customer_primary_address").then(r=>{
+                    if(r.message){
                         
+                        frappe.db.get_value("Address", r.message.customer_primary_address, "email_id").then(r=>{
+                            if(r.message){
+                               
+                                frm.set_value("email", r.message.email_id)
+                            }
+                        })
                     }
                 })
             }
-        }
-        else{
-
-        }
+        
     },
-
-	refresh: function(frm) {
+	
+    refresh: function(frm) {
 		if (frm.doc.docstatus == 1) {
             frm.add_custom_button(__('Booking Agreement'),function () {
                 frappe.model.open_mapped_doc({
@@ -192,6 +213,8 @@ frappe.ui.form.on('Tenancy Application', {
 		// 		"filters": filters
 		// 	};
 		// })
+        prev_doc = frappe.get_prev_doc()
+        
 	},
 
     unit:function(frm){
@@ -217,6 +240,7 @@ frappe.ui.form.on('Tenancy Application', {
 frappe.ui.form.on('Unit Details', {
 	unit_details_remove:function(frm){
 		calculate_yearly_rent(frm);
+        calculate_total_unit_area(frm)
         
 	},
     property: function(frm, cdt, cdn) {
@@ -256,6 +280,14 @@ frappe.ui.form.on('Unit Details', {
         if (row.property && row.unit) {
             calculate_yearly_rent(frm);
         }
+    },
+    
+    unit_area_sqm: function(frm, cdt, cdn) {
+        
+        let row = locals[cdt][cdn];
+        // if (row.property && row.unit) {
+            calculate_total_unit_area(frm);
+        // }
     }
 	
 	
@@ -269,6 +301,7 @@ function calculate_yearly_rent(frm) {
     });
 
     frm.set_value("yearly_rent", total);
+    frm.set_value("monthly_rent", flt(total/12))
 }
 
 
@@ -297,3 +330,13 @@ function calculate_total_charges(frm) {
     frm.set_value("total_charges", total);
 }
 
+
+function calculate_total_unit_area(frm) {
+    let total = 0;
+
+    (frm.doc.unit_details || []).forEach(row => {
+        total += flt(row.unit_area_sqm); 
+    });
+
+    frm.set_value("total_area_sqmt", total);
+}

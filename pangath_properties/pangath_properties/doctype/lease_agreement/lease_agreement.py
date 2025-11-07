@@ -18,7 +18,7 @@ class LeaseAgreement(Document):
 			if not self.tax_id:
 				error_log.append("Tax Id")
 			if error_log:
-				error_log = error_log.split(",")
+				error_log = ",".join(error_log)
 				frappe.throw(f'Enter {error_log}')
 
 	# def on_submit(self):
@@ -62,4 +62,4 @@ def create_customer(exist_cus, cust, passport_no, contact_no, email, nationality
 	customer.tax_id = tax_id
 	customer.payment_terms = payment_terms
 	customer.save()
-	
+	return {"status": "created"}

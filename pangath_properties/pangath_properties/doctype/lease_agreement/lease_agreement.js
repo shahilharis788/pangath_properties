@@ -79,27 +79,36 @@ frappe.ui.form.on('Lease Agreement', {
         								
     							},
     						   callback: function (r) {
-								 frappe.show_alert({
+								 if(!frm.doc.is_existing_customer && r.messages.status == "created"){
+								 	frappe.show_alert({
                										 message: __('Customer Created Successfully: ') + r.message,
                 									 indicator: 'green'
             										});
+								}
         
     							},
     							freeze: true,
     							freeze_message: __("Creating Customer...")
 				});
-
+					
+					
                     frappe.new_doc("Tenancy Contract", {
-                        tenant_onboarding: frm.doc.lease_application,
-                        issue_date: frm.doc.posting_date,
-                        name_of_tenant: frm.doc.customer,
-                        tenant_address: addr,
-                        contact_no: phone,
-                        email: email,
-                        eid_no: eid,
-                        customer_name: cus_name,
-						contract_start_date: frm.doc.period_start_date,
-						contract_end_date: frm.doc.period_end_date
+                        tenant_onboarding: frm.doc.lease_application || "",
+                        issue_date: frm.doc.posting_date || "",
+                        name_of_tenant: frm.doc.customer || "",
+                        tenant_address: addr || "",
+                        contact_no: phone || "",
+                        email: email || "",
+                        eid_no: eid || "",
+                        customer_name: cus_name || "",
+						contract_start_date: frm.doc.period_start_date || "",
+						contract_end_date: frm.doc.period_end_date || "",
+						unit_details: frm.doc.unit_details || "",
+						type_of_charges: frm.doc.type_of_charges || "",
+						yearly_rent: frm.doc.yearly_rent || "",
+						terms: frm.doc.terms || "",
+						tc_name: frm.doc.tc_name || "",
+						condition_inspection: frm.doc.condition_inspection,
                     });
                 } catch (e) {
                     frappe.msgprint(__('Error creating Tenancy Contract: ') + e.message);
