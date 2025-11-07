@@ -85,7 +85,10 @@ frappe.ui.form.on('Tenancy Contract', {
 		let prev_doc = frappe.get_prev_route();
 		let prev_doc_type = prev_doc[1];
 		let prev_doc_name = prev_doc[2];
-
+		if(frm.doc.yearly_rent){
+			frm.set_value("m_rent", flt(frm.doc.yearly_rent/12))
+		}
+		
 		if (prev_doc_type === "Lease Agreement") {
 			frappe.db.get_doc(prev_doc_type, prev_doc_name).then(doc => {
 				if (doc.type_of_charges && doc.type_of_charges.length > 0) {
