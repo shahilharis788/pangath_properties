@@ -39,6 +39,8 @@
   "unit_details_section",
   "unit_details",
   "yearly_rent",
+  "monthly_rent",
+  "total_area_sqmt",
   "payment_and_contract_terms_section",
   "payment_terms_template",
   "payment_frequency",
@@ -439,6 +441,18 @@
    "fieldtype": "Table",
    "label": "Condition Inspection",
    "options": "Condition Inspection Reading"
+  },
+  {
+   "fieldname": "monthly_rent",
+   "fieldtype": "Currency",
+   "label": "Monthly Rent",
+   "read_only": 1
+  },
+  {
+   "fieldname": "total_area_sqmt",
+   "fieldtype": "Float",
+   "label": "Total Area Sqmt",
+   "read_only": 1
   }
  ],
  "index_web_pages_for_search": 1,
@@ -449,7 +463,7 @@
    "link_fieldname": "lease_agreement"
   }
  ],
- "modified": "2025-11-07 16:47:49.180437",
+ "modified": "2025-11-07 18:29:44.148211",
  "modified_by": "Administrator",
  "module": "Pangath Properties",
  "name": "Lease Agreement",
