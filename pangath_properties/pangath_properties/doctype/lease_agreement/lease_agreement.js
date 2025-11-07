@@ -79,9 +79,9 @@ frappe.ui.form.on('Lease Agreement', {
         								
     							},
     						   callback: function (r) {
-								 if(!frm.doc.is_existing_customer && r.messages.status == "created"){
+								 if(!frm.doc.is_existing_customer && r.message.status == "created"){
 								 	frappe.show_alert({
-               										 message: __('Customer Created Successfully: ') + r.message,
+               										 message: __('Customer Created Successfully: ') + r.message.cust,
                 									 indicator: 'green'
             										});
 								}
@@ -95,7 +95,8 @@ frappe.ui.form.on('Lease Agreement', {
                     frappe.new_doc("Tenancy Contract", {
                         tenant_onboarding: frm.doc.lease_application || "",
                         issue_date: frm.doc.posting_date || "",
-                        name_of_tenant: frm.doc.customer || "",
+                        name_of_tenant: frm.doc.customer || frm.doc.tenant_name || "",
+						customer_name: frm.doc.customer || frm.doc.tenant_name || "",
                         tenant_address: addr || "",
                         contact_no: phone || "",
                         email: email || "",
@@ -104,7 +105,7 @@ frappe.ui.form.on('Lease Agreement', {
 						contract_start_date: frm.doc.period_start_date || "",
 						contract_end_date: frm.doc.period_end_date || "",
 						unit_details: frm.doc.unit_details || "",
-						type_of_charges: frm.doc.type_of_charges || "",
+						//type_of_charges: frm.doc.type_of_charges || "",
 						yearly_rent: frm.doc.yearly_rent || "",
 						terms: frm.doc.terms || "",
 						tc_name: frm.doc.tc_name || "",

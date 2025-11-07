@@ -82,8 +82,22 @@ frappe.ui.form.on('Tenancy Contract', {
             };
         };
 
-		
-	
+		let prev_doc = frappe.get_prev_route();
+		let prev_doc_type = prev_doc[1];
+		let prev_doc_name = prev_doc[2];
+
+		if (prev_doc_type === "Lease Agreement") {
+			frappe.db.get_doc(prev_doc_type, prev_doc_name).then(doc => {
+				if (doc.type_of_charges && doc.type_of_charges.length > 0) {
+					doc.type_of_charges.forEach(row => {
+						let toc = frm.add_child("type_of_charges");
+						toc.particulars = row.particulars;
+						toc.amount = row.amount;
+					});
+					frm.refresh_field("type_of_charges");
+				}
+			});
+		}
 		frm.set_query("cost_center", function() {
 			return {
 			"filters": {
@@ -189,9 +203,8 @@ frappe.ui.form.on('Unit Details', {
 
 	rent_amount: function(frm, cdt, cdn) {
         let row = locals[cdt][cdn];
-        if (row.property && row.unit) {
-            calculate_yearly_rent(frm);
-        }
+       	calculate_yearly_rent(frm);
+        
     }
 	
 	
@@ -205,6 +218,7 @@ function calculate_yearly_rent(frm) {
     });
 
     frm.set_value("yearly_rent", total);
+	frm.set_value("m_rent", flt(total/12))
 }
 
 frappe.ui.form.on('TA Payment Schedule', {

@@ -24,6 +24,7 @@
   "cost_center",
   "unit_details",
   "yearly_rent",
+  "m_rent",
   "property_owner",
   "condition_inspection",
   "section_break_sfgyt",
@@ -63,6 +64,7 @@
    "default": "Today",
    "fieldname": "issue_date",
    "fieldtype": "Date",
+   "in_list_view": 1,
    "label": "Posting Date"
   },
   {
@@ -116,6 +118,7 @@
    "options": "TC-.YYYY.-"
   },
   {
+   "bold": 1,
    "fetch_from": "property_name.property_owner",
    "fieldname": "property_owner",
    "fieldtype": "Link",
@@ -155,6 +158,7 @@
    "fieldname": "yearly_rent",
    "fieldtype": "Float",
    "label": "Yearly Rent",
+   "read_only": 1,
    "reqd": 1
   },
   {
@@ -334,6 +338,12 @@
    "label": "Proposal Agreement",
    "options": "Proposal Agreement",
    "read_only": 1
+  },
+  {
+   "fieldname": "m_rent",
+   "fieldtype": "Currency",
+   "label": "Monthly Rent",
+   "read_only": 1
   }
  ],
  "grid_page_length": 50,
@@ -369,7 +379,7 @@
    "link_fieldname": "custom_tenancy_contract"
   }
  ],
- "modified": "2025-11-07 14:30:45.267580",
+ "modified": "2025-11-07 17:07:01.955138",
  "modified_by": "Administrator",
  "module": "Pangath Properties",
  "name": "Tenancy Contract",

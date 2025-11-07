@@ -33,8 +33,10 @@
   "trading_name",
   "rental_details_section",
   "unit_details",
+  "section_break_edup",
   "yearly_rent",
   "monthly_rent",
+  "column_break_lrmt",
   "regular_rent_per_sqmt",
   "total_area_sqmt",
   "payment_and_contract_terms_section",
@@ -286,7 +288,8 @@
   {
    "fieldname": "monthly_rent",
    "fieldtype": "Currency",
-   "label": "Monthly Rent"
+   "label": "Monthly Rent",
+   "read_only": 1
   },
   {
    "fieldname": "remarks_section",
@@ -347,7 +350,8 @@
   {
    "fieldname": "total",
    "fieldtype": "Float",
-   "label": "Total"
+   "label": "Total",
+   "read_only": 1
   },
   {
    "fieldname": "custom_emirates_id",
@@ -454,14 +458,23 @@
   {
    "fieldname": "total_area_sqmt",
    "fieldtype": "Float",
-   "label": "Total Area Sqmt"
+   "label": "Total Area Sqmt",
+   "read_only": 1
+  },
+  {
+   "fieldname": "section_break_edup",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "column_break_lrmt",
+   "fieldtype": "Column Break"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2025-11-07 12:51:38.702525",
+ "modified": "2025-11-07 16:44:52.078435",
  "modified_by": "Administrator",
  "module": "Pangath Properties",
  "name": "Tenancy Application",

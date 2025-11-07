@@ -62,4 +62,4 @@ def create_customer(exist_cus, cust, passport_no, contact_no, email, nationality
 	customer.tax_id = tax_id
 	customer.payment_terms = payment_terms
 	customer.save()
-	return {"status": "created"}
+	return {"status": "created", "cust": cust}

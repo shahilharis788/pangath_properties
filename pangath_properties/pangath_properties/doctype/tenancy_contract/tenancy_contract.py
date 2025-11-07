@@ -528,68 +528,68 @@ def populate_payment_schedule(self):
 		elif i.period_type=='Month':
 			i.period_end_date = frappe.utils.add_days(frappe.utils.add_months(i.period_start_date, end_num),-1)
 
-	if not self.payment_schedule:
-		for i in self.schedule_payments:
-			end_num = i.number_of_period
-			if i.period_type == 'Year':
-				end_num = i.number_of_period * 12
-				days = i.number_of_period * 365
-				i.period_end_date =  frappe.utils.add_days(frappe.utils.add_months(i.period_start_date, end_num),-1)
-			elif i.period_type=='Month':
-				i.period_end_date = frappe.utils.add_days(frappe.utils.add_months(i.period_start_date, end_num),-1)
-			# doc.payment_schedule = []
-			total_amount = self.yearly_rent
-			period = end_num
-			n = 0
-			if i.payment_frequency == '1 Payment':
-				total_amount = self.yearly_rent
-				n = 1
-				period = int(end_num / 12)
-			elif i.payment_frequency == '4 Payment':
-				total_amount = self.yearly_rent / 4
-				n = 1
-				period = int(end_num / 3)
-			elif i.payment_frequency == '2 Payment':
-				total_amount = self.yearly_rent / 2
-				n = 1
-				period = int(end_num/ 6)
-			elif i.payment_frequency == '6 Payment':
-				total_amount = self.yearly_rent / 6
-				n = 1
-				period = int(end_num/ 2)
-			elif i.payment_frequency == '3 Payment':
-				total_amount = self.yearly_rent / 3
-				n = 1
-				period = int(end_num/ 4)
-			else:
-				total_amount = self.yearly_rent/12
-				n = 1
+	# if not self.payment_schedule:
+	# 	for i in self.schedule_payments:
+	# 		end_num = i.number_of_period
+	# 		if i.period_type == 'Year':
+	# 			end_num = i.number_of_period * 12
+	# 			days = i.number_of_period * 365
+	# 			i.period_end_date =  frappe.utils.add_days(frappe.utils.add_months(i.period_start_date, end_num),-1)
+	# 		elif i.period_type=='Month':
+	# 			i.period_end_date = frappe.utils.add_days(frappe.utils.add_months(i.period_start_date, end_num),-1)
+	# 		# doc.payment_schedule = []
+	# 		total_amount = self.yearly_rent
+	# 		period = end_num
+	# 		n = 0
+	# 		if i.payment_frequency == '1 Payment':
+	# 			total_amount = self.yearly_rent
+	# 			n = 1
+	# 			period = int(end_num / 12)
+	# 		elif i.payment_frequency == '4 Payment':
+	# 			total_amount = self.yearly_rent / 4
+	# 			n = 1
+	# 			period = int(end_num / 3)
+	# 		elif i.payment_frequency == '2 Payment':
+	# 			total_amount = self.yearly_rent / 2
+	# 			n = 1
+	# 			period = int(end_num/ 6)
+	# 		elif i.payment_frequency == '6 Payment':
+	# 			total_amount = self.yearly_rent / 6
+	# 			n = 1
+	# 			period = int(end_num/ 2)
+	# 		elif i.payment_frequency == '3 Payment':
+	# 			total_amount = self.yearly_rent / 3
+	# 			n = 1
+	# 			period = int(end_num/ 4)
+	# 		else:
+	# 			total_amount = self.yearly_rent/12
+	# 			n = 1
 
-			if int(period) > 0:
-				for x in range(period):
-					row = {
-							"payment_scheduled_date": frappe.utilsadd_months(i.period_start_date, n-1),
-							"payment_amount": total_amount,
-						}
+	# 		if int(period) > 0:
+	# 			for x in range(period):
+	# 				row = {
+	# 						"payment_scheduled_date": frappe.utils.add_months(i.period_start_date, n-1),
+	# 						"payment_amount": total_amount,
+	# 					}
 
-					if i.is_taxable and i.item_tax_template:
-						row["item_tax_template"] = i.item_tax_template
-						row['is_taxable'] = 1
+	# 				if i.is_taxable and i.item_tax_template:
+	# 					row["item_tax_template"] = i.item_tax_template
+	# 					row['is_taxable'] = 1
 
-					self.append("payment_schedule", row)
+	# 				self.append("payment_schedule", row)
 
-					if i.payment_frequency == '1 Payment':
-						n = n + 12
-					elif i.payment_frequency == '12 Payment':
-						n = n+1
-					elif i.payment_frequency == '4 Payment':
-						n = n+3
-					elif i.payment_frequency == '6 Payment':
-						n = n+2
-					elif i.payment_frequency == '3 Payment':
-						n = n+4
-					else:
-						n = n+6
+	# 				if i.payment_frequency == '1 Payment':
+	# 					n = n + 12
+	# 				elif i.payment_frequency == '12 Payment':
+	# 					n = n+1
+	# 				elif i.payment_frequency == '4 Payment':
+	# 					n = n+3
+	# 				elif i.payment_frequency == '6 Payment':
+	# 					n = n+2
+	# 				elif i.payment_frequency == '3 Payment':
+	# 					n = n+4
+	# 				else:
+	# 					n = n+6
 
 		
 		
