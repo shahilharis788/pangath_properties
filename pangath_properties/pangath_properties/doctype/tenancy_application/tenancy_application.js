@@ -277,9 +277,9 @@ frappe.ui.form.on('Unit Details', {
 
 	rent_amount: function(frm, cdt, cdn) {
         let row = locals[cdt][cdn];
-        if (row.property && row.unit) {
+        // if (row.property && row.unit) {
             calculate_yearly_rent(frm);
-        }
+        // }
     },
     
     unit_area_sqm: function(frm, cdt, cdn) {
