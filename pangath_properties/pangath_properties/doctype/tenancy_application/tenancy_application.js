@@ -41,7 +41,22 @@ frappe.ui.form.on('Tenancy Application', {
             }
         
     },
-	
+	is_existing_customer:function(frm){
+        if(!frm.doc.is_existing_customer){
+                        
+            frm.set_value("custom_emirates_id", "")
+			frm.set_value("contact_no", "")
+			frm.set_value("nationality", "")
+			frm.set_value("tax_id", "")
+			frm.set_value("payment_terms_template",  "")
+			frm.set_value("passport_no",  "")
+			frm.set_value("customer_name",  "")
+            frm.set_value("email",  "")
+            frm.set_value("territory",  "")
+
+        }
+    },
+    
     refresh: function(frm) {
 		if (frm.doc.docstatus == 1) {
             frm.add_custom_button(__('Booking Agreement'),function () {
@@ -175,6 +190,14 @@ frappe.ui.form.on('Tenancy Application', {
                 }
             };
         };
+        frm.set_query("bank_account", function() {
+            return {
+                filters: {
+                    is_company_account: 1
+                }
+            };
+        });
+
 		// frm.set_query('unit', function (doc) {
 		// 	let filters = []
 		// 	if (frm.doc.property_name) {
@@ -272,6 +295,14 @@ frappe.ui.form.on('Unit Details', {
                          frappe.model.set_value(cdt, cdn, "unit_nature", r.message.unit_nature);
                     }
                 });
+        }
+        else{
+             frappe.model.set_value(cdt, cdn, "unit_type", "");
+             frappe.model.set_value(cdt, cdn, "sq_ft", "");
+             frappe.model.set_value(cdt, cdn, "floor", "");
+             frappe.model.set_value(cdt, cdn, "rent_amount", "");
+             frappe.model.set_value(cdt, cdn, "unit_nature", "");
+
         }
     },
 

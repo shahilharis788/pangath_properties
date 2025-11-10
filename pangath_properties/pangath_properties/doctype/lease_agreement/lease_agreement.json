@@ -44,6 +44,7 @@
   "payment_and_contract_terms_section",
   "payment_terms_template",
   "payment_frequency",
+  "bank_account",
   "column_break_jfgv",
   "tentative_hand_over_date",
   "agreement_term_date",
@@ -453,6 +454,12 @@
    "fieldtype": "Float",
    "label": "Total Area Sqmt",
    "read_only": 1
+  },
+  {
+   "fieldname": "bank_account",
+   "fieldtype": "Link",
+   "label": "Bank Account",
+   "options": "Bank Account"
   }
  ],
  "index_web_pages_for_search": 1,
@@ -463,7 +470,7 @@
    "link_fieldname": "lease_agreement"
   }
  ],
- "modified": "2025-11-07 18:29:44.148211",
+ "modified": "2025-11-10 12:50:08.890310",
  "modified_by": "Administrator",
  "module": "Pangath Properties",
  "name": "Lease Agreement",

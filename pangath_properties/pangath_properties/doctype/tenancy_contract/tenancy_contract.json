@@ -18,6 +18,7 @@
   "subject_of_lease",
   "contract_start_date",
   "contract_end_date",
+  "fit_out_period",
   "section_break_cafr5",
   "name_of_tenant",
   "customer_name",
@@ -53,7 +54,9 @@
   "more_information_tab",
   "tenancy_application",
   "amended_from",
+  "proposal_agreement_0",
   "proposal_agreement",
+  "booking_agreement",
   "sales_team_section",
   "table_sales",
   "section_break_bten",
@@ -230,12 +233,6 @@
    "label": "Email ID"
   },
   {
-   "fieldname": "tenancy_application",
-   "fieldtype": "Link",
-   "label": "Tenancy Application",
-   "options": "Tenancy Application"
-  },
-  {
    "fieldname": "sales_team_section",
    "fieldtype": "Section Break",
    "label": "Sales Team"
@@ -336,14 +333,39 @@
    "fieldname": "proposal_agreement",
    "fieldtype": "Link",
    "label": "Proposal Agreement",
-   "options": "Proposal Agreement",
-   "read_only": 1
+   "options": "Tenancy Application"
   },
   {
    "fieldname": "m_rent",
    "fieldtype": "Currency",
    "label": "Monthly Rent",
    "read_only": 1
+  },
+  {
+   "fieldname": "proposal_agreement_0",
+   "fieldtype": "Link",
+   "hidden": 1,
+   "label": "Proposal Agreement",
+   "options": "Proposal Agreement",
+   "read_only": 1
+  },
+  {
+   "fieldname": "booking_agreement",
+   "fieldtype": "Link",
+   "label": "Booking Agreement",
+   "options": "Lease Agreement"
+  },
+  {
+   "fieldname": "tenancy_application",
+   "fieldtype": "Link",
+   "hidden": 1,
+   "label": "Tenancy Application",
+   "options": "Tenancy Application"
+  },
+  {
+   "fieldname": "fit_out_period",
+   "fieldtype": "Date",
+   "label": "Fit out Period"
   }
  ],
  "grid_page_length": 50,
@@ -379,7 +401,7 @@
    "link_fieldname": "custom_tenancy_contract"
   }
  ],
- "modified": "2025-11-07 17:07:01.955138",
+ "modified": "2025-11-10 12:52:01.542879",
  "modified_by": "Administrator",
  "module": "Pangath Properties",
  "name": "Tenancy Contract",

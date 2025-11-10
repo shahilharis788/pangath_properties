@@ -119,11 +119,25 @@ frappe.ui.form.on('Lease Agreement', {
         }
     },
 	lease_application: function (frm) {
-		set_html(frm);
+		//set_html(frm);
 	},
 
 	onload: function (frm) {
-		set_html(frm);
+		frm.fields_dict["unit_details"].grid.get_field("unit").get_query = function(doc, cdt, cdn) {
+            return {
+                filters: {
+                    "status": ["!=", "Rented"],
+                    "property": locals[cdt][cdn].property
+                }
+            };
+        };
+		 frm.set_query("bank_account", function() {
+            return {
+                filters: {
+                    is_company_account: 1
+                }
+            };
+        });
 	},
 
 	tc_name: function (frm) {
@@ -236,3 +250,115 @@ var set_html = function (frm) {
 		frm.fields_dict.lease_agreement_details.html('');
 	}
 };
+
+frappe.ui.form.on('Unit Details', {
+	unit_details_remove:function(frm){
+		calculate_yearly_rent(frm);
+        calculate_total_unit_area(frm)
+        
+	},
+    property: function(frm, cdt, cdn) {
+        let row = locals[cdt][cdn];
+
+        
+        if (row.property) {
+            frappe.db.get_value("Property", row.property, ["property_owner", "building_name"])
+                .then(r => {
+                    if (r && r.message) {
+                        frappe.model.set_value(cdt, cdn, "property_owner", r.message.property_owner);
+                        frappe.model.set_value(cdt, cdn, "property_name", r.message.building_name);
+                    }
+                });
+        }
+    },
+
+    unit: function(frm, cdt, cdn) {
+        let row = locals[cdt][cdn];
+
+        if (row.unit) {
+            frappe.db.get_value("Unit", row.unit, ["carpet_area", "unit_type", "floor","rent", "unit_nature"])
+                .then(r => {
+                    if (r && r.message) {
+                        frappe.model.set_value(cdt, cdn, "unit_type", r.message.unit_type);
+                        frappe.model.set_value(cdt, cdn, "sq_ft", r.message.carpet_area);
+                        frappe.model.set_value(cdt, cdn, "floor", r.message.floor);
+                        frappe.model.set_value(cdt, cdn, "rent_amount", r.message.rent);
+                         frappe.model.set_value(cdt, cdn, "unit_nature", r.message.unit_nature);
+                    }
+                });
+        }
+		else{
+             frappe.model.set_value(cdt, cdn, "unit_type", "");
+             frappe.model.set_value(cdt, cdn, "sq_ft", "");
+             frappe.model.set_value(cdt, cdn, "floor", "");
+             frappe.model.set_value(cdt, cdn, "rent_amount", "");
+             frappe.model.set_value(cdt, cdn, "unit_nature", "");
+
+        }
+    },
+
+	rent_amount: function(frm, cdt, cdn) {
+        let row = locals[cdt][cdn];
+        // if (row.property && row.unit) {
+            calculate_yearly_rent(frm);
+        // }
+    },
+    
+    unit_area_sqm: function(frm, cdt, cdn) {
+        
+        let row = locals[cdt][cdn];
+        // if (row.property && row.unit) {
+            calculate_total_unit_area(frm);
+        // }
+    }
+	
+	
+});
+
+function calculate_yearly_rent(frm) {
+    let total = 0;
+
+    (frm.doc.unit_details || []).forEach(row => {
+        total += flt(row.rent_amount); 
+    });
+
+    frm.set_value("yearly_rent", total);
+    frm.set_value("monthly_rent", flt(total/12))
+}
+
+
+frappe.ui.form.on('Charge Details', {
+	type_of_charges_remove:function(frm){
+		calculate_total_charges(frm);
+        
+	},
+   
+	amount: function(frm, cdt, cdn) {
+        let row = locals[cdt][cdn];
+        if (row.amount) {
+            calculate_total_charges(frm);
+        }
+    }
+	
+});
+
+function calculate_total_charges(frm) {
+    let total = 0;
+
+    (frm.doc.type_of_charges || []).forEach(row => {
+        total += flt(row.amount); 
+    });
+
+    frm.set_value("total_charges", total);
+}
+
+
+function calculate_total_unit_area(frm) {
+    let total = 0;
+
+    (frm.doc.unit_details || []).forEach(row => {
+        total += flt(row.unit_area_sqm); 
+    });
+
+    frm.set_value("total_area_sqmt", total);
+}

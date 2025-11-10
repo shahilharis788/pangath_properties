@@ -42,6 +42,7 @@
   "payment_and_contract_terms_section",
   "payment_terms_template",
   "payment_frequency",
+  "bank_account",
   "column_break_pjgh",
   "tentative_hand_over_date",
   "agreement_term_date",
@@ -468,13 +469,19 @@
   {
    "fieldname": "column_break_lrmt",
    "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "bank_account",
+   "fieldtype": "Link",
+   "label": "Bank Account",
+   "options": "Bank Account"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2025-11-07 16:44:52.078435",
+ "modified": "2025-11-10 12:44:58.052159",
  "modified_by": "Administrator",
  "module": "Pangath Properties",
  "name": "Tenancy Application",
