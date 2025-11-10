@@ -49,6 +49,7 @@
   "tentative_hand_over_date",
   "agreement_term_date",
   "fit_out_period",
+  "agreement_by",
   "particulars_section",
   "type_of_charges",
   "total_charges",
@@ -460,6 +461,12 @@
    "fieldtype": "Link",
    "label": "Bank Account",
    "options": "Bank Account"
+  },
+  {
+   "fieldname": "agreement_by",
+   "fieldtype": "Link",
+   "label": "Agreement By",
+   "options": "Employee"
   }
  ],
  "index_web_pages_for_search": 1,
@@ -470,7 +477,7 @@
    "link_fieldname": "lease_agreement"
   }
  ],
- "modified": "2025-11-10 12:50:08.890310",
+ "modified": "2025-11-10 16:05:38.669222",
  "modified_by": "Administrator",
  "module": "Pangath Properties",
  "name": "Lease Agreement",
