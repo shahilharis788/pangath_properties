@@ -141,6 +141,12 @@ fixtures = [
 						'Purchase Invoice-custom_naming_prefix',
 						'Journal Entry-custom_naming_perfix',
 						'Customer-custom_emirate_id',
+						'Company-custom_signatory_details',
+						'Company-custom_name_of_authorised_signatory',
+						'Company-custom_email_address',
+						'Company-custom_column_break_dihvo',
+						'Company-custom_position',
+						'Company-custom_contact_number',
 					),
 				]
 			],
