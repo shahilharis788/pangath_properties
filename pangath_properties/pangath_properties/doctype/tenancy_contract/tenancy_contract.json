@@ -13,6 +13,7 @@
   "new_renewal_lease",
   "company",
   "is_renew",
+  "agreement_by",
   "column_break_e0ycx",
   "issue_date",
   "subject_of_lease",
@@ -366,6 +367,12 @@
    "fieldname": "fit_out_period",
    "fieldtype": "Date",
    "label": "Fit out Period"
+  },
+  {
+   "fieldname": "agreement_by",
+   "fieldtype": "Link",
+   "label": "Agreement By",
+   "options": "Employee"
   }
  ],
  "grid_page_length": 50,
@@ -401,7 +408,7 @@
    "link_fieldname": "custom_tenancy_contract"
   }
  ],
- "modified": "2025-11-10 12:52:01.542879",
+ "modified": "2025-11-10 12:57:00.459980",
  "modified_by": "Administrator",
  "module": "Pangath Properties",
  "name": "Tenancy Contract",
