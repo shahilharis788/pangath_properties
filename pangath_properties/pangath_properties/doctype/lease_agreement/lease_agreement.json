@@ -73,7 +73,8 @@
   "condition_inspection_template_section",
   "condition_inspection",
   "references_section",
-  "proposal_agreement"
+  "proposal_agreement",
+  "tenancy_contract"
  ],
  "fields": [
   {
@@ -467,6 +468,13 @@
    "fieldtype": "Link",
    "label": "Agreement By",
    "options": "Employee"
+  },
+  {
+   "fieldname": "tenancy_contract",
+   "fieldtype": "Link",
+   "label": "Tenancy Contract",
+   "options": "Tenancy Contract",
+   "read_only": 1
   }
  ],
  "index_web_pages_for_search": 1,
@@ -477,7 +485,7 @@
    "link_fieldname": "lease_agreement"
   }
  ],
- "modified": "2025-11-10 16:05:38.669222",
+ "modified": "2025-11-10 17:18:24.475277",
  "modified_by": "Administrator",
  "module": "Pangath Properties",
  "name": "Lease Agreement",

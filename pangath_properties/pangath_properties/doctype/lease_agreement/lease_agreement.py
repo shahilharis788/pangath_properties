@@ -63,3 +63,11 @@ def create_customer(exist_cus, cust, passport_no, contact_no, email, nationality
 	customer.payment_terms = payment_terms
 	customer.save()
 	return {"status": "created", "cust": cust}
+
+@frappe.whitelist()
+def validate_contract_creation(doc):
+	contract = frappe.db.get_value("Tenancy Contract", {"booking_agreement": doc})
+	if contract:
+		return 1
+	else:
+		return 0

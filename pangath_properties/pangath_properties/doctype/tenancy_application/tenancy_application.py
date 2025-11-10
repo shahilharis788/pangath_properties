@@ -178,6 +178,10 @@ def populate_payment_schedule(self):
                         n = n+6
 @frappe.whitelist()
 def create_tenancy_contract(source_name, target_doc=None):
+    tenc_cont = frappe.db.get_value("Tenancy Contract", {"proposal_agreement": source_name})
+    if tenc_cont:
+        frappe.throw(f'Tenancy Contract <b>{tenc_cont}</b> Linked with Proposal Agreement')
+    
     if source_name:
         def set_missing_values(source, target):
             target.run_method("set_missing_values")
@@ -191,7 +195,9 @@ def create_tenancy_contract(source_name, target_doc=None):
                     'name_of_tenant' :'tenant_name',
                     "customer":"name_of_tenant",
                     "name":"tenancy_application",
-                    "opportunity":"opportunity"
+                    "opportunity":"opportunity",
+                    "name": "proposal_agreement",
+                    "tenant_name": "name_of_tenant",
                 }
             },
             "TA Payment  Details": {
@@ -213,6 +219,8 @@ def create_tenancy_contract(source_name, target_doc=None):
 			},
 
         }, target_doc, set_missing_values)
+       
+
         return doclist
 
 
@@ -234,7 +242,12 @@ def create_payment_entry(source_name, target_doc=None):
 
 @frappe.whitelist()
 def create_booking_agreement(source_name, target_doc=None):
-     if source_name:
+    book_agr = frappe.db.get_value("Lease Agreement", {"proposal_agreement": source_name})
+    
+    if book_agr:
+        frappe.throw(f'Proposal already linked to Booking <b>{book_agr}</b>')
+
+    if source_name:
         doclist = get_mapped_doc("Tenancy Application", source_name, {
             "Tenancy Application": {
                 "doctype": "Lease Agreement",

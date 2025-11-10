@@ -30,6 +30,18 @@ frappe.ui.form.on('Lease Agreement', {
        
         if (frm.doc.docstatus === 1) {
             frm.add_custom_button("Tenancy Contract", async function () {
+				frappe.call({
+					method: "pangath_properties.pangath_properties.doctype.lease_agreement.lease_agreement.validate_contract_creation",
+					args:{
+						doc: frm.doc.name
+					},
+					callback:function(r){
+						if(r.message){
+							frappe.throw('Tenancy Contract is Linked to the Booking')
+						}
+					}
+
+				})
                 try {
                     let addr = '';
                     let email = '';
@@ -110,6 +122,7 @@ frappe.ui.form.on('Lease Agreement', {
 						terms: frm.doc.terms || "",
 						tc_name: frm.doc.tc_name || "",
 						condition_inspection: frm.doc.condition_inspection,
+						booking_agreement: frm.doc.name,
                     });
                 } catch (e) {
                     frappe.msgprint(__('Error creating Tenancy Contract: ') + e.message);

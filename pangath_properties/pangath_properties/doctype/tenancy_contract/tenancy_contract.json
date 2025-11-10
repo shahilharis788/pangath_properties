@@ -334,7 +334,8 @@
    "fieldname": "proposal_agreement",
    "fieldtype": "Link",
    "label": "Proposal Agreement",
-   "options": "Tenancy Application"
+   "options": "Tenancy Application",
+   "read_only": 1
   },
   {
    "fieldname": "m_rent",
@@ -354,7 +355,8 @@
    "fieldname": "booking_agreement",
    "fieldtype": "Link",
    "label": "Booking Agreement",
-   "options": "Lease Agreement"
+   "options": "Lease Agreement",
+   "read_only": 1
   },
   {
    "fieldname": "tenancy_application",
@@ -408,7 +410,7 @@
    "link_fieldname": "custom_tenancy_contract"
   }
  ],
- "modified": "2025-11-10 12:57:00.459980",
+ "modified": "2025-11-10 17:06:22.287624",
  "modified_by": "Administrator",
  "module": "Pangath Properties",
  "name": "Tenancy Contract",

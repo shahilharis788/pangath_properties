@@ -36,7 +36,7 @@
    "fieldname": "number_of_period",
    "fieldtype": "Int",
    "in_list_view": 1,
-   "label": "Number Of period",
+   "label": "Number Of period(In Years)",
    "reqd": 1
   },
   {
@@ -44,7 +44,7 @@
    "fieldname": "payment_frequency",
    "fieldtype": "Select",
    "in_list_view": 1,
-   "label": "Payment Schedule ",
+   "label": "Total Payment Schedule ",
    "options": "1 Payment\n2 Payment\n3 Payment\n4 Payment\n6 Payment",
    "reqd": 1
   },
@@ -77,8 +77,8 @@
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2025-10-21 14:10:57.466259",
- "modified_by": "shahilharis78@gmail.com",
+ "modified": "2025-11-10 18:16:38.303011",
+ "modified_by": "Administrator",
  "module": "Pangath Properties",
  "name": "TA Payment Schedule",
  "owner": "Administrator",

@@ -432,7 +432,12 @@ class TenancyContract(Document):
 	#     self.name_of_tenant = customer.name
 
 	def after_insert(self):
-		frappe.db.set_value("Tenancy Application",self.tenancy_application,"tenancy_contract",self.name)
+		#frappe.db.set_value("Tenancy Application",self.tenancy_application,"tenancy_contract",self.name)
+		if self.proposal_agreement:
+			frappe.db.set_value("Tenancy Application", self.proposal_agreement, "tenancy_contract", self.name)
+		if self.booking_agreement:
+			frappe.db.set_value("Lease Agreement", self.booking_agreement, "tenancy_contract", self.name)
+		
 
 	def before_save(self):
 		pass
