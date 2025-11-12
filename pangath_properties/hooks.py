@@ -357,6 +357,9 @@ doc_events = {
 		},
 		"Maintenance Schedule":{
 			"validate": "pangath_properties.events.maintenance_schedule.validate_tenancy_property"
+		},
+		"Sales Invoice":{
+			"before_insert":"pangath_properties.events.sales_invoice.set_tax_template"
 		}
 }
 

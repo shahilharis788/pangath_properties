@@ -56,7 +56,6 @@ class TenancyContract(Document):
 		posting_date = nowdate()
 		freq = self.schedule_payments[-1].number_of_period
 		cost_center = frappe.db.get_value("Company", self.company, "cost_center")
-		
 		all_units = [unit.unit for unit in self.unit_details]
 		for unit_det in self.unit_details:
 			frappe.db.set_value('Unit', unit_det.unit, 'status', 'Rented')
@@ -138,7 +137,7 @@ class TenancyContract(Document):
 						"item_code": unit.unit,
 						"qty": 1,
 						"rate": unit.rent_amount,
-						"description": unit,
+						"description": "Rent",
 						"item_tax_template": self.payment_schedule[0].item_tax_template,
 						"income_account": self.payment_schedule[0].income_account,
 						"cost_center": cost_center
@@ -164,6 +163,9 @@ class TenancyContract(Document):
 				})
 
 			single_si.save()
+			if single_si.taxes:
+				for row in single_si.taxes:
+					row.cost_center = cost_center
 			single_si.submit()
 		# for idx, i in enumerate(self.payment_schedule):
 		#     if i.is_pdc == 1:
