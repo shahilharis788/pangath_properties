@@ -43,10 +43,12 @@
   "payment_terms_template",
   "payment_frequency",
   "bank_account",
+  "mode_of_payment",
   "column_break_pjgh",
   "tentative_hand_over_date",
   "agreement_term_date",
   "fit_out_period",
+  "number_of_installments",
   "company_details_section",
   "company_name",
   "column_break_mths",
@@ -476,13 +478,33 @@
    "fieldtype": "Link",
    "label": "Bank Account",
    "options": "Bank Account"
+  },
+  {
+   "fieldname": "mode_of_payment",
+   "fieldtype": "Link",
+   "label": "Mode of Payment",
+   "options": "Mode of Payment"
+  },
+  {
+   "fieldname": "number_of_installments",
+   "fieldtype": "Data",
+   "label": "Number of Installments"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
- "links": [],
- "modified": "2025-11-10 17:11:44.655932",
+ "links": [
+  {
+   "link_doctype": "Lease Agreement",
+   "link_fieldname": "proposal_agreement"
+  },
+  {
+   "link_doctype": "Tenancy Contract",
+   "link_fieldname": "proposal_agreement"
+  }
+ ],
+ "modified": "2025-11-13 09:36:02.640961",
  "modified_by": "Administrator",
  "module": "Pangath Properties",
  "name": "Tenancy Application",
