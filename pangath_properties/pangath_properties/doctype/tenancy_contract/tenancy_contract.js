@@ -232,7 +232,7 @@ frappe.ui.form.on('TA Payment Schedule', {
         let row = frappe.get_doc(cdt, cdn);
 
         if (row.number_of_period > 1) {
-            frm.set_value('custom_number_of_period', row.number_of_period);
+            frm.set_value('number_of_period', row.number_of_period);
 			
         }
     }
