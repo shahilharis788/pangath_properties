@@ -19,6 +19,7 @@
   "email",
   "gender",
   "territory",
+  "purpose",
   "column_break_eqhp",
   "posting_date",
   "passport_no",
@@ -27,6 +28,7 @@
   "nationality",
   "custom_emirates_id",
   "tax_id",
+  "agreement_by",
   "premises_details_section",
   "gross_leasable_area_of_premises",
   "permitted_use",
@@ -49,7 +51,7 @@
   "tentative_hand_over_date",
   "agreement_term_date",
   "fit_out_period",
-  "agreement_by",
+  "number_of_installments",
   "particulars_section",
   "type_of_charges",
   "total_charges",
@@ -475,6 +477,16 @@
    "label": "Tenancy Contract",
    "options": "Tenancy Contract",
    "read_only": 1
+  },
+  {
+   "fieldname": "number_of_installments",
+   "fieldtype": "Data",
+   "label": "Number of Installments"
+  },
+  {
+   "fieldname": "purpose",
+   "fieldtype": "Data",
+   "label": "Purpose"
   }
  ],
  "index_web_pages_for_search": 1,
@@ -485,7 +497,7 @@
    "link_fieldname": "lease_agreement"
   }
  ],
- "modified": "2025-11-10 17:18:24.475277",
+ "modified": "2025-11-13 14:11:02.241096",
  "modified_by": "Administrator",
  "module": "Pangath Properties",
  "name": "Lease Agreement",
