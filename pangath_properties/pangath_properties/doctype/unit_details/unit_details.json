@@ -19,7 +19,8 @@
   "unit_nature",
   "floor",
   "landmark",
-  "unit_area_sqm"
+  "unit_area_sqm",
+  "lease_type"
  ],
  "fields": [
   {
@@ -115,13 +116,20 @@
    "fieldname": "unit_area_sqm",
    "fieldtype": "Float",
    "label": "Unit Area (Sq.m)"
+  },
+  {
+   "fetch_from": "unit.lease_type",
+   "fieldname": "lease_type",
+   "fieldtype": "Link",
+   "label": "Lease Type",
+   "options": "Lease Type"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2025-11-07 17:09:25.757764",
+ "modified": "2025-11-13 16:51:36.079656",
  "modified_by": "Administrator",
  "module": "Pangath Properties",
  "name": "Unit Details",

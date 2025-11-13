@@ -27,6 +27,7 @@
   "mortgage",
   "ownership_type",
   "amenitie",
+  "lease_type",
   "address_section",
   "location",
   "column_break_sdds",
@@ -441,6 +442,12 @@
    "fieldname": "address",
    "fieldtype": "Small Text",
    "label": "Address"
+  },
+  {
+   "fieldname": "lease_type",
+   "fieldtype": "Link",
+   "label": "Lease Type",
+   "options": "Lease Type"
   }
  ],
  "grid_page_length": 50,
@@ -448,7 +455,7 @@
  "index_web_pages_for_search": 1,
  "is_tree": 1,
  "links": [],
- "modified": "2025-11-05 15:26:46.169010",
+ "modified": "2025-11-13 16:50:39.304099",
  "modified_by": "Administrator",
  "module": "Pangath Properties",
  "name": "Unit",

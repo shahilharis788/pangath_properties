@@ -34,6 +34,7 @@
   "permitted_use",
   "column_break_vvfh",
   "trading_name",
+  "lease_type",
   "section_break_6",
   "lease_agreement_details",
   "schedule_section",
@@ -487,6 +488,12 @@
    "fieldname": "purpose",
    "fieldtype": "Data",
    "label": "Purpose"
+  },
+  {
+   "fieldname": "lease_type",
+   "fieldtype": "Link",
+   "label": "Lease Type",
+   "options": "Lease Type"
   }
  ],
  "index_web_pages_for_search": 1,
@@ -497,7 +504,7 @@
    "link_fieldname": "lease_agreement"
   }
  ],
- "modified": "2025-11-13 14:11:02.241096",
+ "modified": "2025-11-13 16:56:23.188411",
  "modified_by": "Administrator",
  "module": "Pangath Properties",
  "name": "Lease Agreement",
