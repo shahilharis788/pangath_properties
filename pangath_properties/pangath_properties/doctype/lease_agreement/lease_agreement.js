@@ -30,19 +30,21 @@ frappe.ui.form.on('Lease Agreement', {
        
         if (frm.doc.docstatus === 1) {
             frm.add_custom_button("Tenancy Contract", async function () {
+				
 				frappe.call({
 					method: "pangath_properties.pangath_properties.doctype.lease_agreement.lease_agreement.validate_contract_creation",
 					args:{
 						doc: frm.doc.name
 					},
 					callback:function(r){
-						if(r.message){
-							frappe.throw('Tenancy Contract is Linked to the Booking')
+						if(r.message == 1){
+							frappe.throw("Booking is Already Linked With a Tenancy Contract")
 						}
 					}
 
 				})
-                try {
+				
+				try {
                     let addr = '';
                     let email = '';
                     let phone = '';
@@ -123,6 +125,10 @@ frappe.ui.form.on('Lease Agreement', {
 						tc_name: frm.doc.tc_name || "",
 						condition_inspection: frm.doc.condition_inspection,
 						booking_agreement: frm.doc.name,
+						total_area_sqmt: frm.doc.total_area_sqmt,
+						tentative_hand_over_date: frm.doc.tentative_hand_over_date,
+						agreement_term_date: frm.doc.agreement_term_date,
+						fit_out_period: frm.doc.fit_out_period
                     });
                 } catch (e) {
                     frappe.msgprint(__('Error creating Tenancy Contract: ') + e.message);
@@ -336,7 +342,9 @@ function calculate_yearly_rent(frm) {
     });
 
     frm.set_value("yearly_rent", total);
-    frm.set_value("monthly_rent", flt(total/12))
+	if(frm.doc.doctype == "Lease Agreement"){
+    	frm.set_value("monthly_rent", flt(total/12))
+	}
 }
 
 

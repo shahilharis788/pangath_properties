@@ -332,7 +332,9 @@ function calculate_yearly_rent(frm) {
     });
 
     frm.set_value("yearly_rent", total);
-    frm.set_value("monthly_rent", flt(total/12))
+    if(frm.doc.doctype == "Tenancy Application"){
+        frm.set_value("monthly_rent", flt(total/12))
+    }
 }
 
 

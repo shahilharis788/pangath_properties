@@ -14,12 +14,14 @@
   "company",
   "is_renew",
   "agreement_by",
+  "tentative_hand_over_date",
+  "agreement_term_date",
+  "fit_out_period",
   "column_break_e0ycx",
   "issue_date",
   "subject_of_lease",
   "contract_start_date",
   "contract_end_date",
-  "fit_out_period",
   "section_break_cafr5",
   "name_of_tenant",
   "customer_name",
@@ -27,7 +29,8 @@
   "unit_details",
   "yearly_rent",
   "m_rent",
-  "property_owner",
+  "total_area_sqmt",
+  "section_break_vjci",
   "condition_inspection",
   "section_break_sfgyt",
   "tenant_address",
@@ -120,15 +123,6 @@
    "fieldtype": "Select",
    "label": "Contract Number",
    "options": "TC-.YYYY.-"
-  },
-  {
-   "bold": 1,
-   "fetch_from": "property_name.property_owner",
-   "fieldname": "property_owner",
-   "fieldtype": "Link",
-   "hidden": 1,
-   "label": "Property Owner",
-   "options": "Property Owner"
   },
   {
    "fieldname": "section_break_cni0k",
@@ -242,12 +236,6 @@
    "fieldname": "table_sales",
    "fieldtype": "Table",
    "options": "Sales Team"
-  },
-  {
-   "fieldname": "condition_inspection",
-   "fieldtype": "Table",
-   "label": "Condition Inspection",
-   "options": "Condition Inspection Reading"
   },
   {
    "allow_on_submit": 1,
@@ -375,6 +363,32 @@
    "fieldtype": "Link",
    "label": "Agreement By",
    "options": "Employee"
+  },
+  {
+   "fieldname": "total_area_sqmt",
+   "fieldtype": "Float",
+   "label": "Total Area Sqmt",
+   "read_only": 1
+  },
+  {
+   "fieldname": "section_break_vjci",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "condition_inspection",
+   "fieldtype": "Table",
+   "label": "Condition Inspection",
+   "options": "Condition Inspection Reading"
+  },
+  {
+   "fieldname": "tentative_hand_over_date",
+   "fieldtype": "Date",
+   "label": "Tentative Hand Over Date"
+  },
+  {
+   "fieldname": "agreement_term_date",
+   "fieldtype": "Date",
+   "label": "Agreement Term Date"
   }
  ],
  "grid_page_length": 50,
@@ -410,7 +424,7 @@
    "link_fieldname": "custom_tenancy_contract"
   }
  ],
- "modified": "2025-11-10 17:06:22.287624",
+ "modified": "2025-11-14 10:41:22.981202",
  "modified_by": "Administrator",
  "module": "Pangath Properties",
  "name": "Tenancy Contract",

@@ -2,7 +2,18 @@
 // For license information, please see license.txt
 
 frappe.ui.form.on('Tenancy Contract', {
-	
+	// before_save:function(frm){
+	// 		let prev_doc = frappe.get_prev_route();
+	// 		let prev_doc_type = prev_doc[1];
+	// 		let prev_doc_name = prev_doc[2];
+	// 		if (prev_doc_type === "Lease Agreement"){
+	// 			frappe.db.get_value("Tenancy Contract", {"name":["!=", frm.doc.name], "booking_agreement": prev_doc_name}, "name").then(r=>{
+	// 				if(r.message){
+	// 					frappe.throw("Tenancy Contract is Already Created for this Booking.")
+	// 				}
+	// 			})
+	// 		}
+	// },
 	
 	refresh:function(frm){
 		filters(frm)
@@ -25,6 +36,7 @@ frappe.ui.form.on('Tenancy Contract', {
 					frm:frm
 				})
 			});
+			
 		}
 
 		frm.fields_dict['type_of_charges'].grid.get_field('item_tax_template').get_query = function(cdt, cdt, cdn){
@@ -82,14 +94,12 @@ frappe.ui.form.on('Tenancy Contract', {
             };
         };
 
-		let prev_doc = frappe.get_prev_route();
-		let prev_doc_type = prev_doc[1];
-		let prev_doc_name = prev_doc[2];
-		
 		if(frm.doc.yearly_rent){
 			frm.set_value("m_rent", flt(frm.doc.yearly_rent/12))
 		}
-		
+		let prev_doc = frappe.get_prev_route();
+		let prev_doc_type = prev_doc[1];
+		let prev_doc_name = prev_doc[2];
 		if (prev_doc_type === "Lease Agreement" || prev_doc_type == "Tenancy Application") {
 			
 			frappe.db.get_doc(prev_doc_type, prev_doc_name).then(doc => {
@@ -177,6 +187,7 @@ var filters = (frm) =>{
 frappe.ui.form.on('Unit Details', {
 	unit_details_remove:function(frm){
 		calculate_yearly_rent(frm);
+		calculate_total_unit_area(frm);
         
 	},
     property: function(frm, cdt, cdn) {
@@ -194,6 +205,7 @@ frappe.ui.form.on('Unit Details', {
     },
 
     unit: function(frm, cdt, cdn) {
+		calculate_yearly_rent(frm);
         let row = locals[cdt][cdn];
 
         if (row.unit) {
@@ -204,6 +216,7 @@ frappe.ui.form.on('Unit Details', {
                         frappe.model.set_value(cdt, cdn, "sq_ft", r.message.carpet_area);
                     }
                 });
+			
         }
     },
 
@@ -211,6 +224,11 @@ frappe.ui.form.on('Unit Details', {
         let row = locals[cdt][cdn];
        	calculate_yearly_rent(frm);
         
+    },
+	unit_area_sqm: function(frm, cdt, cdn) {
+        
+        let row = locals[cdt][cdn];
+        calculate_total_unit_area(frm)
     }
 	
 	
@@ -218,22 +236,33 @@ frappe.ui.form.on('Unit Details', {
 
 function calculate_yearly_rent(frm) {
     let total = 0;
-
+	let total_area = 0;
     (frm.doc.unit_details || []).forEach(row => {
         total += flt(row.rent_amount); 
+		
     });
 
     frm.set_value("yearly_rent", total);
-	frm.set_value("m_rent", flt(total/12))
+	if(frm.doc.doctype == "Tenancy Contract"){
+		frm.set_value("m_rent", flt(total/12))
+	}
+	
 }
+
+function calculate_total_unit_area(frm) {
+    let total = 0;
+
+    (frm.doc.unit_details || []).forEach(row => {
+        total += flt(row.unit_area_sqm); 
+    });
+
+    frm.set_value("total_area_sqmt", total);
+}
+
+
 
 frappe.ui.form.on('TA Payment Schedule', {
     number_of_period: function(frm, cdt, cdn) {
         let row = frappe.get_doc(cdt, cdn);
-
-        if (row.number_of_period > 1) {
-            frm.set_value('number_of_period', row.number_of_period);
-			
-        }
     }
 });
