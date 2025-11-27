@@ -502,9 +502,13 @@
   {
    "link_doctype": "Post Dated Cheque",
    "link_fieldname": "lease_agreement"
+  },
+  {
+   "link_doctype": "Tenancy Contract",
+   "link_fieldname": "booking_agreement"
   }
  ],
- "modified": "2025-11-13 16:56:23.188411",
+ "modified": "2025-11-27 10:14:03.194312",
  "modified_by": "Administrator",
  "module": "Pangath Properties",
  "name": "Lease Agreement",
