@@ -128,7 +128,9 @@ frappe.ui.form.on('Lease Agreement', {
 						total_area_sqmt: frm.doc.total_area_sqmt,
 						tentative_hand_over_date: frm.doc.tentative_hand_over_date,
 						agreement_term_date: frm.doc.agreement_term_date,
-						fit_out_period: frm.doc.fit_out_period
+						contract_start_date: frm.doc.contract_start_date,
+						fit_out_period: frm.doc.fit_out_period,
+						contract_end_date: frm.doc.contract_end_date
                     });
                 } catch (e) {
                     frappe.msgprint(__('Error creating Tenancy Contract: ') + e.message);

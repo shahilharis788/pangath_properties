@@ -8,6 +8,20 @@
  "field_order": [
   "section_break_tqby",
   "naming_series",
+  "rental_details_section",
+  "unit_details",
+  "section_break_edup",
+  "yearly_rent",
+  "monthly_rent",
+  "column_break_lrmt",
+  "regular_rent_per_sqmt",
+  "total_area_sqmt",
+  "contract_period_details_section",
+  "contract_start_date",
+  "total_period_in_years",
+  "column_break_npvb",
+  "contract_end_date",
+  "total_period_in_months",
   "applicant_details_section",
   "is_existing_customer",
   "tenant_name",
@@ -31,14 +45,6 @@
   "permitted_use",
   "column_break_nzcr",
   "trading_name",
-  "rental_details_section",
-  "unit_details",
-  "section_break_edup",
-  "yearly_rent",
-  "monthly_rent",
-  "column_break_lrmt",
-  "regular_rent_per_sqmt",
-  "total_area_sqmt",
   "payment_and_contract_terms_section",
   "payment_terms_template",
   "payment_frequency",
@@ -388,7 +394,6 @@
    "label": "Trading Name"
   },
   {
-   "collapsible": 1,
    "fieldname": "rental_details_section",
    "fieldtype": "Section Break",
    "label": "Rental Details"
@@ -489,6 +494,35 @@
    "fieldname": "number_of_installments",
    "fieldtype": "Data",
    "label": "Number of Installments"
+  },
+  {
+   "fieldname": "contract_period_details_section",
+   "fieldtype": "Section Break",
+   "label": "Contract Period Details"
+  },
+  {
+   "fieldname": "contract_start_date",
+   "fieldtype": "Date",
+   "label": "Contract Start Date"
+  },
+  {
+   "fieldname": "total_period_in_years",
+   "fieldtype": "Data",
+   "label": "Total Period In Years"
+  },
+  {
+   "fieldname": "column_break_npvb",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "contract_end_date",
+   "fieldtype": "Date",
+   "label": "Contract End Date"
+  },
+  {
+   "fieldname": "total_period_in_months",
+   "fieldtype": "Data",
+   "label": "Total Period In Months"
   }
  ],
  "grid_page_length": 50,
@@ -504,7 +538,7 @@
    "link_fieldname": "proposal_agreement"
   }
  ],
- "modified": "2025-11-13 09:36:02.640961",
+ "modified": "2026-03-05 10:18:33.090645",
  "modified_by": "Administrator",
  "module": "Pangath Properties",
  "name": "Tenancy Application",

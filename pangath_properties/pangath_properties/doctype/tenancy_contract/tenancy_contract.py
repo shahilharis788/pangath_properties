@@ -3,13 +3,18 @@
 
 import frappe
 from frappe.model.document import Document
-from frappe.utils import nowdate,getdate, add_days
+from frappe.utils import nowdate,getdate, add_days, add_years
 from datetime import datetime, timedelta
-from frappe.utils import flt
+from frappe.utils import flt, date_diff
 from frappe.model.mapper import get_mapped_doc
+from frappe.model.naming import make_autoname
 
 
 class TenancyContract(Document):
+	def autoname(self):
+		year = getdate(self.issue_date).year
+		self.name = make_autoname(f"LA-{year}-.#####")
+
 	def on_cancel(self):
 		frappe.db.set_value('Unit', self.unit_number, 'status', 'Available') # update the unit status
 		sales_inv = frappe.db.get_list('Sales Invoice', {'custom_tenancy_contract': self.name, 'docstatus': 1}, 'name')
@@ -36,8 +41,6 @@ class TenancyContract(Document):
 					curr_list.append(data[particular][index])
 			result.append(curr_list)
 		return result
-
-	
 
 	def set_in_ps_row(self, si, amount, freq, unit, part, tax, acc):
 		"""Append one item row to Sales Invoice"""
@@ -70,22 +73,24 @@ class TenancyContract(Document):
 						"customer": self.name_of_tenant,
 						"set_posting_time": 1,
 						"posting_date": pay_sch.payment_scheduled_date,
-						"due_date": add_days(pay_sch.payment_scheduled_date, 14),
+						"due_date": add_days(pay_sch.payment_scheduled_date, 0),
 						"custom_tenancy_contract": self.name,
-						"cost_center": cost_center
+						"cost_center": cost_center,
+						"company": self.company
 					})
 					si_list.append(si_doc)
-
+			tax = ""
 			#against each payment schedule add rows = unit count
 			for idx, pay_sch in enumerate(self.payment_schedule): #takin pay_sch each row for respective child item => 2 
 				for unit_info in self.unit_details:
+					tax = unit_info.get("tax_template", "")
 					self.set_in_ps_row(
 						si_list[idx],
 						pay_sch.payment_amount,
 						unit_count,
 						unit_info.unit,
 						"Rent",
-						pay_sch.get('item_tax_detail', ""),
+						tax,
 						pay_sch.income_account
 					)
 				frappe.db.set_value("TC Payment Schedule", pay_sch.name, "is_accrued", 1)
@@ -126,19 +131,20 @@ class TenancyContract(Document):
 						"customer": self.name_of_tenant,
 						"set_posting_time": 1,
 						"posting_date": self.payment_schedule[0].payment_scheduled_date,
-						"due_date": add_days(self.payment_schedule[0].payment_scheduled_date, 14),
+						"due_date": add_days(self.payment_schedule[0].payment_scheduled_date, 0),
 						"custom_tenancy_contract": self.name,
-						"cost_center": cost_center
+						"cost_center": cost_center,
+						"company": self.company
 					})
 			
-			
 			for unit in self.unit_details:
+					tax = unit.get("tax_template")
 					single_si.append("items",{
 						"item_code": unit.unit,
 						"qty": 1,
 						"rate": unit.rent_amount,
 						"description": "Rent",
-						"item_tax_template": self.payment_schedule[0].item_tax_template,
+						"item_tax_template": tax,
 						"income_account": self.payment_schedule[0].income_account,
 						"cost_center": cost_center
 					})
@@ -161,7 +167,7 @@ class TenancyContract(Document):
 						"income_account": row.account,
 						"cost_center": cost_center
 				})
-
+			
 			single_si.save()
 			if single_si.taxes:
 				for row in single_si.taxes:
@@ -347,12 +353,39 @@ class TenancyContract(Document):
 	
 	def validate(self):
 		from frappe.utils import getdate, add_days, flt
+		if not self.schedule_payments:
+			frappe.throw("Please Set Payment Schedule Details")
 		if self.payment_schedule:
 			tot_amt = 0
 			for row in self.payment_schedule:
 				tot_amt += row.payment_amount
 			if int(tot_amt) != int(self.yearly_rent):
 				frappe.throw(f'Total Payment amount should be {self.yearly_rent}')
+		total_rent = 0
+		total_area_mtrs = 0
+		
+		for row in self.unit_details:
+			total_rent += row.rent_after_discount
+			total_area_mtrs += row.unit_area_sqm
+		
+		self.yearly_rent =flt(total_rent,2)
+		self.m_rent = flt((total_rent/12), 2)
+		self.total_area_sqmt = flt(total_area_mtrs, 2)
+		units = frappe.db.get_all("Unit Details", {"parent": self.name}, pluck="unit")
+
+		units_charges = frappe.db.get_all("Charges", {"parent": ["in", units]}, ["particulars", "account", "amount"])
+		
+		consolidated_charges = {}
+		for row in units_charges:
+			key = (row.get("particulars"),row.get("account"))
+			amt = row.get("amount")
+			consolidated_charges.setdefault(key, 0)
+			consolidated_charges[key] += amt
+		self.type_of_charges = []
+		for key in consolidated_charges:
+			amt = consolidated_charges[key]
+			self.append("type_of_charges", {"particulars": key[0], "account": key[1], "amount": amt})
+	
 		
 		# Ensure contract dates are date objects
 		# if not self.is_new():
@@ -377,8 +410,33 @@ class TenancyContract(Document):
 
 		# Run your custom methods
 		calculate_schedule_tax(self)
-		populate_payment_schedule(self)
+		number_of_period = None
+		months = 0
+		days =0
+		sp = self.schedule_payments
+		if sp and not self.contract_start_date:
+			if not sp[0].period_start_date or not sp[0].number_of_period:
+				frappe.throw("Please Set Schedule Details")
 
+		dates = self.contract_start_date and self.contract_end_date
+		if dates and getdate(self.contract_start_date) > getdate(self.contract_end_date):
+			frappe.throw("Start Date cannot be greater than End date")
+		if dates and self.schedule_payments:
+			start_date, end_date = getdate(self.contract_start_date), getdate(self.contract_end_date)
+			days = (date_diff(end_date, start_date))
+			months = flt(days/30)
+			period_type = self.schedule_payments[0].period_type
+			
+			if period_type == "Month":
+				number_of_period = int(months)
+			else:
+				number_of_period = int(months/12)
+			
+			self.schedule_payments[0].period_start_date = getdate(self.contract_start_date)
+			self.schedule_payments[0].number_of_period = int(number_of_period)
+		self.payment_schedule = []	
+		populate_payment_schedule(self)
+		
 		# Fetch default accounts
 		default_income_account = frappe.db.get_value("Company", self.company, "default_income_account")
 		default_deferred_account = frappe.db.get_value("Company", self.company, "default_deferred_revenue_account")
@@ -391,6 +449,7 @@ class TenancyContract(Document):
 		#     [getdate(d.payment_scheduled_date) for d in self.payment_schedule if d.payment_scheduled_date],
 		#     default=None
 		# )
+		period_end_date = None
 		if self.schedule_payments:
 			period_end_date = self.schedule_payments[0].period_end_date or ''
 
@@ -423,9 +482,7 @@ class TenancyContract(Document):
 		total = 0
 		for i in self.type_of_charges:
 			total += flt(i.amount)
-
 		self.total = total + flt(self.yearly_rent)
-
 		
 	# def before_insert(self):
 	#     customer = frappe.new_doc("Customer")

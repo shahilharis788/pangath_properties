@@ -217,7 +217,7 @@ fixtures = [
 		{
             "dt": "Translation",
             "filters": [
-                ["name", "in", ["44rq0frbjk", "59plq27d2l", "gaddrqhdbb"]]
+                ["name", "in", ["44rq0frbjk", "59plq27d2l", "gaddrqhdbb", "5u9j7oq599"]]
             ]
         },
 ]

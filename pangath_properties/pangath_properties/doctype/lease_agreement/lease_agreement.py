@@ -4,6 +4,7 @@
 import frappe
 from frappe.model.document import Document
 import json
+from frappe.utils import getdate, date_diff, flt
 
 class LeaseAgreement(Document):
 	def validate(self):
@@ -20,7 +21,20 @@ class LeaseAgreement(Document):
 			if error_log:
 				error_log = ",".join(error_log)
 				frappe.throw(f'Enter {error_log}')
-
+		start_date, end_date, months = None, None, None
+		days = 0
+		if self.contract_start_date:
+			start_date = getdate(self.contract_start_date)
+		if self.contract_end_date:
+			end_date = getdate(self.contract_end_date)
+		if start_date and end_date:
+			if start_date > end_date:
+				frappe.throw("Start Date cannot be greater than End Date")
+			days = date_diff(end_date, start_date) 
+		months = flt(days/30, 2)
+		if months:
+			self.total_period_in_years = flt(months/12, 2)
+			self.total_period_in_months = int(months)
 	# def on_submit(self):
 	# 	la_doc = frappe.get_doc("Tenant Onboarding",self.lease_application)
 	# 	for i in la_doc.payment_schedule:

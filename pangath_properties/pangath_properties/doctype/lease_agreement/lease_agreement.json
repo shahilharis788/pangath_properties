@@ -44,6 +44,12 @@
   "yearly_rent",
   "monthly_rent",
   "total_area_sqmt",
+  "contract_period_details_section",
+  "contract_start_date",
+  "total_period_in_years",
+  "column_break_bddx",
+  "contract_end_date",
+  "total_period_in_months",
   "payment_and_contract_terms_section",
   "payment_terms_template",
   "payment_frequency",
@@ -494,6 +500,35 @@
    "fieldtype": "Link",
    "label": "Lease Type",
    "options": "Lease Type"
+  },
+  {
+   "fieldname": "contract_period_details_section",
+   "fieldtype": "Section Break",
+   "label": "Contract Period Details"
+  },
+  {
+   "fieldname": "contract_start_date",
+   "fieldtype": "Date",
+   "label": "Contract Start Date"
+  },
+  {
+   "fieldname": "total_period_in_years",
+   "fieldtype": "Data",
+   "label": "Total Period In Years"
+  },
+  {
+   "fieldname": "column_break_bddx",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "contract_end_date",
+   "fieldtype": "Date",
+   "label": "Contract End Date"
+  },
+  {
+   "fieldname": "total_period_in_months",
+   "fieldtype": "Data",
+   "label": "Total Period in Months"
   }
  ],
  "index_web_pages_for_search": 1,
@@ -508,7 +543,7 @@
    "link_fieldname": "booking_agreement"
   }
  ],
- "modified": "2025-11-27 10:14:03.194312",
+ "modified": "2026-03-05 10:21:00.344899",
  "modified_by": "Administrator",
  "module": "Pangath Properties",
  "name": "Lease Agreement",

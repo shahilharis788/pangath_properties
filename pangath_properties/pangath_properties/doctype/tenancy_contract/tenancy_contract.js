@@ -85,6 +85,14 @@ frappe.ui.form.on('Tenancy Contract', {
 		}
 	},
 	onload: function(frm) {
+		if(frm.doc.booking_agreement){
+			frappe.db.get_value("Lease Agreement", frm.doc.booking_agreement, ["contract_start_date", "contract_end_date"]).then(r=>{
+				if(r.message){
+					frm.set_value("contract_start_date", r.message.contract_start_date)
+					frm.set_value("contract_end_date", r.message.contract_end_date)
+				}
+			})
+		}
 		frm.fields_dict.unit_details.grid.get_field('unit').get_query = function(doc, cdt, cdn) {
             let child = locals[cdt][cdn];
             return {
@@ -148,6 +156,25 @@ frappe.ui.form.on('Tenancy Contract', {
                 };
             }
         };
+
+		frm.fields_dict['type_of_charges'].grid.get_field('account').get_query = function(cdt, cdt, cdn){
+		    var child = locals[cdt][cdn]
+		    return {
+		        filters:[
+		        ['company','=',frm.doc.company]
+		        ]
+		    }
+		}
+
+		frm.fields_dict['payment_schedule'].grid.get_field('income_account').get_query = function(cdt, cdt, cdn){
+		    var child = locals[cdt][cdn]
+		    return {
+		        filters:[
+		        ['company','=',frm.doc.company]
+		        ]
+		    }
+		}
+		
 	},
 	'property_name':function(frm){
 		// frm.set_query("unit_number", function() {

@@ -261,7 +261,36 @@ frappe.ui.form.on('Tenancy Application', {
 });
 
 frappe.ui.form.on('Unit Details', {
-	unit_details_remove:function(frm){
+   discount_percentage: function(frm, cdt, cdn) {
+    let row = locals[cdt][cdn];
+
+    if (row.discount_percentage >= 0 && row.discount_percentage <= 100) {
+        row.discount_amount = flt((row.discount_percentage / 100) * row.rent_amount);
+        row.rent_after_discount = flt(row.rent_amount - row.discount_amount)
+        row.amount_after_tax = row.rent_after_discount +  row.tax_amount
+    } else {
+        row.discount_amount = 0;
+        row.discount_percentage = 0;
+        row.rent_after_discount = row.rent_amount
+    }
+
+        frm.refresh_field("unit_details"); // replace "items" with your child table fieldname
+    },
+    tax_template:function(frm, cdt, cdn){
+            let row = locals[cdt][cdn];
+            frappe.call({
+                method: "pangath_properties.pangath_properties.doctype.tenancy_application.tenancy_application.get_tax_rate",
+                args: {"tax":row.tax_template},
+                callback:function(r){
+                    row.tax_rate = r.message
+                    row.tax_amount = flt((row.tax_rate / 100) * row.rent_amount);
+                    row.amount_after_tax = row.rent_after_discount +  row.tax_amount
+                    frm.refresh_field("unit_details"); 
+                }
+            })
+    },
+	
+    unit_details_remove:function(frm){
 		calculate_yearly_rent(frm);
         calculate_total_unit_area(frm)
         
@@ -308,9 +337,7 @@ frappe.ui.form.on('Unit Details', {
 
 	rent_amount: function(frm, cdt, cdn) {
         let row = locals[cdt][cdn];
-        // if (row.property && row.unit) {
-            calculate_yearly_rent(frm);
-        // }
+        row.rent_after_discount = row.rent_amount 
     },
     
     unit_area_sqm: function(frm, cdt, cdn) {
@@ -319,16 +346,14 @@ frappe.ui.form.on('Unit Details', {
         // if (row.property && row.unit) {
             calculate_total_unit_area(frm);
         // }
-    }
-	
-	
+    },
 });
 
 function calculate_yearly_rent(frm) {
     let total = 0;
 
     (frm.doc.unit_details || []).forEach(row => {
-        total += flt(row.rent_amount); 
+        total += flt(row.rent_after_discount); 
     });
 
     frm.set_value("yearly_rent", total);
