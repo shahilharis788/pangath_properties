@@ -40,7 +40,14 @@ def on_submit(doc, method):
 					frappe.db.set_value(
 						schedule.doctype, schedule.name, "payment_entry", doc.name
 					)
+	if doc.custom_booking_agreement_reference:
 
+        	frappe.db.set_value(
+            "Lease Agreement",
+            doc.custom_booking_agreement_reference,
+            "payment_entry_reference",
+            doc.name
+        )
 
 
 

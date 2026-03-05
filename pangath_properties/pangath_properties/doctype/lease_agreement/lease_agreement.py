@@ -7,6 +7,7 @@ import json
 from frappe.utils import getdate, date_diff, flt
 
 class LeaseAgreement(Document):
+<<<<<<< Updated upstream
 	def validate(self):
 		if self.is_existing_customer:
 			pass
@@ -55,33 +56,101 @@ class LeaseAgreement(Document):
 	# 			).insert(ignore_permissions=True, ignore_mandatory=True)
 	# 			if pdc.name:
 	# 				frappe.db.set_value("LA Repayment Schedule", i.name, "status", "PDC Created")
+=======
+    def validate(self):
+        if self.is_existing_customer:
+            pass
+        else:
+            error_log = []
+            if not self.custom_emirates_id:
+                error_log.append("Emirates Id")
+            if not self.payment_terms_template:
+                error_log.append("Payment Terms Template")
+            if not self.tax_id:
+                error_log.append("Tax Id")
+            if error_log:
+                error_log = ",".join(error_log)
+                frappe.throw(f'Enter {error_log}')
+
+    # def on_submit(self):
+    # 	la_doc = frappe.get_doc("Tenant Onboarding",self.lease_application)
+    # 	for i in la_doc.payment_schedule:
+    # 		if i.status != "PDC Created" and i.mode_of_payment == "Cheque":
+    # 			pdc = frappe.get_doc(
+    # 				{
+    # 					"doctype": "Post Dated Cheque",
+    # 					"customer" : la_doc.customer,
+    # 					"unit" : la_doc.unit,
+    # 					"building": la_doc.building,
+    # 					"posting_date": i.payment_scheduled_date,
+    # 					"cheque_reference_number": i.payment_scheduled_date,
+    # 					"cheque_reference_date" :i.reference_date,
+    # 					"lease_application" : la_doc.name,
+    # 					"lease_application_child" : i.name,
+    # 					"lease_agreement": self.name
+    # 				}
+    # 			).insert(ignore_permissions=True, ignore_mandatory=True)
+    # 			if pdc.name:
+    # 				frappe.db.set_value("LA Repayment Schedule", i.name, "status", "PDC Created")
+>>>>>>> Stashed changes
 
 
 @frappe.whitelist()
 def create_customer(exist_cus, cust, passport_no, contact_no, email, nationality, emirates_id, territory, tax_id, payment_terms):
-	
-	if exist_cus == "1":
-		return
-	if frappe.db.exists("Customer", {"name": cust}):
-			return
-	
-	customer = frappe.new_doc("Customer")
-	customer.customer_name = cust
-	customer.custom_passport_no = passport_no if passport_no else None
-	customer.custom_contact_no = contact_no if contact_no else None
-	customer.email_id = email if email else None
-	customer.custom_nationality = nationality
-	customer.custom_emirate_id = emirates_id
-	customer.territory = territory if territory else None
-	customer.tax_id = tax_id
-	customer.payment_terms = payment_terms
-	customer.save()
-	return {"status": "created", "cust": cust}
+    
+    if exist_cus == "1":
+        return
+    if frappe.db.exists("Customer", {"name": cust}):
+            return
+    
+    customer = frappe.new_doc("Customer")
+    customer.customer_name = cust
+    customer.custom_passport_no = passport_no if passport_no else None
+    customer.custom_contact_no = contact_no if contact_no else None
+    customer.email_id = email if email else None
+    customer.custom_nationality = nationality
+    customer.custom_emirate_id = emirates_id
+    customer.territory = territory if territory else None
+    customer.tax_id = tax_id
+    customer.payment_terms = payment_terms
+    customer.save()
+    return {"status": "created", "cust": cust}
 
 @frappe.whitelist()
 def validate_contract_creation(doc):
-	contract = frappe.db.get_value("Tenancy Contract", {"booking_agreement": doc})
-	if contract:
-		return 1
-	else:
-		return 0
+    contract = frappe.db.get_value("Tenancy Contract", {"booking_agreement": doc})
+    if contract:
+        return 1
+    else:
+        return 0
+
+@frappe.whitelist()
+def create_payment_entry(lease_agreement):
+
+    lease = frappe.get_doc("Lease Agreement", lease_agreement)
+
+    pe = frappe.new_doc("Payment Entry")
+
+    pe.payment_type = "Receive"
+    pe.company = lease.company
+    pe.posting_date = frappe.utils.today()
+
+    pe.party_type = "Customer"
+    pe.party = lease.customer
+    pe.party_name = lease.customer
+
+    pe.mode_of_payment = lease.mode_of_payment
+
+    pe.paid_from = lease.paid_from
+    pe.paid_to = lease.paid_to
+
+    pe.paid_amount = lease.paid_amount
+    pe.received_amount = lease.paid_amount
+
+    pe.reference_no = lease.reference_no
+    pe.reference_date = lease.reference_date
+    pe.custom_booking_agreement_reference = lease.name
+
+    pe.insert(ignore_permissions=True)
+
+    return pe.name

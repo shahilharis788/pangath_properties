@@ -138,7 +138,61 @@ frappe.ui.form.on('Lease Agreement', {
                 }
             });
         }
+		if (!frm.is_new() && frm.doc.docstatus != 2) {
+
+    frm.add_custom_button("Make Payment Entry", function () {
+
+        // Check if Payment Entry already exists
+        frappe.db.get_value(
+            "Payment Entry",
+            { custom_booking_agreement_reference: frm.doc.name },
+            "name"
+        ).then(r => {
+
+            if (r.message && r.message.name) {
+
+                frappe.throw(
+                    __("Payment Entry already created: {0}", [r.message.name])
+                );
+
+            }
+
+            // Check existing customer
+            if (!frm.doc.is_existing_customer) {
+                frappe.throw(
+                    __("<b>{0}</b> is not an existing Customer. Please create/select a Customer before making Payment Entry.",
+                    [frm.doc.tenant_name])
+                );
+            }
+
+            // Create Payment Entry
+            frappe.call({
+                method: "pangath_properties.pangath_properties.doctype.lease_agreement.lease_agreement.create_payment_entry",
+                args: {
+                    lease_agreement: frm.doc.name
+                },
+                callback: function (r) {
+
+                    if (r.message) {
+
+                        frappe.show_alert({
+                            message: __("Payment Entry Created: {0}", [r.message]),
+                            indicator: "green"
+                        });
+						frappe.set_route("Form", "Payment Entry", r.message);
+                    }
+
+                }
+            });
+
+        });
+
+    });
+
+}
+
     },
+	
 	lease_application: function (frm) {
 		//set_html(frm);
 	},
@@ -159,6 +213,20 @@ frappe.ui.form.on('Lease Agreement', {
                 }
             };
         });
+		frm.set_query("paid_from", function() {
+        return {
+            filters: {
+                account_type: "Receivable"
+            }
+        };
+    });
+	frm.set_query("paid_to", function() {
+    return {
+        filters: {
+            account_type: ["in", ["Bank", "Cash"]]
+        }
+    };
+});
 	},
 
 	tc_name: function (frm) {

@@ -82,7 +82,10 @@
   "type_of_charges",
   "total_charges",
   "section_break_ncso",
-  "total"
+  "total",
+  "terms_and_conditions_section",
+  "terms",
+  "terms_and_conditions"
  ],
  "fields": [
   {
@@ -496,6 +499,7 @@
    "label": "Number of Installments"
   },
   {
+<<<<<<< Updated upstream
    "fieldname": "contract_period_details_section",
    "fieldtype": "Section Break",
    "label": "Contract Period Details"
@@ -523,6 +527,23 @@
    "fieldname": "total_period_in_months",
    "fieldtype": "Data",
    "label": "Total Period In Months"
+=======
+   "fieldname": "terms_and_conditions_section",
+   "fieldtype": "Section Break",
+   "label": "Terms and Conditions"
+  },
+  {
+   "fieldname": "terms",
+   "fieldtype": "Link",
+   "label": "Terms",
+   "options": "Terms and Conditions"
+  },
+  {
+   "fetch_from": "terms.terms",
+   "fieldname": "terms_and_conditions",
+   "fieldtype": "Text Editor",
+   "label": "Terms and Conditions"
+>>>>>>> Stashed changes
   }
  ],
  "grid_page_length": 50,
@@ -538,7 +559,11 @@
    "link_fieldname": "proposal_agreement"
   }
  ],
+<<<<<<< Updated upstream
  "modified": "2026-03-05 10:18:33.090645",
+=======
+ "modified": "2026-03-05 15:35:07.681346",
+>>>>>>> Stashed changes
  "modified_by": "Administrator",
  "module": "Pangath Properties",
  "name": "Tenancy Application",
@@ -560,7 +585,6 @@
   }
  ],
  "row_format": "Dynamic",
- "rows_threshold_for_grid_search": 20,
  "sort_field": "modified",
  "sort_order": "DESC",
  "states": []

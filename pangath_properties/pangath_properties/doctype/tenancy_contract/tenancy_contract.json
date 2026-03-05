@@ -61,6 +61,7 @@
   "proposal_agreement_0",
   "proposal_agreement",
   "booking_agreement",
+  "payment_entry_reference",
   "sales_team_section",
   "table_sales",
   "section_break_bten",
@@ -389,6 +390,12 @@
    "fieldname": "agreement_term_date",
    "fieldtype": "Date",
    "label": "Agreement Term Date"
+  },
+  {
+   "fieldname": "payment_entry_reference",
+   "fieldtype": "Data",
+   "label": "Payment Entry Reference",
+   "read_only": 1
   }
  ],
  "grid_page_length": 50,
@@ -424,7 +431,7 @@
    "link_fieldname": "custom_tenancy_contract"
   }
  ],
- "modified": "2025-11-14 10:41:22.981202",
+ "modified": "2026-03-05 15:15:24.136824",
  "modified_by": "Administrator",
  "module": "Pangath Properties",
  "name": "Tenancy Contract",

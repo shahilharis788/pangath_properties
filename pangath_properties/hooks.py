@@ -147,8 +147,9 @@ fixtures = [
 						'Company-custom_column_break_dihvo',
 						'Company-custom_position',
 						'Company-custom_contact_number',
-						'Company-custom_emirate_id'
-					),
+						'Company-custom_emirate_id',
+						'Payment Entry-custom_booking_agreement_reference'
+						),
 				]
 			],
 		},
