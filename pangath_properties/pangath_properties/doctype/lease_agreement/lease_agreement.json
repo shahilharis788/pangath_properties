@@ -512,7 +512,6 @@
    "options": "Lease Type"
   },
   {
-<<<<<<< Updated upstream
    "fieldname": "contract_period_details_section",
    "fieldtype": "Section Break",
    "label": "Contract Period Details"
@@ -540,7 +539,8 @@
    "fieldname": "total_period_in_months",
    "fieldtype": "Data",
    "label": "Total Period in Months"
-=======
+  },
+  {
    "fieldname": "advance_booking_details_section",
    "fieldtype": "Section Break",
    "label": "Advance Booking Details"
@@ -590,7 +590,6 @@
    "fieldtype": "Data",
    "label": "Payment Entry Reference",
    "read_only": 1
->>>>>>> Stashed changes
   }
  ],
  "index_web_pages_for_search": 1,
@@ -605,11 +604,7 @@
    "link_fieldname": "booking_agreement"
   }
  ],
-<<<<<<< Updated upstream
- "modified": "2026-03-05 10:21:00.344899",
-=======
  "modified": "2026-03-05 15:36:15.032275",
->>>>>>> Stashed changes
  "modified_by": "Administrator",
  "module": "Pangath Properties",
  "name": "Lease Agreement",

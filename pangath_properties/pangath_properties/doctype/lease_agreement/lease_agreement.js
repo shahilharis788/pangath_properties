@@ -29,6 +29,33 @@ frappe.ui.form.on('Lease Agreement', {
 	refresh: function (frm) {
        
         if (frm.doc.docstatus === 1) {
+			frappe.call({
+    							method: "pangath_properties.pangath_properties.doctype.lease_agreement.lease_agreement.create_customer",
+    							args: {
+										exist_cus : frm.doc.is_existing_customer,
+										cust: frm.doc.tenant_name || "",
+            							passport_no: frm.doc.passport_no || "",
+            							contact_no: frm.doc.contact_no || "",
+            							email: frm.doc.email || "",
+            							nationality: frm.doc.nationality || "",
+            							emirates_id: frm.doc.custom_emirates_id || "",
+            							territory: frm.doc.territory || "",
+            							tax_id: frm.doc.tax_id || "",
+           	 							payment_terms: frm.doc.payment_terms_template || ""
+        								
+    							},
+    						   callback: function (r) {
+								 if(!frm.doc.is_existing_customer && r.message.status == "created"){
+								 	frappe.show_alert({
+               										 message: __('Customer Created Successfully: ') + r.message.cust,
+                									 indicator: 'green'
+            										});
+								}
+        
+    							},
+    							freeze: true,
+    							freeze_message: __("Creating Customer...")
+			});
             frm.add_custom_button("Tenancy Contract", async function () {
 				
 				frappe.call({
@@ -76,36 +103,6 @@ frappe.ui.form.on('Lease Agreement', {
                             phone = address_res.message.phone;
                         }
                     }
-
-                    frappe.call({
-    							method: "pangath_properties.pangath_properties.doctype.lease_agreement.lease_agreement.create_customer",
-    							args: {
-										exist_cus : frm.doc.is_existing_customer,
-										cust: frm.doc.tenant_name || "",
-            							passport_no: frm.doc.passport_no || "",
-            							contact_no: frm.doc.contact_no || "",
-            							email: frm.doc.email || "",
-            							nationality: frm.doc.nationality || "",
-            							emirates_id: frm.doc.custom_emirates_id || "",
-            							territory: frm.doc.territory || "",
-            							tax_id: frm.doc.tax_id || "",
-           	 							payment_terms: frm.doc.payment_terms_template || ""
-        								
-    							},
-    						   callback: function (r) {
-								 if(!frm.doc.is_existing_customer && r.message.status == "created"){
-								 	frappe.show_alert({
-               										 message: __('Customer Created Successfully: ') + r.message.cust,
-                									 indicator: 'green'
-            										});
-								}
-        
-    							},
-    							freeze: true,
-    							freeze_message: __("Creating Customer...")
-				});
-					
-					
                     frappe.new_doc("Tenancy Contract", {
                         tenant_onboarding: frm.doc.lease_application || "",
                         issue_date: frm.doc.posting_date || "",

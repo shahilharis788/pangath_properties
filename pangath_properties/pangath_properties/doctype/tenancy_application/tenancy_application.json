@@ -82,7 +82,10 @@
   "type_of_charges",
   "total_charges",
   "section_break_ncso",
-  "total"
+  "total",
+  "terms_and_condition_section",
+  "terms",
+  "terms_and_condition"
  ],
  "fields": [
   {
@@ -523,6 +526,23 @@
    "fieldname": "total_period_in_months",
    "fieldtype": "Data",
    "label": "Total Period In Months"
+  },
+  {
+   "fieldname": "terms_and_condition_section",
+   "fieldtype": "Section Break",
+   "label": "Terms And Condition"
+  },
+  {
+   "fieldname": "terms",
+   "fieldtype": "Link",
+   "label": "Terms",
+   "options": "Terms and Conditions"
+  },
+  {
+   "fetch_from": "terms.terms",
+   "fieldname": "terms_and_condition",
+   "fieldtype": "Text Editor",
+   "label": "Terms and Condition"
   }
  ],
  "grid_page_length": 50,
@@ -538,7 +558,7 @@
    "link_fieldname": "proposal_agreement"
   }
  ],
- "modified": "2026-03-05 10:18:33.090645",
+ "modified": "2026-03-06 08:40:12.535458",
  "modified_by": "Administrator",
  "module": "Pangath Properties",
  "name": "Tenancy Application",
