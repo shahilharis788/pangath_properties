@@ -213,6 +213,7 @@
    "label": "Payments"
   },
   {
+   "description": "If Contract Dates are set, select the Period Type and Payment Schedule from the first row, or fill the entire row details.",
    "fieldname": "schedule_payments",
    "fieldtype": "Table",
    "label": "Schedule payments",
@@ -431,7 +432,7 @@
    "link_fieldname": "custom_tenancy_contract"
   }
  ],
- "modified": "2026-03-05 15:15:24.136824",
+ "modified": "2026-03-06 09:22:04.512596",
  "modified_by": "Administrator",
  "module": "Pangath Properties",
  "name": "Tenancy Contract",

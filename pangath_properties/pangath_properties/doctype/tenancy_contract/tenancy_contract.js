@@ -274,12 +274,11 @@ frappe.ui.form.on('Unit Details', {
 			
         }
     },
-
 	rent_amount: function(frm, cdt, cdn) {
         let row = locals[cdt][cdn];
-       	calculate_yearly_rent(frm);
-        
+        row.rent_after_discount = row.rent_amount 
     },
+	
 	unit_area_sqm: function(frm, cdt, cdn) {
         
         let row = locals[cdt][cdn];
