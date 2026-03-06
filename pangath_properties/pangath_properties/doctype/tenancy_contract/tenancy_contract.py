@@ -365,7 +365,10 @@ class TenancyContract(Document):
 		total_area_mtrs = 0
 		
 		for row in self.unit_details:
-			total_rent += row.rent_after_discount
+			if row.rent_after_discount:
+				total_rent += row.rent_after_discount
+			else:
+				total_rent += row.rent_amount
 			total_area_mtrs += row.unit_area_sqm
 		
 		self.yearly_rent =flt(total_rent,2)
@@ -381,10 +384,10 @@ class TenancyContract(Document):
 			amt = row.get("amount")
 			consolidated_charges.setdefault(key, 0)
 			consolidated_charges[key] += amt
-		self.type_of_charges = []
-		for key in consolidated_charges:
-			amt = consolidated_charges[key]
-			self.append("type_of_charges", {"particulars": key[0], "account": key[1], "amount": amt})
+		if not self.type_of_charges:
+			for key in consolidated_charges:
+				amt = consolidated_charges[key]
+				self.append("type_of_charges", {"particulars": key[0], "account": key[1], "amount": amt})
 	
 		
 		# Ensure contract dates are date objects
